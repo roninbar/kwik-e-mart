@@ -1,0 +1,22 @@
+{
+  "name": "2020-11-05-online-shop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "heroku-deploy": "git subtree push --prefix server heroku master",
+    "heroku-local": "cd server && heroku local",
+    "heroku-open": "heroku open"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roninbar/2020-11-05-online-shop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/roninbar/2020-11-05-online-shop/issues"
+  },
+  "homepage": "https://github.com/roninbar/2020-11-05-online-shop#readme"
+}
