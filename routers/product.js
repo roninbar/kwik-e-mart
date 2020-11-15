@@ -4,15 +4,19 @@ const express = require('express');
 
 const router = new express.Router();
 
-router.post('/', async function ({ body: { name, category, price, image } }, res) {
+router.post('/', async function ({ body: { name, category: categoryName, price, image } }, res) {
     const product = new Product({
         name,
         price,
         image,
     });
-    const { _id } = await product.save();
-    const updateResult = await ProductCategory.findOneAndUpdate({ name: category }, { $push: { products: product } });
-    return res.set('Location', `/api/product/${_id}`).sendStatus(201);
+    try {
+        const { _id } = await product.save();
+        const category = await ProductCategory.findOneAndUpdate({ name: categoryName }, { $push: { products: product } });
+        return res.location(`/api/product/${_id}`).sendStatus(201);
+    } catch ({ message }) {
+        return res.status(500).send(message);
+    }
 });
 
 module.exports = router;

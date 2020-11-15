@@ -19,7 +19,7 @@ router.post('/', async function ({ body: { id, username, password, firstName, la
         streetAddress,
     });
     const { _id } = await user.save();
-    return res.set('Location', `/api/user/${_id}`).sendStatus(201);
+    return res.location(`/api/user/${_id}`).sendStatus(201);
 });
 
 module.exports = router;
