@@ -25,5 +25,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/user', require('./routers/user'));
+app.use('/api/category', require('./routers/category'));
 
 module.exports = app;
