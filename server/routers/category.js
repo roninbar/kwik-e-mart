@@ -1,4 +1,4 @@
-const ProductCategory = require('../models/productCategory');
+const ProductCategory = require('../models/ProductCategory');
 const express = require('express');
 
 const router = new express.Router();

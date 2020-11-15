@@ -9,11 +9,12 @@ const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/shop';
 
 debug('server:mongodb')(`Connecting to ${MONGODBURL}...`);
 mongoose.connect(MONGODBURL, {
-    useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
+    useNewUrlParser: true,
     useCreateIndex: true,
 });
-mongoose.connection.on('error', error => debug('server:mongodb')(error));
+mongoose.connection.on('error', debug('server:mongodb'));
 mongoose.connection.on('open', () => debug('server:mongodb')('Connected.'));
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api/user', require('./routers/user'));
+app.use('/api/product', require('./routers/product'));
 app.use('/api/category', require('./routers/category'));
 
 module.exports = app;
