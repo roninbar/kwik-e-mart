@@ -5,7 +5,7 @@ const schema = new Schema({
     _id: { type: String, match: /^\d{9}$/ },
     role: { type: String, required: true, enum: ['user', 'admin'] },
     username: { type: String, required: true, unique: true, trim: true, lowercase: true },
-    passwordHash: { type: String, required: true },
+    passwordHash: { type: String, required: true, select: false },
     name: {
         first: { type: String, required: true, trim: true },
         last: { type: String, required: true, trim: true },
