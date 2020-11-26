@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
 const hash = require('../util/hash');
+const { Schema, model } = require('mongoose');
 
-const schema = new mongoose.Schema({
-    id: { type: String, required: true, unique: true, match: /^\d{9}$/ },
+const schema = new Schema({
+    _id: { type: String, match: /^\d{9}$/ },
     role: { type: String, required: true, enum: ['user', 'admin'] },
     username: { type: String, required: true, unique: true, trim: true, lowercase: true },
     passwordHash: { type: String, required: true },
@@ -19,22 +19,46 @@ const schema = new mongoose.Schema({
     timestamps: true,
 });
 
+schema.method('verify', function (password) {
+    return this.passwordHash === hash(password);
+});
+
 schema.virtual('password').set(function (password) {
     this.passwordHash = hash(password);
 });
 
-schema.method('verify', function (password) {
-    return this.passwordHash === hash(password);
-});
+schema.virtual('firstName')
+    .get(function () {
+        return this.name.first;
+    })
+    .set(function (firstName) {
+        this.name.first = firstName;
+    });
+
+schema.virtual('lastName')
+    .get(function () {
+        return this.name.last;
+    })
+    .set(function (lastName) {
+        this.name.last = lastName;
+    });
+
+schema.virtual('city')
+    .get(function () {
+        return this.address.city;
+    })
+    .set(function (city) {
+        this.address.city = city;
+    });
 
 schema.virtual('streetAddress')
     .get(function () {
         return `${this.address.house} ${this.address.street}`;
     })
-    .set(function (address) {
-        const { groups: { house, street } } = address.match(/^(?<house>\d+)\s+(?<street>.*)$/);
+    .set(function (streetAddress) {
+        const { groups: { house, street } } = streetAddress.match(/^(?<house>\d+)\s+(?<street>.*)$/);
         Object.assign(this.address, { street, house });
     });
 
-module.exports = mongoose.model('User', schema);
+module.exports = model('User', schema);
 
