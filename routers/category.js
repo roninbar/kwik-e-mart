@@ -7,10 +7,15 @@ router.post('/', async function ({ originalUrl, body: { name } }, res) {
     const category = new ProductCategory({ name });
     try {
         const { _id } = await category.save();
-        return res.location(`${originalUrl}/${_id}`).sendStatus(201);
-    } catch ({ code }) {
-        return res.sendStatus(code === 11000 ? 409 : 500);
+        return res.set('Content-Location', `${originalUrl}/${_id}`).sendStatus(201);
+    } catch ({ code, message }) {
+        return res.status(code === 11000 ? 409 : 500).send(message);
     }
+});
+
+router.get('/all', async function (req, res) {
+    const categories = await ProductCategory.find({});
+    return res.json(categories);
 });
 
 router.use(
