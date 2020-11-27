@@ -14,7 +14,7 @@ router.post('/', async function ({ originalUrl, body: { name } }, res) {
 });
 
 router.get('/all', async function (req, res) {
-    const categories = await ProductCategory.find({});
+    const categories = await ProductCategory.find({}, '-products');
     return res.json(categories);
 });
 
