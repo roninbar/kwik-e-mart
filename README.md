@@ -7,6 +7,7 @@ Method      | URL                                               | Request Payloa
 `PUT`       | `/api/user/:userid`                               | `email`, `password`, `firstName`, `lastName`, `city`, `streetAddress` | Create a new user account. | | `userId` is user's ID Card #.
 `POST`      | `/api/category`                                   | `name`                        | Create a new product category.        | `admin`                   |
 `GET`       | `/api/category/all`                               |                               | Get all the categories.               | `user`                    | The response shall not include the products array.
+`GET`       | `/api/category/:categoryId`                       |                               | Get one category.                     | `user`                    | The response shall not include the products array.
 `POST`      | `/api/category/:categoryId/product`               | `name`, `price`, `imageUrl`   | Create a new product in category.     | `admin`                   | 
 `GET`       | `/api/category/:categoryId/product/all`           |                               | Get all products in category.         | `user`                    |
 `GET`       | `/api/category/:categoryId/product/:productId`    |                               | Get product info.                     | `user`                    |
