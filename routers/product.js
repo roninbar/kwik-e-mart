@@ -22,4 +22,9 @@ router.get('/all', async function ({ category }, res) {
     return res.json(category.products);
 });
 
+router.get('/:id', async function ({ params: { id } }, res) {
+    const product = await Product.findById(id);
+    return product ? res.json(product) : res.sendStatus(404);
+});
+
 module.exports = router;
