@@ -28,4 +28,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/user', require('./routers/user'));
 app.use('/api/category', require('./routers/category'));
 
+app.get(function (req, res, next) {
+    return '' === path.extname(req.path) && 'html' === req.accepts('html', 'json', 'xml')
+        ? res.sendFile(path.join(__dirname, 'public', 'index.html'))
+        : next();
+});
+
 module.exports = app;
