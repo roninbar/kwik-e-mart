@@ -6,7 +6,6 @@ const express = require('express');
 const logger = require('morgan');
 const debug = require('debug');
 const path = require('path');
-const { Router } = require('express');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/shop';
@@ -43,26 +42,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-const authRouter = new Router();
-
-authRouter.post('/login',
-    passport.authenticate('local'),
-    function (req, res) {
-        res.json(req.user);
-    }
-);
-
-authRouter.post('/logout', function (req, res) {
-    req.session.destroy(function (err) {
-        if (err) {
-            res.sendStatus(400);
-        }
-        req.logout();
-        res.clearCookie('connect.sid').sendStatus(205);
-    });
-});
-
-app.use('/api/auth', authRouter);
+app.use('/api/auth', require('./routers/auth'));
 app.use('/api/user', require('./routers/user'));
 app.use('/api/category', require('./routers/category'));
 
