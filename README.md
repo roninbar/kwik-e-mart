@@ -2,8 +2,8 @@
 
 Method      | URL                                               | Request Payload               | Semantics                             | Required Privilege        | Comments
 ------------|---------------------------------------------------|-------------------------------|---------------------------------------|---------------------------|----------------------------------------------------
-`POST`      | `/api/auth/login`                                 | `username`, `password`        | Log in.                               |                           | The response shall include a JSON Web Token.
-`POST`      | `/api/auth/logout`                                |                               | Log out.                              |                           |
+`POST`      | `/api/auth/login`                                 | `username`, `password`        | Log in.                               |                           | The response shall include a `Set-Cookie` header.
+`POST`      | `/api/auth/logout`                                |                               | Log out.                              |                           | The response shall include a `Set-Cookie` header to clear the cookie set by `POST /api/auth/login`.
 `PUT`       | `/api/user/:userid`                               | `email`, `password`, `firstName`, `lastName`, `city`, `streetAddress` | Create a new user account. | | `userId` is user's ID Card #.
 `POST`      | `/api/category`                                   | `name`                        | Create a new product category.        | `admin`                   |
 `GET`       | `/api/category/all`                               |                               | Get all the categories.               | `user`                    | The response shall not include the products array.

@@ -7,11 +7,16 @@
     "start-with-env": "env-cmd node ./bin/www"
   },
   "dependencies": {
+    "connect-mongodb-session": "^2.4.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
+    "express-session": "^1.17.1",
+    "lodash": "^4.17.20",
     "mongoose": "^5.10.14",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "env-cmd": "^10.1.0"

@@ -19,7 +19,7 @@ const schema = new Schema({
     timestamps: true,
 });
 
-schema.method('verify', function (password) {
+schema.method('validPassword', function (password) {
     return this.passwordHash === hash(password);
 });
 
