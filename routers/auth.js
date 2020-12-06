@@ -1,20 +1,23 @@
-const jwt = require('jsonwebtoken');
+const passport = require('../util/passport');
 const { Router } = require('express');
-const User = require('../models/User');
-
-const SECRET = process.env['SECRET'] || '';
 
 const router = new Router();
 
-router.post('/login', async function ({ body: { username, password } }, res) {
-    const user = await User.findOne({ username }, '+passwordHash');
-    const { _id: userId } = user;
-    return user && user.verify(password)
-    ? res.json({ token: jwt.sign({ userId, expires: Date.now() + 60000 }, SECRET) })
-    : res.sendStatus(401);
-});
+router.post('/login',
+    passport.authenticate('local'),
+    function (req, res) {
+        res.json(req.user);
+    }
+);
 
 router.post('/logout', function (req, res) {
+    req.session.destroy(function (err) {
+        if (err) {
+            res.sendStatus(400);
+        }
+        req.logout();
+        res.clearCookie('connect.sid').sendStatus(205);
+    });
 });
 
 module.exports = router;
