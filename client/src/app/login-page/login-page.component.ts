@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -12,10 +13,11 @@ export class LoginPageComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private router: Router,
   ) { }
 
   onSubmit(): void {
-    this.auth.logIn(this.username, this.password).subscribe();
+    this.auth.logIn(this.username, this.password).subscribe(async () => await this.router.navigateByUrl('/shopping'));
   }
 
   ngOnInit(): void {
