@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginPageComponent implements OnInit {
 
-  constructor() { }
+  username: string;
+  password: string;
+
+  constructor(
+    private auth: AuthService,
+  ) { }
 
   onSubmit(): void {
-    alert('Submitted.');
+    this.auth.logIn(this.username, this.password).subscribe();
   }
 
   ngOnInit(): void {
