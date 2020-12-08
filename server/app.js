@@ -46,7 +46,7 @@ app.use('/api/auth', require('./routers/auth'));
 app.use('/api/user', require('./routers/user'));
 app.use('/api/category', require('./routers/category'));
 
-app.get(function (req, res, next) {
+app.get('/*', function (req, res, next) {
     return '' === path.extname(req.path) && 'html' === req.accepts('html', 'json', 'xml')
         ? res.sendFile(path.join(__dirname, 'public', 'index.html'))
         : next();
