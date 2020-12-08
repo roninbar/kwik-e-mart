@@ -1,33 +1,33 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="card col-sm-4 mx-auto mt-5">
-            <article class="card-body">
-                <a href="" class="float-right btn btn-outline-primary">Sign up</a>
-                <h4 class="card-title mb-4 mt-1">Sign in</h4>
-                <p>
+        <div class="card col-6 mx-auto mt-5">
+            <div class="card-body">
+                <h1 class="card-title mb-4 mt-1 text-center">Sign in</h1>
+                <!-- <p>
                     <a href="" class="btn btn-block btn-outline-info"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
                     <a href="" class="btn btn-block btn-outline-primary"> <i class="fab fa-facebook-f"></i>   Login via facebook</a>
-                </p>
-                <hr>
-                <form (ngSubmit)="onSubmit()">
+                </p> -->
+                <!-- <hr> -->
+                <form novalidate (ngSubmit)="onSubmit()">
                     <div class="form-group">
-                        <input type="email" name="username" class="form-control" placeholder="Username" required [(ngModel)]="username">
+                        <input type="email" name="username" class="form-control p-3" placeholder="Username *" required [(ngModel)]="username">
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required [(ngModel)]="password">
+                        <input type="password" name="password" class="form-control p-3" placeholder="Password *" required [(ngModel)]="password">
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-12">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block"> Login </button>
+                                <button type="submit" class="btn btn-primary btn-block text-uppercase">Sign In</button>
                             </div>
                         </div>
-                        <div class="col-md-6 text-right">
-                            <a class="small" href="#">Forgot password?</a>
+                        <div class="col-sm-12 d-flex flex-wrap justify-content-between">
+                            <a href="#">Forgot password?</a>
+                            <a href="#">Don't have an account?</a>
                         </div>
                     </div>
                 </form>
-            </article>
+            </div>
         </div>
     </div>
 </div>
