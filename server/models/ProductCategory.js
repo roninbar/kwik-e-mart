@@ -1,9 +1,16 @@
 const { Schema, model } = require('mongoose');
 
-module.exports = model('ProductCategory', new Schema({
+const schema = new Schema({
     name: { type: String, required: true, unique: true, trim: true },
-    products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
 }, {
     timestamps: true,
-}));
+});
+
+schema.virtual('products', {
+    ref: 'Product',
+    localField: '_id',
+    foreignField: 'categoryId',
+});
+
+module.exports = model('ProductCategory', schema);
 

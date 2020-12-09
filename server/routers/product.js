@@ -8,9 +8,8 @@ const router = new Router();
  */
 router.post('/', async function ({ originalUrl, category, body: { name, price, imageUrl } }, res) {
     try {
-        const product = new Product({ name, price, imageUrl });
+        const product = new Product({ name, price, imageUrl, categoryId: category._id });
         const { _id } = await product.save();
-        await category.updateOne({ $push: { products: product } });
         return res.set('Content-Location', `${originalUrl}/${_id}`).status(201).json(product);
     }
     catch ({ code, message }) {
