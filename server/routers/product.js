@@ -6,9 +6,9 @@ const router = new Router();
 /**
  * @param {ProductCategory} category
  */
-router.post('/', async function ({ originalUrl, category, body: { name, price, imageUrl } }, res) {
+router.post('/', async function ({ originalUrl, category: { _id: categoryId }, body: { name, price, imageUrl } }, res) {
     try {
-        const product = new Product({ name, price, imageUrl, categoryId: category._id });
+        const product = new Product({ name, price, imageUrl, categoryId });
         const { _id } = await product.save();
         return res.set('Content-Location', `${originalUrl}/${_id}`).status(201).json(product);
     }
@@ -25,8 +25,8 @@ router.get('/all', async function ({ category }, res) {
     return res.json(category.products);
 });
 
-router.get('/:id', async function ({ params: { id } }, res) {
-    const product = await Product.findById(id);
+router.get('/:id', async function ({ category: { _id: categoryId }, params: { id: productId } }, res) {
+    const product = await Product.findOne({ _id: productId, categoryId });
     return product ? res.json(product) : res.sendStatus(404);
 });
 
