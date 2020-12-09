@@ -12,11 +12,15 @@ router.post('/', async function ({ originalUrl, category, body: { name, price, i
         const { _id } = await product.save();
         await category.updateOne({ $push: { products: product } });
         return res.set('Content-Location', `${originalUrl}/${_id}`).status(201).json(product);
-    } catch ({ code, message }) {
+    }
+    catch ({ code, message }) {
         return res.status(code === 11000 ? 409 : 400).send(message);
     }
 });
 
+/**
+ * @param {ProductCategory} category
+ */
 router.get('/all', async function ({ category }, res) {
     await category.populate('products').execPopulate();
     return res.json(category.products);
