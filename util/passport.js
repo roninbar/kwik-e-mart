@@ -20,12 +20,15 @@ passport.use(new LocalStrategy(async function (username, password, done) {
 }));
 
 passport.serializeUser(function (user, done) {
-    const userPojo = user.toObject({ useProjection: true });
-    done(null, userPojo);
+    done(null, user._id);
 });
 
-passport.deserializeUser(function (user, done) {
-    done(null, user);
+passport.deserializeUser(async function (id, done) {
+    try {
+        done(null, await User.findById(id));
+    } catch (err) {
+        done(err);
+    }
 });
 
 module.exports = passport;
