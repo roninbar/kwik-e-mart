@@ -9,6 +9,7 @@ const path = require('path');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
 const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/shop';
+const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET'] || '';
 
 debug('server:mongodb')(`Connecting to ${MONGODBURL}...`);
@@ -38,6 +39,7 @@ app.use(session({
     secret: SECRET,
     resave: false,
     store: store,
+    name: SIDNAME,
 }));
 app.use(passport.initialize());
 app.use(passport.session());
