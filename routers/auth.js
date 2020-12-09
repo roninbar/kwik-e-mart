@@ -1,5 +1,8 @@
-const passport = require('../util/passport');
+const debug = require('debug')('server:auth');
 const { Router } = require('express');
+const passport = require('../util/passport');
+
+const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 
 const router = new Router();
 
@@ -13,10 +16,10 @@ router.post('/login',
 router.post('/logout', function (req, res) {
     req.session.destroy(function (err) {
         if (err) {
-            res.sendStatus(400);
+            return res.sendStatus(500);
         }
         req.logout();
-        res.clearCookie('connect.sid').sendStatus(205);
+        return res.clearCookie(SIDNAME).sendStatus(205);
     });
 });
 
