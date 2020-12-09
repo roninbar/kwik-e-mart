@@ -1,5 +1,5 @@
-const hash = require('../util/hash');
 const { Schema, model } = require('mongoose');
+const hash = require('../util/hash');
 
 const schema = new Schema({
     _id: { type: String, match: /^\d{9}$/ },
