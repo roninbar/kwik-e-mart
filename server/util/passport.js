@@ -6,13 +6,7 @@ const User = require('../models/User');
 passport.use(new LocalStrategy(async function (username, password, done) {
     try {
         const user = await User.findOne({ username }, '+passwordHash');
-        if (!user) {
-            return done(null, false, { message: 'Incorrect username.' });
-        }
-        if (!user.validPassword(password)) {
-            return done(null, false, { message: 'Incorrect password.' });
-        }
-        return done(null, user);
+        return done(null, user?.validPassword(password) && user.set('passwordHash', undefined));
     }
     catch (error) {
         return done(error);
@@ -30,6 +24,8 @@ passport.deserializeUser(async function (id, done) {
         done(err);
     }
 });
+
+passport.guard = () => (req, res, next) => req.isAuthenticated() ? next() : res.sendStatus(401);
 
 module.exports = passport;
 
