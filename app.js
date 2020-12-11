@@ -22,31 +22,30 @@ mongoose.connect(MONGODBURL, {
 mongoose.connection.on('error', debug('server:mongodb'));
 mongoose.connection.on('open', () => debug('server:mongodb')('Connected.'));
 
-const store = new MongoDBStore({
-    uri: MONGODBURL,
-    collection: 'sessions'
-});
-
 const app = express();
 
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     saveUninitialized: true,
-    secret: SECRET,
     resave: false,
-    store: store,
     name: SIDNAME,
+    secret: SECRET,
+    store: new MongoDBStore({
+        uri: MONGODBURL,
+        collection: 'sessions'
+    }),
 }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/auth', require('./routers/auth'));
 app.use('/api/user', require('./routers/user'));
-app.use('/api/category', require('./routers/category'));
+app.use('/api/category', passport.guard(), require('./routers/category'));
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/*', function (req, res, next) {
     return '' === path.extname(req.path) && 'html' === req.accepts('html', 'json', 'xml')
@@ -55,3 +54,4 @@ app.get('/*', function (req, res, next) {
 });
 
 module.exports = app;
+
