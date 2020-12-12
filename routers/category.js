@@ -11,7 +11,7 @@ router.post('/', async function ({ originalUrl, body: { name } }, res) {
     try {
         const { _id } = await category.save();
         return res.set('Content-Location', `${originalUrl}/${_id}`).sendStatus(201);
-    } 
+    }
     catch ({ code, message }) {
         return res.status(code === 11000 ? 409 : 500).send(message);
     }
@@ -20,9 +20,9 @@ router.post('/', async function ({ originalUrl, body: { name } }, res) {
 /**
  * Get a list of all the categories.
  */
-router.get('/all', async function (req, res) {
+router.get('/all', async function (_req, res) {
     const categories = await ProductCategory.find({}, '-products');
-    return res.json(categories);
+    return res.json([{ _id: 'all', name: 'All Categories' }, ...categories]);
 });
 
 /**
@@ -33,7 +33,7 @@ router.use(
     async function (req, res, next) {
         const { params: { categoryId } } = req;
         try {
-            req.category = await ProductCategory.findById(categoryId);
+            req.category = categoryId === 'all' || await ProductCategory.findById(categoryId);
             return req.category ? next() : res.sendStatus(404);
         }
         catch (err) {

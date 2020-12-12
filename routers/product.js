@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const Product = require('../models/Product');
+const ProductCategory = require('../models/ProductCategory');
 
 const router = new Router();
 
@@ -21,8 +22,18 @@ router.post('/', async function ({ originalUrl, category: { _id: categoryId }, b
  * @param {ProductCategory} category
  */
 router.get('/all', async function ({ category }, res) {
-    await category.populate('products').execPopulate();
-    return res.json(category.products);
+    if (category === true) {
+        // `true` means all the categories.
+        const products = await Product.find();
+        return res.json(products);
+    }
+    else if (category instanceof ProductCategory) {
+        await category.populate('products').execPopulate();
+        return res.json(category.products);
+    }
+    else {
+        return res.sendStatus(500);
+    }
 });
 
 router.get('/:id', async function ({ category: { _id: categoryId }, params: { id: productId } }, res) {
