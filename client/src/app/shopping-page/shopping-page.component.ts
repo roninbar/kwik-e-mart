@@ -1,15 +1,12 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
-import debug from 'debug';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { Product } from '../product';
 import { ProductCategory } from '../product-category';
 import { ProductService } from '../product.service';
-
-const log = debug('client:shopping-page');
 
 @Component({
   selector: 'app-shopping-page',
@@ -36,7 +33,6 @@ export class ShoppingPageComponent implements OnInit {
     private auth: AuthService,
   ) {
     this.router.events.subscribe((event) => {
-      log(event);
       if (event instanceof ActivationEnd) {
         const categoryId = event.snapshot.paramMap.get('categoryId');
         this.setProductCategory(categoryId);
