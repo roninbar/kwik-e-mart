@@ -3,9 +3,9 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <mat-toolbar>Menu</mat-toolbar>
+    <mat-toolbar>Categories</mat-toolbar>
     <mat-nav-list>
-      <a *ngFor="let category of allCategories$ | async" mat-list-item href="/category/{{category._id}}">{{category.name}}</a>
+      <a mat-list-item *ngFor="let category of allCategories$ | async" routerLink="/category/{{category._id}}">{{category.name}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -20,6 +20,16 @@
       </button>
       <span>shop</span>
     </mat-toolbar>
-    <!-- Add Content Here -->
+    <div class="container">
+      <div class="row">
+        <div class="card col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let product of allProductsInCategory$ | async">
+          <img class="card-img-top" src="{{product.imageUrl}}" alt="{{product.name}}">
+          <div class="card-body">
+            <h5 class="card-title">{{product.name}}</h5>
+            <h6 class="card-subtitle">{{product.price}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
