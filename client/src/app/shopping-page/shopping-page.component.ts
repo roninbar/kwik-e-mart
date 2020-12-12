@@ -4,6 +4,7 @@ import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import debug from 'debug';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from '../auth.service';
 import { Product } from '../product';
 import { ProductCategory } from '../product-category';
 import { ProductService } from '../product.service';
@@ -32,6 +33,7 @@ export class ShoppingPageComponent implements OnInit {
     private productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
+    private auth: AuthService,
   ) {
     this.router.events.subscribe((event) => {
       log(event);
@@ -44,6 +46,10 @@ export class ShoppingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.allCategories$ = this.productService.getAllCategories();
+  }
+
+  logOut(): void {
+    this.auth.logOut().subscribe();
   }
 
   private setProductCategory(categoryId): void {

@@ -18,7 +18,9 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>shop</span>
+      <span>Shop</span>
+      <span class="spacer"></span>
+      <a mat-button routerLink="/login" (click)="logOut()">Log Out</a>
     </mat-toolbar>
     <div class="container">
       <div class="row">
