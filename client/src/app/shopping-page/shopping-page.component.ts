@@ -4,6 +4,7 @@ import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
+import { CartService } from '../cart.service';
 import { Product } from '../product';
 import { ProductCategory } from '../product-category';
 import { ProductService } from '../product.service';
@@ -31,6 +32,7 @@ export class ShoppingPageComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private cartService: CartService,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof ActivationEnd) {
@@ -46,6 +48,10 @@ export class ShoppingPageComponent implements OnInit {
 
   logOut(): void {
     this.authService.logOutAsync().subscribe();
+  }
+
+  addToCart(productId: string): void {
+    this.cartService.setItem(productId, 1);
   }
 
   private setProductCategory(categoryId): void {
