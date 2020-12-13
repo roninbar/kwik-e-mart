@@ -17,7 +17,7 @@ export class LoginPageComponent implements OnInit {
   ) { }
 
   onSubmit(): void {
-    this.auth.logIn(this.username, this.password).subscribe(async () => await this.router.navigateByUrl('/category/all'));
+    this.auth.logInAsync(this.username, this.password).subscribe(async () => await this.router.navigateByUrl('/category/all'));
   }
 
   ngOnInit(): void {

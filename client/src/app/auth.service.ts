@@ -16,14 +16,14 @@ export class AuthService {
    * @param username Username
    * @param password Password
    */
-  public logIn(username, password): Observable<void> {
+  public logInAsync(username, password): Observable<void> {
     return this.http.post<void>('/api/auth/login', { username, password });
   }
 
   /**
-   * logOut
+   * Log out.
    */
-  public logOut(): Observable<void> {
+  public logOutAsync(): Observable<void> {
     return this.http.post<void>('/api/auth/logout', null);
   }
 }

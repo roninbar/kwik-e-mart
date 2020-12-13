@@ -15,9 +15,9 @@ import { ProductService } from '../product.service';
 })
 export class ShoppingPageComponent implements OnInit {
 
-  allCategories$: Observable<Array<ProductCategory>> = this.productService.getAllCategories();
+  allCategories$: Observable<Array<ProductCategory>> = this.productService.getAllCategoriesAsync();
 
-  allProductsInCategory$: Observable<Array<Product>> = this.productService.getAllProductsInCategory(this.getCategoryId());
+  allProductsInCategory$: Observable<Array<Product>> = this.productService.getAllProductsInCategoryAsync(this.getCategoryId());
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -30,7 +30,7 @@ export class ShoppingPageComponent implements OnInit {
     private productService: ProductService,
     private router: Router,
     private route: ActivatedRoute,
-    private auth: AuthService,
+    private authService: AuthService,
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof ActivationEnd) {
@@ -41,15 +41,15 @@ export class ShoppingPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.allCategories$ = this.productService.getAllCategories();
+    this.allCategories$ = this.productService.getAllCategoriesAsync();
   }
 
   logOut(): void {
-    this.auth.logOut().subscribe();
+    this.authService.logOutAsync().subscribe();
   }
 
   private setProductCategory(categoryId): void {
-    this.allProductsInCategory$ = this.productService.getAllProductsInCategory(categoryId);
+    this.allProductsInCategory$ = this.productService.getAllProductsInCategoryAsync(categoryId);
   }
 
   private getCategoryId(): string {
