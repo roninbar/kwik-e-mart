@@ -10,7 +10,7 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Your Cart</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item *ngFor="let category of allCategories$ | async">{{category.name}}</a>
+      <a mat-list-item *ngFor="let item of getAllCartItems()">{{item.productName}}</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -34,7 +34,7 @@
             <img class="card-img-top" src="{{product.imageUrl}}" alt="{{product.name}}">
             <div class="card-body">
               <h5 class="card-title">{{product.name}}</h5>
-              <h6 class="card-subtitle">{{product.price}}</h6>
+              <h6 class="card-subtitle">&euro;{{product.price}}</h6>
               <button type="button" class="btn btn-primary mt-3" (click)="addToCart(product._id)">
                 Add to Cart
                 <br />

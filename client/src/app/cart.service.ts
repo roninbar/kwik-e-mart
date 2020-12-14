@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { OrderItem } from './order-item';
 
 const CARTITEMS = 'cartItems';
 @Injectable({
@@ -10,10 +11,14 @@ export class CartService {
 
   constructor(private http: HttpClient) { }
 
-  setItem(productId: string, units: number): void {
+  getAllItems(): Array<OrderItem> {
+    return Object.entries(this.getCartItems()).map(([productId, amount]) => new OrderItem(productId, 'Product', amount));
+  }
+
+  setItem(productId: string, amount: number): void {
     const cartItems = this.getCartItems();
-    if (units > 0) {
-      cartItems[productId] = units;
+    if (amount > 0) {
+      cartItems[productId] = amount;
     }
     else {
       delete cartItems[productId];

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '../auth.service';
 import { CartService } from '../cart.service';
+import { OrderItem } from '../order-item';
 import { Product } from '../product';
 import { ProductCategory } from '../product-category';
 import { ProductService } from '../product.service';
@@ -48,6 +49,10 @@ export class ShoppingPageComponent implements OnInit {
 
   logOut(): void {
     this.authService.logOutAsync().subscribe();
+  }
+
+  getAllCartItems(): Array<OrderItem> {
+    return this.cartService.getAllItems();
   }
 
   addToCart(productId: string): void {
