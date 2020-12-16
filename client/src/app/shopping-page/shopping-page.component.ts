@@ -47,16 +47,25 @@ export class ShoppingPageComponent implements OnInit {
     this.allCategories$ = this.productService.getAllCategoriesAsync();
   }
 
-  logOut(): void {
-    this.authService.logOutAsync().subscribe();
-  }
-
   getAllCartItems(): Array<OrderItem> {
     return this.cartService.getAllItems();
   }
 
-  addToCart(productId: string): void {
-    this.cartService.setItem(productId, 1);
+  addToCart(product: Product): void {
+    this.cartService.setItem(product, 1);
+  }
+
+  checkOut(f): void {
+    console.log(f);
+    this.cartService.checkOut();
+  }
+
+  logOut(): void {
+    this.authService.logOutAsync().subscribe();
+  }
+
+  productIdOfCartItem(index: number, item: OrderItem): string {
+    return item.product._id;
   }
 
   private setProductCategory(categoryId): void {

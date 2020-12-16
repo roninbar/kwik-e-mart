@@ -1,7 +1,8 @@
+import { Product } from './product';
+
 export class OrderItem {
     constructor(
-        public productId: string,
-        public productName: string,
+        public product: Product,
         public amount: number,
     ) { }
 }
