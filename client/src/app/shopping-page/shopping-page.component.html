@@ -1,7 +1,7 @@
 <mat-sidenav-container class="sidenav-container">
 
   <!-- Categories Sidenav -->
-  <mat-sidenav #categories [position]="'start'" class="sidenav" fixedInViewport [mode]="'over'">
+  <mat-sidenav #categories position="start" class="sidenav" fixedInViewport mode="over">
     <mat-toolbar>Categories</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item *ngFor="let category of allCategories$ | async" routerLink="/category/{{category._id}}">{{category.name}}</a>
@@ -9,15 +9,21 @@
   </mat-sidenav>
 
   <!-- Shopping Cart Sidenav -->
-  <mat-sidenav #cart [position]="'end'" class="sidenav" fixedInViewport [mode]="'over'">
+  <mat-sidenav #cart position="end" class="sidenav" fixedInViewport mode="over">
     <mat-toolbar>Your Cart</mat-toolbar>
     <form #f="ngForm" (ngSubmit)="checkOut(f)">
-      <mat-list>
-        <mat-list-item *ngFor="let item of getAllCartItems(); trackBy: productIdOfCartItem">
-          <label for="cartItem_{{item.product._id}}">{{item.product.name}}</label>
-          <input type="hidden" id="cartItem_{{item.product._id}}" name="{{item.product._id}}" value="{{item.amount}}" ngModel>
-        </mat-list-item>
-      </mat-list>
+      <div class="row row-cols-1 no-gutters">
+        <div class="p-2" *ngFor="let item of getAllCartItems(); trackBy: productIdOfCartItem">
+          <div class="card">
+            <img class="card-img-top" [src]="item.product.imageUrl" [alt]="item.product.name">
+            <div class="card-body">
+              <h5 class="card-title text-center">{{item.product.name}}</h5>
+              <h6 class="card-subtitle text-center">&euro;{{item.product.price}}</h6>
+              <input type="number" class="form-control mt-3" [name]="item.product._id" [value]="item.amount">
+            </div>
+          </div>
+        </div>
+      </div>
       <button type="submit" class="btn btn-primary">Check Out</button>
     </form>
   </mat-sidenav>
@@ -42,9 +48,9 @@
     <!-- Product Grid -->
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 px-0" *ngFor="let product of allProductsInCategory$ | async">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 px-0" *ngFor="let product of allProductsInCategory$ | async; trackBy: productIdOfProduct">
           <div class="card m-2">
-            <img class="card-img-top" src="{{product.imageUrl}}" alt="{{product.name}}">
+            <img class="card-img-top" [src]="product.imageUrl" [alt]="product.name">
             <div class="card-body">
               <h5 class="card-title">{{product.name}}</h5>
               <h6 class="card-subtitle">&euro;{{product.price}}</h6>

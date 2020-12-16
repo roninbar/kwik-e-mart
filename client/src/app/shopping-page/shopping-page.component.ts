@@ -64,6 +64,10 @@ export class ShoppingPageComponent implements OnInit {
     this.authService.logOutAsync().subscribe();
   }
 
+  productIdOfProduct(index: number, product: Product): string {
+    return product._id;
+  }
+
   productIdOfCartItem(index: number, item: OrderItem): string {
     return item.product._id;
   }
