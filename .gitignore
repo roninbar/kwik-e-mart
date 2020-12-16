@@ -1,3 +1,4 @@
 tmp/
 debug.log
 .vscode/launch.json
+*.zip
