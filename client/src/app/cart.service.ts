@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CartItemsMap } from './cart-items-map';
@@ -62,8 +62,9 @@ export class CartService {
     this.setCartItemsMap(map);
   }
 
-  checkOut(): Observable<string> {
-    return this.http.post<string>('/api/order', this.getCartItemsMap());
+  checkOutAsync(): Observable<string> {
+    const items = Object.entries(this.getCartItemsMap()).map(([key, { amount }]) => ([key, String(amount)]));
+    return this.http.post<string>('/api/order', new HttpParams({ fromObject: Object.fromEntries(items) }));
   }
 
   private getCartItemsMap(): CartItemsMap {

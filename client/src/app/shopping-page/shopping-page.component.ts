@@ -57,7 +57,7 @@ export class ShoppingPageComponent implements OnInit {
 
   checkOut(f): void {
     console.log(f);
-    this.cartService.checkOut();
+    this.cartService.checkOutAsync().subscribe();
   }
 
   logOut(): void {
