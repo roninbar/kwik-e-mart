@@ -13,12 +13,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { OrderPageComponent } from './order-page/order-page.component';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginPageComponent,
+    OrderPageComponent,
     ShoppingPageComponent,
   ],
   imports: [
