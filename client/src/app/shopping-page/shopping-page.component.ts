@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -15,7 +15,7 @@ import { ProductService } from '../product.service';
   templateUrl: './shopping-page.component.html',
   styleUrls: ['./shopping-page.component.css']
 })
-export class ShoppingPageComponent implements OnInit {
+export class ShoppingPageComponent {
 
   allCategories$: Observable<Array<ProductCategory>> = this.productService.getAllCategoriesAsync();
 
@@ -37,14 +37,9 @@ export class ShoppingPageComponent implements OnInit {
   ) {
     this.router.events.subscribe((event) => {
       if (event instanceof ActivationEnd) {
-        const categoryId = event.snapshot.paramMap.get('categoryId');
-        this.setProductCategory(categoryId);
+        this.setProductCategory(this.getCategoryId());
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.allCategories$ = this.productService.getAllCategoriesAsync();
   }
 
   getAllCartItems(): Array<OrderItem> {
