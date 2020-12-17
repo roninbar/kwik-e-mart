@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 
@@ -6,7 +6,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css']
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
 
   username: string;
   password: string;
@@ -18,9 +18,6 @@ export class LoginPageComponent implements OnInit {
 
   onSubmit(): void {
     this.auth.logInAsync(this.username, this.password).subscribe(async () => await this.router.navigateByUrl('/category/all'));
-  }
-
-  ngOnInit(): void {
   }
 
 }
