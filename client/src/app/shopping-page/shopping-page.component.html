@@ -11,7 +11,7 @@
   <!-- Shopping Cart Sidenav -->
   <mat-sidenav #cart position="end" class="sidenav" fixedInViewport mode="over">
     <mat-toolbar>Your Cart</mat-toolbar>
-    <form #f="ngForm" (ngSubmit)="checkOut(f)">
+    <form #f="ngForm" (ngSubmit)="checkOutAsync(f)">
       <div class="row row-cols-1 no-gutters">
         <div class="p-2" *ngFor="let item of getAllCartItems(); trackBy: productIdOfCartItem">
           <div class="card">

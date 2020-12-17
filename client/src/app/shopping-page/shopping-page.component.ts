@@ -50,9 +50,8 @@ export class ShoppingPageComponent {
     this.cartService.setItem(product, 1);
   }
 
-  checkOut(f): void {
-    console.log(f);
-    this.cartService.checkOutAsync().subscribe();
+  checkOutAsync(f): Promise<boolean> {
+    return this.router.navigateByUrl('/order');
   }
 
   logOut(): void {
