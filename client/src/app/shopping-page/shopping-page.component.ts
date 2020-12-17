@@ -11,7 +11,6 @@ import { ProductCategory } from '../product-category';
 import { ProductService } from '../product.service';
 
 @Component({
-  selector: 'app-shopping-page',
   templateUrl: './shopping-page.component.html',
   styleUrls: ['./shopping-page.component.css']
 })
