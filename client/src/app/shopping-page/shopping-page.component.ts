@@ -16,7 +16,9 @@ import { ProductService } from '../product.service';
 })
 export class ShoppingPageComponent {
 
-  allCategories$: Observable<Array<ProductCategory>> = this.productService.getAllCategoriesAsync();
+  readonly allCategories$: Observable<Array<ProductCategory>> = this.productService.getAllCategoriesAsync();
+
+  categoryName$: Observable<string> = this.getCategoryNameAsync(this.getCategoryId());
 
   allProductsInCategory$: Observable<Array<Product>> = this.productService.getAllProductsInCategoryAsync(this.getCategoryId());
 
@@ -65,8 +67,18 @@ export class ShoppingPageComponent {
     return item.product._id;
   }
 
-  private setProductCategory(categoryId): void {
+  private setProductCategory(categoryId: string): void {
+    this.categoryName$ = this.getCategoryNameAsync(categoryId);
     this.allProductsInCategory$ = this.productService.getAllProductsInCategoryAsync(categoryId);
+  }
+
+  private getCategoryNameAsync(categoryId: string): Observable<string> {
+    return this.allCategories$.pipe(map(allCategories => {
+      const category = allCategories.find(({ _id }) => {
+        return _id === categoryId;
+      });
+      return category.name;
+    }));
   }
 
   private getCategoryId(): string {
