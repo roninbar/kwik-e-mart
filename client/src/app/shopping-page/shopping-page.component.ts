@@ -15,11 +15,11 @@ import { ProductService } from '../product.service';
 })
 export class ShoppingPageComponent {
 
-  readonly allCategories$: Observable<Array<ProductCategory>> = this.productService.getAllCategoriesAsync();
+  readonly allCategories$: Observable<Array<ProductCategory>> = this.productService.getAllCategoriesRx();
 
-  categoryName$: Observable<string> = this.getCategoryNameAsync(this.getCategoryId());
+  categoryName$: Observable<string> = this.getCategoryNameRx(this.getCategoryId());
 
-  allProductsInCategory$: Observable<Array<Product>> = this.productService.getAllProductsInCategoryAsync(this.getCategoryId());
+  allProductsInCategory$: Observable<Array<Product>> = this.productService.getAllProductsInCategoryRx(this.getCategoryId());
 
   constructor(
     private authService: AuthService,
@@ -48,7 +48,7 @@ export class ShoppingPageComponent {
   }
 
   logOut(): void {
-    this.authService.logOutAsync().subscribe();
+    this.authService.logOutRx().subscribe();
   }
 
   productIdOfProduct(index: number, product: Product): string {
@@ -60,11 +60,11 @@ export class ShoppingPageComponent {
   }
 
   private setProductCategory(categoryId: string): void {
-    this.categoryName$ = this.getCategoryNameAsync(categoryId);
-    this.allProductsInCategory$ = this.productService.getAllProductsInCategoryAsync(categoryId);
+    this.categoryName$ = this.getCategoryNameRx(categoryId);
+    this.allProductsInCategory$ = this.productService.getAllProductsInCategoryRx(categoryId);
   }
 
-  private getCategoryNameAsync(categoryId: string): Observable<string> {
+  private getCategoryNameRx(categoryId: string): Observable<string> {
     return this.allCategories$.pipe(map(allCategories => {
       const category = allCategories.find(({ _id }) => {
         return _id === categoryId;

@@ -13,11 +13,11 @@ export class ProductService {
     private http: HttpClient,
   ) { }
 
-  getAllCategoriesAsync(): Observable<Array<ProductCategory>> {
+  getAllCategoriesRx(): Observable<Array<ProductCategory>> {
     return this.http.get<Array<ProductCategory>>('/api/category/all');
   }
 
-  getAllProductsInCategoryAsync(categoryId: string): Observable<Array<Product>> {
+  getAllProductsInCategoryRx(categoryId: string): Observable<Array<Product>> {
     return this.http.get<Array<Product>>(`/api/category/${categoryId}/product/all`);
   }
 }

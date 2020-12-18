@@ -17,7 +17,7 @@ export class LoginPageComponent {
   ) { }
 
   onSubmit(): void {
-    this.auth.logInAsync(this.username, this.password).subscribe(async () => await this.router.navigateByUrl('/category/all'));
+    this.auth.logInRx(this.username, this.password).subscribe(async () => await this.router.navigateByUrl('/category/all'));
   }
 
 }

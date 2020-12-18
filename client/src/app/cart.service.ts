@@ -62,7 +62,7 @@ export class CartService {
     this.setCartItemsMap(map);
   }
 
-  checkOutAsync(): Observable<string> {
+  checkOutRx(): Observable<string> {
     const items = Object.entries(this.getCartItemsMap()).map(([key, { amount }]) => ([key, String(amount)]));
     return this.http.post<string>('/api/order', new HttpParams({ fromObject: Object.fromEntries(items) }));
   }
