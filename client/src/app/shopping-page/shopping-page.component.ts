@@ -43,6 +43,10 @@ export class ShoppingPageComponent {
     this.cartService.setItem(product, 1);
   }
 
+  setCartItem(product: Product, amount: number): void {
+    this.cartService.setItem(product, amount);
+  }
+
   checkOutAsync(f): Promise<boolean> {
     return this.router.navigateByUrl('/order');
   }
