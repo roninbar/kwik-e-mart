@@ -39,11 +39,7 @@ export class ShoppingPageComponent {
     return this.cartService.getAllItems();
   }
 
-  addToCart(product: Product): void {
-    this.cartService.setItem(product, 1);
-  }
-
-  setCartItem(product: Product, amount: number): void {
+  setCartItem(product: Product, amount: number = 1): void {
     this.cartService.setItem(product, amount);
   }
 
