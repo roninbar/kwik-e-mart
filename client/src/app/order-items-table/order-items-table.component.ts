@@ -1,30 +1,23 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { OrderItemsTableDataSource, OrderItemsTableItem } from './order-items-table-datasource';
+import { CartService } from '../cart.service';
+import { OrderItem } from '../order-item';
 
 @Component({
   selector: 'app-order-items-table',
   templateUrl: './order-items-table.component.html',
   styleUrls: ['./order-items-table.component.css']
 })
-export class OrderItemsTableComponent implements AfterViewInit, OnInit {
+export class OrderItemsTableComponent {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatTable) table: MatTable<OrderItemsTableItem>;
-  dataSource: OrderItemsTableDataSource;
+  @ViewChild(MatTable) table: MatTable<OrderItem>;
+  dataSource: OrderItem[] = this.cartService.getAllItems();
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'name'];
+  displayedColumns = ['name', 'qty', 'price', 'total'];
 
-  ngOnInit() {
-    this.dataSource = new OrderItemsTableDataSource();
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
-  }
+  constructor(private cartService: CartService) { }
 }
