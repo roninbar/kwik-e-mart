@@ -1,3 +1,37 @@
 <div class="container">
-    <app-order-items-table></app-order-items-table>
+    <form method="post" action="/api/order" #f="ngForm" (ngSubmit)="placeOrder(f)">
+        <div class="row row-cols-1 row-cols-lg-2">
+            <div class="col">
+                <h4>Order Summary</h4>
+                <app-order-items-table [dataSource]="cartService.getAllItems()"></app-order-items-table>
+                <input type="hidden" name="products[{{item.product._id}}]" [value]="item.amount" *ngFor="let item of cartService.getAllItems()">
+            </div>
+            <div class="col">
+                <h4>Shipping Date</h4>
+                <mat-form-field appearance="outline">
+                    <mat-label>Shipping Date</mat-label>
+                    <input type="date" matInput name="ship[on]" ngModel>
+                </mat-form-field>
+                <h4>Shipping Details</h4>
+                <mat-form-field appearance="outline">
+                    <mat-label>City</mat-label>
+                    <input type="text" matInput name="ship[to][city]" ngModel>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>Street</mat-label>
+                    <input type="text" matInput name="ship[to][street]" ngModel>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                    <mat-label>House #</mat-label>
+                    <input type="number" matInput name="ship[to][house]" ngModel>
+                </mat-form-field>
+                <h4>Payment Details</h4>
+                <mat-form-field appearance="outline">
+                    <mat-label>Card Number</mat-label>
+                    <input type="text" matInput name="payment[creditcard][number]" ngModel>
+                </mat-form-field>
+            </div>
+        </div>
+        <button type="submit">Place Order</button>
+    </form>
 </div>
