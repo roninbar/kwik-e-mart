@@ -25,7 +25,15 @@ passport.deserializeUser(async function (id, done) {
     }
 });
 
-passport.guard = () => (req, res, next) => req.isAuthenticated() ? next() : res.sendStatus(401);
+passport.allow = (...roles) => function (req, res, next) {
+    return (
+        req.isAuthenticated() &&
+            typeof req.user.role === 'string' &&
+            roles.includes(req.user.role)
+            ? next()
+            : res.sendStatus(401)
+    );
+};
 
 module.exports = passport;
 
