@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { OrderItemsTableComponent } from './order-items-table/order-items-table.component';
+import { OrderItemsTableComponent } from './order-page/order-items-table/order-items-table.component';
 import { OrderPageComponent } from './order-page/order-page.component';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
 

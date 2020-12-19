@@ -2,7 +2,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { OrderItem } from '../order-item';
+import { OrderItem } from '../../order-item';
 
 @Component({
   selector: 'app-order-items-table',
