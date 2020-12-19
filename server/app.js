@@ -43,7 +43,8 @@ app.use(passport.session());
 
 app.use('/api/auth', require('./routers/auth'));
 app.use('/api/user', require('./routers/user'));
-app.use('/api/category', passport.guard(), require('./routers/category'));
+app.use('/api/category', passport.allow('user', 'admin'), require('./routers/category'));
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 
