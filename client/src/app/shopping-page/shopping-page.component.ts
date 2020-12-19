@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { AuthService } from '../auth.service';
-import { CartService } from '../cart.service';
+import { AuthService } from '../services/auth.service';
+import { CartService } from '../services/cart.service';
 import { OrderItem } from '../order-item';
 import { Product } from '../product';
 import { ProductCategory } from '../product-category';
-import { ProductService } from '../product.service';
+import { ProductService } from '../services/product.service';
 
 @Component({
   templateUrl: './shopping-page.component.html',

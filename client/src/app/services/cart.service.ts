@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CartItemsMap } from './cart-items-map';
-import { OrderItem } from './order-item';
-import { Product } from './product';
+import { CartItemsMap } from '../cart-items-map';
+import { OrderItem } from '../order-item';
+import { Product } from '../product';
 
 const CARTITEMS = 'cartItems';
 
