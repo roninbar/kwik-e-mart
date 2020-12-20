@@ -4,7 +4,10 @@
             <div class="col">
                 <h4>Order Summary</h4>
                 <app-order-items-table [dataSource]="cartService.getAllItems()"></app-order-items-table>
-                <input type="hidden" name="products[{{item.product._id}}][quantity]" [ngModel]="item.amount" *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
+                <ng-container *ngFor="let item of cartService.getAllItems(); let i = index; trackBy: productIdOfCartItem">
+                    <input type="hidden" name="products[{{i}}][id]" [ngModel]="item.product._id">
+                    <input type="hidden" name="products[{{i}}][quantity]" [ngModel]="item.amount">
+                </ng-container>
             </div>
             <div class="col row row-cols-1">
                 <h4>Shipping Details</h4>

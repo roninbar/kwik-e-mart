@@ -14,7 +14,10 @@ const schema = new Schema({
             number: String,
         }
     },
-    products: { type: Map, of: {quantity} },
+    products: [{
+        id: { type: Schema.Types.ObjectId, ref: 'Product' },
+        quantity: Number,
+    }],
 }, {
     timestamps: true,
 });
