@@ -1,5 +1,6 @@
 const { Router } = require('express');
 const ProductCategory = require('../models/ProductCategory');
+const { createResource } = require('./utils');
 
 const router = new Router();
 
@@ -9,8 +10,7 @@ const router = new Router();
 router.post('/', async function ({ originalUrl, body: { name } }, res) {
     const category = new ProductCategory({ name });
     try {
-        const { _id } = await category.save();
-        return res.set('Content-Location', `${originalUrl}/${_id}`).sendStatus(201);
+        return await createResource(originalUrl, category, res);
     }
     catch ({ code, message }) {
         return res.status(code === 11000 ? 409 : 500).send(message);
