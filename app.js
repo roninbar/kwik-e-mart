@@ -35,7 +35,7 @@ app.use(session({
     secret: SECRET,
     store: new MongoDBStore({
         uri: MONGODBURL,
-        collection: 'sessions'
+        collection: 'sessions',
     }),
 }));
 app.use(passport.initialize());
@@ -44,10 +44,7 @@ app.use(passport.session());
 app.use('/api/auth', require('./routers/auth'));
 app.use('/api/user', require('./routers/user'));
 app.use('/api/category', passport.allow('user', 'admin'), require('./routers/category'));
-app.use('/api/order', passport.allow('user'), function (req, _res, next) {
-    debug('server:order')(req.body);
-    return next();
-});
+app.use('/api/order', require('./routers/order'));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
