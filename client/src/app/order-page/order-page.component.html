@@ -4,7 +4,7 @@
             <div class="col">
                 <h4>Order Summary</h4>
                 <app-order-items-table [dataSource]="cartService.getAllItems()"></app-order-items-table>
-                <input type="hidden" name="products[{{item.product._id}}]" [value]="item.amount" *ngFor="let item of cartService.getAllItems()">
+                <input type="hidden" name="products[{{item.product._id}}][quantity]" [ngModel]="item.amount" *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
             </div>
             <div class="col row row-cols-1">
                 <h4>Shipping Details</h4>
