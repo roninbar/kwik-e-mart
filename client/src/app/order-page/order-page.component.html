@@ -10,29 +10,29 @@
                 </ng-container>
             </div>
             <div class="col row row-cols-1">
-                <h4>Shipping Details</h4>
+                <h4>Delivery Details</h4>
                 <mat-form-field appearance="outline">
-                    <mat-label>Shipping Date</mat-label>
-                    <input type="date" matInput name="ship[on]" ngModel required>
+                    <mat-label>Date</mat-label>
+                    <input type="date" matInput name="delivery[on]" ngModel required>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
                     <mat-label>City</mat-label>
-                    <input type="text" matInput name="ship[to][city]" ngModel required>
+                    <input type="text" matInput name="delivery[to][city]" ngModel required>
                 </mat-form-field>
                 <p>
                     <mat-form-field appearance="outline">
                         <mat-label>Street</mat-label>
-                        <input type="text" matInput name="ship[to][street]" ngModel required>
+                        <input type="text" matInput name="delivery[to][street]" ngModel required>
                     </mat-form-field>
                     <mat-form-field appearance="outline">
                         <mat-label>House #</mat-label>
-                        <input type="number" matInput name="ship[to][house]" ngModel required>
+                        <input type="number" matInput name="delivery[to][house]" ngModel required>
                     </mat-form-field>
                 </p>
                 <h4>Payment Details</h4>
                 <mat-form-field appearance="outline">
                     <mat-label>Card Number</mat-label>
-                    <input type="text" matInput name="payment[creditcard][number]" ngModel required>
+                    <input type="text" matInput name="payment[cc][number]" ngModel required>
                 </mat-form-field>
                 <button mat-raised-button color="primary" type="submit">Place Order</button>
             </div>
