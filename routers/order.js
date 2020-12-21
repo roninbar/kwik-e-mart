@@ -6,13 +6,14 @@ const { createResource } = require('./utils');
 
 const router = new Router();
 
-router.post('/', passport.allow('user'), async function ({ originalUrl, body }, res) {
+router.post('/', passport.allow('user'), async function ({ originalUrl, user, body }, res) {
     debug('server:order')(body);
-    const order = new Order(body);
+    const order = new Order({ customer: user, ...body });
     try {
-        return createResource(originalUrl, order, res);
-    } catch (err) {
-        return res.sendStatus(500);
+        return await createResource(originalUrl, order, res);
+    } catch ({ errors }) {
+        const messages = Object.values(errors).map(({ message }) => message).join('\n');
+        return res.status(errors ? 400 : 500).send(messages);
     }
 });
 
