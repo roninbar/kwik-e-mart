@@ -8,7 +8,7 @@ import { OrderService } from '../services/order.service';
   templateUrl: './checkout-page.component.html',
   styleUrls: ['./checkout-page.component.css']
 })
-export class OrderPageComponent {
+export class CheckoutPageComponent {
 
   constructor(
     public cartService: CartService,

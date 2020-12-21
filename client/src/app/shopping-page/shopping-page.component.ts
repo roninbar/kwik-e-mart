@@ -44,7 +44,7 @@ export class ShoppingPageComponent {
   }
 
   checkOutAsync(f): Promise<boolean> {
-    return this.router.navigateByUrl('/order');
+    return this.router.navigateByUrl('/checkout');
   }
 
   logOut(): void {

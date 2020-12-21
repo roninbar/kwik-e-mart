@@ -17,7 +17,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OrderPageComponent } from './checkout-page/checkout-page.component';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { OrderItemsTableComponent } from './checkout-page/order-items-table/order-items-table.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
@@ -27,7 +27,7 @@ import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
     AppComponent,
     LoginPageComponent,
     OrderItemsTableComponent,
-    OrderPageComponent,
+    CheckoutPageComponent,
     ShoppingPageComponent,
   ],
   imports: [
