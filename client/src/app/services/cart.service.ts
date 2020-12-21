@@ -1,6 +1,5 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 import { CartItemsMap } from '../cart-items-map';
 import { OrderItem } from '../order-item';
 import { Product } from '../product';
@@ -60,11 +59,6 @@ export class CartService {
       delete map[product._id];
     }
     this.setCartItemsMap(map);
-  }
-
-  checkOutRx(): Observable<string> {
-    const items = Object.entries(this.getCartItemsMap()).map(([key, { amount }]) => ([key, String(amount)]));
-    return this.http.post<string>('/api/order', new HttpParams({ fromObject: Object.fromEntries(items) }));
   }
 
   private getCartItemsMap(): CartItemsMap {
