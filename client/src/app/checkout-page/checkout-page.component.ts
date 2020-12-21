@@ -5,8 +5,8 @@ import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
 
 @Component({
-  templateUrl: './order-page.component.html',
-  styleUrls: ['./order-page.component.css']
+  templateUrl: './checkout-page.component.html',
+  styleUrls: ['./checkout-page.component.css']
 })
 export class OrderPageComponent {
 
