@@ -21,4 +21,14 @@ router.post('/', passport.allow('user'), async function ({ originalUrl, user, bo
     }
 });
 
+router.get('/all', async function (req, res) {
+    const orders = await Order.find();
+    return res.json(orders);
+});
+
+router.get('/:id', async function ({ params: { id } }, res) {
+    const order = await Order.findById(id);
+    return order ? res.json(order) : res.sendStatus(404);
+})
+
 module.exports = router;
