@@ -3,12 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
+import { ThankYouPage } from './thank-you-page/thank-you.page';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginPageComponent },
   { path: 'category/:categoryId', component: ShoppingPageComponent },
   { path: 'checkout', component: CheckoutPageComponent },
+  { path: 'thankyou', component: ThankYouPage },
 ];
 
 @NgModule({

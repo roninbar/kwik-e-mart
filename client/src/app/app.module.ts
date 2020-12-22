@@ -22,6 +22,7 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { OrderItemsTableComponent } from './checkout-page/order-items-table/order-items-table.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
+import { ThankYouPage } from './thank-you-page/thank-you.page';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
     LoginPageComponent,
     OrderItemsTableComponent,
     ShoppingPageComponent,
+    ThankYouPage,
   ],
   imports: [
     AppRoutingModule,

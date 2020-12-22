@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { OrderItem } from '../order-item';
 import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
@@ -11,12 +12,13 @@ import { OrderService } from '../services/order.service';
 export class CheckoutPageComponent {
 
   constructor(
+    private router: Router,
     public cartService: CartService,
     private orderService: OrderService,
   ) { }
 
   placeOrder(f: NgForm): void {
-    this.orderService.placeOrderRx(f.value).subscribe(console.log);
+    this.orderService.placeOrderRx(f.value).subscribe(async () => await this.router.navigateByUrl('/thankyou'));
   }
 
   productIdOfCartItem(index: number, item: OrderItem): string {
