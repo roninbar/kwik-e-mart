@@ -1,41 +1,55 @@
-<div class="container">
-    <form method="post" action="/api/order" #f="ngForm" (ngSubmit)="placeOrder(f)">
-        <div class="row row-cols-1 row-cols-lg-2">
-            <div class="col">
-                <h4>Order Summary</h4>
-                <app-order-items-table [dataSource]="cartService.getAllItems()"></app-order-items-table>
-                <ng-container *ngFor="let item of cartService.getAllItems(); let i = index; trackBy: productIdOfCartItem">
-                    <input type="hidden" name="products[{{i}}][id]" [ngModel]="item.product._id">
-                    <input type="hidden" name="products[{{i}}][quantity]" [ngModel]="item.amount">
-                </ng-container>
+<form method="post" action="/api/order" #f="ngForm" (ngSubmit)="placeOrder(f)">
+    <mat-vertical-stepper linear #stepper>
+        <mat-step label="Review your order.">
+            <app-order-items-table [dataSource]="cartService.getAllItems()"></app-order-items-table>
+            <ng-container *ngFor="let item of cartService.getAllItems(); let i = index; trackBy: productIdOfCartItem">
+                <input type="hidden" name="products[{{i}}][id]" [ngModel]="item.product._id">
+                <input type="hidden" name="products[{{i}}][quantity]" [ngModel]="item.amount">
+            </ng-container>
+            <div>
+                <button type="button" mat-button matStepperNext>Next</button>
             </div>
-            <div class="col row row-cols-1">
-                <h4>Delivery Details</h4>
+        </mat-step>
+        <mat-step label="Choose your preferred time and place for the delivery.">
+            <mat-form-field appearance="outline">
+                <mat-label>Date</mat-label>
+                <input type="date" matInput name="delivery[on]" ngModel required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input type="text" matInput name="delivery[to][city]" ngModel required>
+            </mat-form-field>
+            <div>
                 <mat-form-field appearance="outline">
-                    <mat-label>Date</mat-label>
-                    <input type="date" matInput name="delivery[on]" ngModel required>
+                    <mat-label>Street</mat-label>
+                    <input type="text" matInput name="delivery[to][street]" ngModel required>
                 </mat-form-field>
                 <mat-form-field appearance="outline">
-                    <mat-label>City</mat-label>
-                    <input type="text" matInput name="delivery[to][city]" ngModel required>
+                    <mat-label>House #</mat-label>
+                    <input type="number" matInput name="delivery[to][house]" ngModel required>
                 </mat-form-field>
-                <p>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Street</mat-label>
-                        <input type="text" matInput name="delivery[to][street]" ngModel required>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline">
-                        <mat-label>House #</mat-label>
-                        <input type="number" matInput name="delivery[to][house]" ngModel required>
-                    </mat-form-field>
-                </p>
-                <h4>Payment Details</h4>
-                <mat-form-field appearance="outline">
-                    <mat-label>Card Number</mat-label>
-                    <input type="text" matInput name="payment[cc][number]" ngModel required>
-                </mat-form-field>
-                <button mat-raised-button color="primary" type="submit">Place Order</button>
             </div>
-        </div>
-    </form>
-</div>
+            <div>
+                <button type="button" mat-button matStepperPrevious>Back</button>
+                <button type="button" mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step label="Choose your payment method.">
+            <mat-form-field appearance="outline">
+                <mat-label>Card Number</mat-label>
+                <input type="text" matInput name="payment[cc][number]" ngModel required>
+            </mat-form-field>
+            <div>
+                <button type="button" mat-button matStepperPrevious>Back</button>
+                <button type="button" mat-button matStepperNext>Next</button>
+            </div>
+        </mat-step>
+        <mat-step label="Place your order.">
+            <button mat-raised-button color="primary" type="submit">Place Order</button>
+            <div>
+                <button type="button" mat-button matStepperPrevious>Back</button>
+                <button type="button" mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+</form>

@@ -11,6 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSortModule } from '@angular/material/sort';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,9 +26,9 @@ import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
 @NgModule({
   declarations: [
     AppComponent,
+    CheckoutPageComponent,
     LoginPageComponent,
     OrderItemsTableComponent,
-    CheckoutPageComponent,
     ShoppingPageComponent,
   ],
   imports: [
@@ -46,6 +47,7 @@ import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
     MatPaginatorModule,
     MatSidenavModule,
     MatSortModule,
+    MatStepperModule,
     MatTableModule,
     MatToolbarModule,
   ],
