@@ -12,7 +12,36 @@ const CARTITEMS = 'cartItems';
 export class CartService {
 
   constructor(private http: HttpClient) {
-    // Validate localStorage.cartItems; delete it if it doesn't conform to the expected structure.
+    this.validateStoredCart();
+  }
+
+  getAllItems(): Array<OrderItem> {
+    return Object.values(this.getCartItemsMap());
+  }
+
+  setItem(product: IProduct, quantity: number): void {
+    const map = this.getCartItemsMap();
+    if (quantity > 0) {
+      map[product._id] = new OrderItem(product, quantity);
+    }
+    else {
+      delete map[product._id];
+    }
+    this.setCartItemsMap(map);
+  }
+
+  private getCartItemsMap(): ICartItemsMap {
+    return JSON.parse(localStorage.getItem(CARTITEMS) || '{}');
+  }
+
+  private setCartItemsMap(map: ICartItemsMap): void {
+    localStorage.setItem(CARTITEMS, JSON.stringify(map));
+  }
+
+  /**
+   * Validate localStorage.cartItems; delete it if it doesn't conform to the expected structure.
+   */
+  private validateStoredCart(): void {
     const mapJson = localStorage.getItem(CARTITEMS);
     // tslint:disable-next-line: label-position
     test: {
@@ -44,29 +73,6 @@ export class CartService {
     if (mapJson) {
       localStorage.removeItem(CARTITEMS);
     }
-  }
-
-  getAllItems(): Array<OrderItem> {
-    return Object.values(this.getCartItemsMap());
-  }
-
-  setItem(product: IProduct, quantity: number): void {
-    const map = this.getCartItemsMap();
-    if (quantity > 0) {
-      map[product._id] = new OrderItem(product, quantity);
-    }
-    else {
-      delete map[product._id];
-    }
-    this.setCartItemsMap(map);
-  }
-
-  private getCartItemsMap(): ICartItemsMap {
-    return JSON.parse(localStorage.getItem(CARTITEMS) || '{}');
-  }
-
-  private setCartItemsMap(map: ICartItemsMap): void {
-    localStorage.setItem(CARTITEMS, JSON.stringify(map));
   }
 
 }
