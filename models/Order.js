@@ -12,7 +12,7 @@ const schema = new Schema({
     },
     payment: {
         cc: {
-            last4: { type: String, match: /^\d{4}$/, required: true },
+            last4: { type: String, match: /^\w{4}$/, required: true, trim: true },
         }
     },
     products: [{
@@ -25,8 +25,8 @@ const schema = new Schema({
 });
 
 schema.virtual('payment.cc.number').set(function (ccnumber) {
-    const [last4] = ccnumber.match(/\d{4}$/);
-    this.payment.cc.last4 = last4
+    const match = ccnumber.match(/(\w{4})\s*$/);
+    this.payment.cc.last4 = match && match.length >= 2 && match[1];
 });
 
 module.exports = model('Order', schema);
