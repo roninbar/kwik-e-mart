@@ -21,12 +21,12 @@ export class CartService {
         if (map && typeof map === 'object' && Object.getPrototypeOf(map) === Object.prototype) {
           const items: Array<OrderItem> = Object.values(map);
           try {
-            if (items.some(({ product: { _id, name, price, imageUrl }, amount }) => (
+            if (items.some(({ product: { _id, name, price, imageUrl }, quantity }) => (
               typeof _id !== 'string' ||
               typeof name !== 'string' ||
               typeof price !== 'number' ||
               typeof imageUrl !== 'string' ||
-              typeof amount !== 'number'
+              typeof quantity !== 'number'
             ))) {
               break test;
             }
@@ -50,10 +50,10 @@ export class CartService {
     return Object.values(this.getCartItemsMap());
   }
 
-  setItem(product: IProduct, amount: number): void {
+  setItem(product: IProduct, quantity: number): void {
     const map = this.getCartItemsMap();
-    if (amount > 0) {
-      map[product._id] = new OrderItem(product, amount);
+    if (quantity > 0) {
+      map[product._id] = new OrderItem(product, quantity);
     }
     else {
       delete map[product._id];

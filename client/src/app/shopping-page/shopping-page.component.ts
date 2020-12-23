@@ -39,8 +39,8 @@ export class ShoppingPageComponent {
     return this.cartService.getAllItems();
   }
 
-  setCartItem(product: IProduct, amount: number = 1): void {
-    this.cartService.setItem(product, amount);
+  setCartItem(product: IProduct, quantity: number = 1): void {
+    this.cartService.setItem(product, quantity);
   }
 
   checkOutAsync(f): Promise<boolean> {

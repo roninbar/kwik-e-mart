@@ -19,7 +19,8 @@
             <div class="card-body">
               <h5 class="card-title text-center">{{item.product.name}}</h5>
               <h6 class="card-subtitle text-center">&euro;{{item.product.price}}</h6>
-              <input type="number" class="form-control mt-3" [name]="item.product._id" [value]="item.amount" (input)="setCartItem(item.product, +$event.target.value)">
+              <input type="number" class="form-control mt-3" [name]="item.product._id" [value]="item.quantity"
+                (input)="setCartItem(item.product, +$event.target.value)">
             </div>
           </div>
         </div>

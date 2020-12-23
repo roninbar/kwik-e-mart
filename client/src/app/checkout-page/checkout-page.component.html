@@ -4,7 +4,7 @@
             <app-order-items-table [dataSource]="cartService.getAllItems()"></app-order-items-table>
             <ng-container *ngFor="let item of cartService.getAllItems(); let i = index; trackBy: productIdOfCartItem">
                 <input type="hidden" name="products[{{i}}][id]" [ngModel]="item.product._id">
-                <input type="hidden" name="products[{{i}}][quantity]" [ngModel]="item.amount">
+                <input type="hidden" name="products[{{i}}][quantity]" [ngModel]="item.quantity">
             </ng-container>
             <div>
                 <button type="button" mat-button matStepperNext>Next</button>

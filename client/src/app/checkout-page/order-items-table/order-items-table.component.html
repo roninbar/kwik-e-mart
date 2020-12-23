@@ -15,7 +15,7 @@
     <!-- Quantity Column -->
     <ng-container matColumnDef="qty">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Qty</th>
-      <td mat-cell *matCellDef="let item">{{item.amount}}</td>
+      <td mat-cell *matCellDef="let item">{{item.quantity}}</td>
     </ng-container>
 
     <!-- Price Column -->
@@ -27,7 +27,7 @@
     <!-- Total Column -->
     <ng-container matColumnDef="total">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
-      <td mat-cell *matCellDef="let item">{{item.amount * item.product.price}}</td>
+      <td mat-cell *matCellDef="let item">{{item.quantity * item.product.price}}</td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
