@@ -1,8 +1,8 @@
-import { Product } from './product';
+import { IProduct } from './product';
 
 export class OrderItem {
     constructor(
-        public product: Product,
+        public product: IProduct,
         public amount: number,
     ) { }
 }

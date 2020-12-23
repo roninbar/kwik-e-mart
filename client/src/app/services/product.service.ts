@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Product } from '../product';
-import { ProductCategory } from '../product-category';
+import { IProduct } from '../product';
+import { IProductCategory } from '../product-category';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +13,11 @@ export class ProductService {
     private http: HttpClient,
   ) { }
 
-  getAllCategoriesRx(): Observable<Array<ProductCategory>> {
-    return this.http.get<Array<ProductCategory>>('/api/category/all');
+  getAllCategoriesRx(): Observable<Array<IProductCategory>> {
+    return this.http.get<Array<IProductCategory>>('/api/category/all');
   }
 
-  getAllProductsInCategoryRx(categoryId: string): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>(`/api/category/${categoryId}/product/all`);
+  getAllProductsInCategoryRx(categoryId: string): Observable<Array<IProduct>> {
+    return this.http.get<Array<IProduct>>(`/api/category/${categoryId}/product/all`);
   }
 }

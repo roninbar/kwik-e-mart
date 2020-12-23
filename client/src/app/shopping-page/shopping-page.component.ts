@@ -5,8 +5,8 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 import { OrderItem } from '../order-item';
-import { Product } from '../product';
-import { ProductCategory } from '../product-category';
+import { IProduct } from '../product';
+import { IProductCategory } from '../product-category';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -15,11 +15,11 @@ import { ProductService } from '../services/product.service';
 })
 export class ShoppingPageComponent {
 
-  readonly allCategories$: Observable<Array<ProductCategory>> = this.productService.getAllCategoriesRx();
+  readonly allCategories$: Observable<Array<IProductCategory>> = this.productService.getAllCategoriesRx();
 
   categoryName$: Observable<string> = this.getCategoryNameRx(this.getCategoryId());
 
-  allProductsInCategory$: Observable<Array<Product>> = this.productService.getAllProductsInCategoryRx(this.getCategoryId());
+  allProductsInCategory$: Observable<Array<IProduct>> = this.productService.getAllProductsInCategoryRx(this.getCategoryId());
 
   constructor(
     private authService: AuthService,
@@ -39,7 +39,7 @@ export class ShoppingPageComponent {
     return this.cartService.getAllItems();
   }
 
-  setCartItem(product: Product, amount: number = 1): void {
+  setCartItem(product: IProduct, amount: number = 1): void {
     this.cartService.setItem(product, amount);
   }
 
@@ -51,7 +51,7 @@ export class ShoppingPageComponent {
     this.authService.logOutRx().subscribe();
   }
 
-  productIdOfProduct(index: number, product: Product): string {
+  productIdOfProduct(index: number, product: IProduct): string {
     return product._id;
   }
 

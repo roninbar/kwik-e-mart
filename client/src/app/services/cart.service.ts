@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CartItemsMap } from '../cart-items-map';
+import { ICartItemsMap } from '../cart-items-map';
 import { OrderItem } from '../order-item';
-import { Product } from '../product';
+import { IProduct } from '../product';
 
 const CARTITEMS = 'cartItems';
 
@@ -50,7 +50,7 @@ export class CartService {
     return Object.values(this.getCartItemsMap());
   }
 
-  setItem(product: Product, amount: number): void {
+  setItem(product: IProduct, amount: number): void {
     const map = this.getCartItemsMap();
     if (amount > 0) {
       map[product._id] = new OrderItem(product, amount);
@@ -61,11 +61,11 @@ export class CartService {
     this.setCartItemsMap(map);
   }
 
-  private getCartItemsMap(): CartItemsMap {
+  private getCartItemsMap(): ICartItemsMap {
     return JSON.parse(localStorage.getItem(CARTITEMS) || '{}');
   }
 
-  private setCartItemsMap(map: CartItemsMap): void {
+  private setCartItemsMap(map: ICartItemsMap): void {
     localStorage.setItem(CARTITEMS, JSON.stringify(map));
   }
 
