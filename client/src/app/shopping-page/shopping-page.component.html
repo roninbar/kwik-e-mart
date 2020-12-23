@@ -36,9 +36,9 @@
         <button type="button" mat-icon-button (click)="categories.toggle()">
           <mat-icon>menu</mat-icon>
         </button>
-        <span class="spacer"></span>
+        <span class="flex-fill"></span>
         <span>{{categoryName$ | async}}</span>
-        <span class="spacer"></span>
+        <span class="flex-fill"></span>
         <a mat-button routerLink="/login" (click)="logOut()">Log Out</a>
         <button type="button" mat-icon-button [matBadge]="getAllCartItems().length" matBadgeColor="warn" (click)="cart.toggle()">
           <mat-icon>shopping_cart</mat-icon>
