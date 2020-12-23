@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -17,7 +17,7 @@ export class AuthService {
    * @param password Password
    */
   public logInRx(username, password): Observable<void> {
-    return this.http.post<void>('/api/auth/login', { username, password });
+    return this.http.post<void>('/api/auth/login', new HttpParams({ fromObject: { username, password } }));
   }
 
   /**
