@@ -16,7 +16,7 @@ export class AuthService {
    * @param username Username
    * @param password Password
    */
-  public logInRx(username, password): Observable<void> {
+  public logInRx(username: string, password: string): Observable<void> {
     return this.http.post<void>('/api/auth/login', new HttpParams({ fromObject: { username, password } }));
   }
 
