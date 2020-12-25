@@ -35,6 +35,16 @@ export class ShoppingPageComponent {
     });
   }
 
+  cartIsEmpty(): boolean {
+    const cartItems = this.cartService.getAllItems();
+    return cartItems.length === 0;
+  }
+
+  getNumberOfCartItems(): number {
+    const cartItems = this.cartService.getAllItems();
+    return cartItems.reduce((a, { quantity: b }) => a + b, 0);
+  }
+
   getAllCartItems(): Array<OrderItem> {
     return this.cartService.getAllItems();
   }
