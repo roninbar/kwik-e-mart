@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AlertService } from './services/alert.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,10 @@ import { AlertService } from './services/alert.service';
 })
 export class AppComponent {
 
-  title = 'Kwik-E-Mart';
+  public title = 'Kwik-E-Mart';
 
-  constructor(
+  public constructor(
+    public authService: AuthService,
     private alertService: AlertService,
     private snackBar: MatSnackBar,
     private router: Router,
@@ -20,7 +22,7 @@ export class AppComponent {
     this.alertService.alert.subscribe((message) => this.openSnackBar(message));
   }
 
-  async goToHomePage(): Promise<boolean> {
+  public async goToHomePage(): Promise<boolean> {
     return await this.router.navigateByUrl('/');
   }
 

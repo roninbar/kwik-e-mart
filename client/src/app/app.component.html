@@ -3,6 +3,7 @@
         <span class="flex-fill"></span>
         <span class="cursor-pointer" (click)="goToHomePage()">{{title}}</span>
         <span class="flex-fill"></span>
+        <span *ngIf="authService.userIsLoggedIn()">Hello, {{authService.getLoggedInUser().name.first}}!</span>
     </mat-toolbar-row>
 </mat-toolbar>
 
