@@ -15,11 +15,11 @@ import { ProductService } from '../services/product.service';
 })
 export class ShoppingPageComponent {
 
-  readonly allCategories$: Observable<Array<IProductCategory>> = this.productService.getAllCategoriesRx();
+  public readonly allCategories$: Observable<Array<IProductCategory>> = this.productService.getAllCategoriesRx();
 
-  categoryName$: Observable<string> = this.getCategoryNameRx(this.getCategoryId());
+  public categoryName$: Observable<string> = this.getCategoryNameRx(this.getCategoryId());
 
-  allProductsInCategory$: Observable<Array<IProduct>> = this.productService.getAllProductsInCategoryRx(this.getCategoryId());
+  public allProductsInCategory$: Observable<Array<IProduct>> = this.productService.getAllProductsInCategoryRx(this.getCategoryId());
 
   constructor(
     private authService: AuthService,

@@ -1,12 +1,12 @@
 <mat-sidenav-container class="sidenav-container">
 
-    <!-- Categories Sidenav -->
-    <mat-sidenav #categories position="start" class="sidenav" fixedInViewport mode="over">
+    <!-- Categories Menu -->
+    <mat-menu #categories class="sidenav">
         <mat-toolbar>Categories</mat-toolbar>
         <mat-nav-list>
             <a mat-list-item *ngFor="let category of allCategories$ | async" routerLink="/category/{{category._id}}">{{category.name}}</a>
         </mat-nav-list>
-    </mat-sidenav>
+    </mat-menu>
 
     <!-- Shopping Cart Sidenav -->
     <mat-sidenav #cart position="end" class="sidenav" fixedInViewport mode="over">
@@ -34,12 +34,12 @@
         <!-- Main Toolbar -->
         <mat-toolbar color="primary">
             <mat-toolbar-row>
-                <button type="button" mat-icon-button (click)="categories.toggle()">
+                <button type="button" mat-icon-button>
                     <mat-icon>menu</mat-icon>
                 </button>
-                <span class="cursor-pointer" (click)="goToHomePage()">{{title}}</span>
+                <span class="mx-3 cursor-pointer" (click)="goToHomePage()">{{title}}</span>
                 <span class="flex-fill"></span>
-                <!-- <span>{{categoryName$ | async}}</span> -->
+                <button [matMenuTriggerFor]="categories">{{categoryName$ | async}}</button>
                 <span class="flex-fill"></span>
                 <ng-container *ngIf="authService.userIsLoggedIn()">
                     <span>Hello, {{authService.getLoggedInUser().name.first}}!</span>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { OrderItem } from './order-item';
 import { IProduct } from './product';
 import { IProductCategory } from './product-category';
@@ -19,13 +20,16 @@ export class AppComponent {
 
   public title = 'Kwik-E-Mart';
 
-  readonly allCategories$: Observable<Array<IProductCategory>> = this.productService.getAllCategoriesRx();
+  public readonly allCategories$: Observable<Array<IProductCategory>> = this.productService.getAllCategoriesRx();
+
+  public categoryName$: Observable<string> = this.getCategoryNameRx(this.getCategoryId());
 
   public constructor(
     public authService: AuthService,
     private alertService: AlertService,
     private cartService: CartService,
     private productService: ProductService,
+    private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
   ) {
@@ -36,28 +40,28 @@ export class AppComponent {
     return await this.router.navigateByUrl('/');
   }
 
-  cartIsEmpty(): boolean {
+  public cartIsEmpty(): boolean {
     const cartItems = this.cartService.getAllCartItems();
     return cartItems.length === 0;
   }
 
-  getAllCartItems(): Array<OrderItem> {
+  public getAllCartItems(): Array<OrderItem> {
     return this.cartService.getAllCartItems();
   }
 
-  setCartItem(product: IProduct, quantity: number = 1): void {
+  public setCartItem(product: IProduct, quantity: number = 1): void {
     this.cartService.setCartItem(product, quantity);
   }
 
-  checkOutAsync(f): Promise<boolean> {
+  public checkOutAsync(f): Promise<boolean> {
     return this.router.navigateByUrl('/checkout');
   }
 
-  getNumberOfCartItems(): number {
+  public getNumberOfCartItems(): number {
     return this.cartService.getAllCartItems().reduce((a, { quantity: b }) => a + b, 0);
   }
 
-  productIdOfCartItem(index: number, item: OrderItem): string {
+  public productIdOfCartItem(index: number, item: OrderItem): string {
     return item.product._id;
   }
 
@@ -68,4 +72,18 @@ export class AppComponent {
   private openSnackBar(message: string): void {
     this.snackBar.open(message, 'Dismiss');
   }
+
+  private getCategoryNameRx(categoryId: string): Observable<string> {
+    return this.allCategories$.pipe(map(allCategories => {
+      const category = allCategories.find(({ _id }) => {
+        return _id === categoryId;
+      });
+      return category.name;
+    }));
+  }
+
+  private getCategoryId(): string {
+    return this.route.snapshot.paramMap.get('categoryId');
+  }
+
 }
