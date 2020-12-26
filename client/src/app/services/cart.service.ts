@@ -15,11 +15,11 @@ export class CartService {
     this.validateStoredCart();
   }
 
-  getAllItems(): Array<OrderItem> {
+  getAllCartItems(): Array<OrderItem> {
     return Object.values(this.getCartItemsMap());
   }
 
-  setItem(product: IProduct, quantity: number): void {
+  setCartItem(product: IProduct, quantity: number): void {
     const map = this.getCartItemsMap();
     if (quantity > 0) {
       map[product._id] = new OrderItem(product, quantity);
@@ -28,6 +28,10 @@ export class CartService {
       delete map[product._id];
     }
     this.setCartItemsMap(map);
+  }
+
+  emptyCart(): void {
+    this.setCartItemsMap({});
   }
 
   private getCartItemsMap(): ICartItemsMap {

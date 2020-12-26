@@ -36,21 +36,21 @@ export class ShoppingPageComponent {
   }
 
   cartIsEmpty(): boolean {
-    const cartItems = this.cartService.getAllItems();
+    const cartItems = this.cartService.getAllCartItems();
     return cartItems.length === 0;
   }
 
   getNumberOfCartItems(): number {
-    const cartItems = this.cartService.getAllItems();
+    const cartItems = this.cartService.getAllCartItems();
     return cartItems.reduce((a, { quantity: b }) => a + b, 0);
   }
 
   getAllCartItems(): Array<OrderItem> {
-    return this.cartService.getAllItems();
+    return this.cartService.getAllCartItems();
   }
 
   setCartItem(product: IProduct, quantity: number = 1): void {
-    this.cartService.setItem(product, quantity);
+    this.cartService.setCartItem(product, quantity);
   }
 
   checkOutAsync(f): Promise<boolean> {

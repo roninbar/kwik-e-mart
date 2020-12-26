@@ -37,16 +37,16 @@ export class AppComponent {
   }
 
   cartIsEmpty(): boolean {
-    const cartItems = this.cartService.getAllItems();
+    const cartItems = this.cartService.getAllCartItems();
     return cartItems.length === 0;
   }
 
   getAllCartItems(): Array<OrderItem> {
-    return this.cartService.getAllItems();
+    return this.cartService.getAllCartItems();
   }
 
   setCartItem(product: IProduct, quantity: number = 1): void {
-    this.cartService.setItem(product, quantity);
+    this.cartService.setCartItem(product, quantity);
   }
 
   checkOutAsync(f): Promise<boolean> {
@@ -54,7 +54,7 @@ export class AppComponent {
   }
 
   getNumberOfCartItems(): number {
-    return this.cartService.getAllItems().reduce((a, { quantity: b }) => a + b, 0);
+    return this.cartService.getAllCartItems().reduce((a, { quantity: b }) => a + b, 0);
   }
 
   productIdOfCartItem(index: number, item: OrderItem): string {

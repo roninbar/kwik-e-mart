@@ -18,7 +18,10 @@ export class CheckoutPageComponent {
   ) { }
 
   placeOrder(f: NgForm): void {
-    this.orderService.placeOrderRx(f.value).subscribe(async () => await this.router.navigateByUrl('/thankyou'));
+    this.orderService.placeOrderRx(f.value).subscribe(async () => {
+      this.cartService.emptyCart();
+      await this.router.navigateByUrl('/thankyou');
+    });
   }
 
   productIdOfCartItem(index: number, item: OrderItem): string {

@@ -1,8 +1,8 @@
 <form method="post" action="/api/order" #f="ngForm" (ngSubmit)="placeOrder(f)">
     <mat-vertical-stepper linear #stepper>
         <mat-step label="Review your order.">
-            <app-order-items-table [dataSource]="cartService.getAllItems()"></app-order-items-table>
-            <ng-container *ngFor="let item of cartService.getAllItems(); let i = index; trackBy: productIdOfCartItem">
+            <app-order-items-table [dataSource]="cartService.getAllCartItems()"></app-order-items-table>
+            <ng-container *ngFor="let item of cartService.getAllCartItems(); let i = index; trackBy: productIdOfCartItem">
                 <input type="hidden" name="items[{{i}}][product]" [ngModel]="item.product._id">
                 <input type="hidden" name="items[{{i}}][quantity]" [ngModel]="item.quantity">
             </ng-container>
