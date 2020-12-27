@@ -39,7 +39,7 @@
                 </button>
                 <span class="mx-3 cursor-pointer" (click)="goToHomePage()">{{title}}</span>
                 <span class="flex-fill"></span>
-                <button [matMenuTriggerFor]="categories">{{categoryName$ | async}}</button>
+                <button *ngIf="!!(categoryName$ | async)" [matMenuTriggerFor]="categories">{{categoryName$ | async}}</button>
                 <span class="flex-fill"></span>
                 <ng-container *ngIf="authService.userIsLoggedIn()">
                     <span>Hello, {{authService.getLoggedInUser().name.first}}!</span>
