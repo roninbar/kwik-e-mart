@@ -46,11 +46,11 @@ app.use('/api/user', require('./routers/user'));
 app.use('/api/category', passport.allow('user', 'admin'), require('./routers/category'));
 app.use('/api/order', require('./routers/order'));
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public', 'shop')));
 
 app.get('/*', function (req, res, next) {
     return '' === path.extname(req.path) && 'html' === req.accepts('html', 'json', 'xml')
-        ? res.sendFile(path.join(__dirname, 'public', 'index.html'))
+        ? res.sendFile(path.join(__dirname, 'public', 'shop', 'index.html'))
         : next();
 });
 
