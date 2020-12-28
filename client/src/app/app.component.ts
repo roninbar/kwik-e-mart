@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { distinctUntilChanged, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
 import { OrderItem } from './order-item';
 import { IProduct } from './product';
 import { IProductCategory } from './product-category';
@@ -16,13 +16,22 @@ import { ProductService } from './services/product.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-
+export class AppComponent implements OnInit {
   public title = 'Kwik-E-Mart';
 
   public readonly allCategories$: Observable<Array<IProductCategory>> = this.productService.getAllCategoriesRx();
 
-  public categoryName$: Observable<string> = this.getCategoryNameRx(this.getCategoryId());
+  public readonly categoryName$: Observable<string> = this.router.events.pipe(
+    filter((event) => event instanceof NavigationEnd),
+    switchMap(() => this.route.firstChild?.params || of({})),
+    tap(console.log),
+    map((params: any) => params.categoryId),
+    filter((category) => !!category),
+    distinctUntilChanged(),
+    switchMap((category) => this.getCategoryNameRx(category)),
+    tap(console.log),
+    shareReplay(1),
+  );
 
   public constructor(
     public authService: AuthService,
@@ -32,7 +41,9 @@ export class AppComponent {
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-  ) {
+  ) { }
+
+  public ngOnInit(): void {
     this.alertService.alert.subscribe((message) => this.openSnackBar(message));
   }
 
@@ -74,16 +85,9 @@ export class AppComponent {
   }
 
   private getCategoryNameRx(categoryId: string): Observable<string> {
-    return this.allCategories$.pipe(map(allCategories => {
-      const category = allCategories.find(({ _id }) => {
-        return _id === categoryId;
-      });
-      return category.name;
-    }));
-  }
-
-  private getCategoryId(): string {
-    return this.route.snapshot.paramMap.get('categoryId');
+    return this.allCategories$.pipe(
+      map(categories => categories.find(category => category._id === categoryId).name),
+    );
   }
 
 }
