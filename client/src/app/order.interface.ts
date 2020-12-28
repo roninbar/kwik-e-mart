@@ -1,3 +1,5 @@
+import { IProduct } from './product';
+
 export interface IOrder {
     _id: string;
     createdAt: string;
@@ -27,8 +29,8 @@ export interface IOrder {
             last4: string;
         };
     };
-    products: {
-        id: string;
+    items: {
+        product: IProduct;
         quantity: number;
     }[];
 }
