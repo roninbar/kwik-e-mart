@@ -15,9 +15,9 @@ const schema = new Schema({
             last4: { type: String, match: /^\w{4}$/, required: true, trim: true },
         }
     },
-    products: [{
+    items: [{
         _id: { type: Schema.Types.ObjectId, select: false },
-        id: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+        product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
         quantity: { type: Number, required: true },
     }],
 }, {
@@ -25,9 +25,9 @@ const schema = new Schema({
 });
 
 schema.virtual('payment.cc.number').set(function (ccnumber) {
-    const match = ccnumber.match(/(\w{4})\s*$/);
-    this.payment.cc.last4 = match && match.length >= 2 && match[1];
-});
+        const match = ccnumber.match(/(\w{4})\s*$/);
+        this.payment.cc.last4 = match && match.length >= 2 && match[1];
+    });
 
 module.exports = model('Order', schema);
 
