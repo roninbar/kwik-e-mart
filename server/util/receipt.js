@@ -1,8 +1,10 @@
+const path = require('path');
 const { promises: fs } = require('fs');
 const { mdToPdf } = require('md-to-pdf');
-const path = require('path');
 
-async function generateReceipt(order, dir) {
+async function generateReceipt(order) {
+    await order.populate('items.product').execPopulate();
+    const dir = path.join(global.staticFilesDir, 'receipts');
     await fs.mkdir(dir, { recursive: true });
     const rows = order.items.map(({ product: { name, price }, quantity }, idx) => `${idx + 1} | ${name} | ${quantity} | ${price} | ${quantity * price}`).join('\n');
     const totalItems = order.items.reduce((sum, { quantity }) => sum + quantity, 0);

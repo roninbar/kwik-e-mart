@@ -4,7 +4,7 @@ const debug = require('debug');
 const { Router } = require('express');
 const Order = require('../models/Order');
 const passport = require('../util/passport');
-const { generateReceipt } = require('../util/receipt');
+const { createResource } = require('./utils');
 
 const log = debug('server:order');
 
@@ -13,15 +13,8 @@ const router = new Router();
 router.post('/', passport.allow('user'), async function ({ originalUrl, user, body }, res) {
     log(util.inspect({ user, body }, { depth: 4, colors: true }));
     const order = new Order({ customer: user, ...body });
-    await order.populate('items.product').execPopulate();
-    const { pdf: { filename: receiptFilename } } = await generateReceipt(order, path.join(global.staticFilesDir, 'receipts'));
-    const receiptUrl = '/' + path.relative(global.staticFilesDir, receiptFilename).replace(path.sep, '/');
     try {
-        const { _id } = await order.save();
-        return res.set('Content-Location', `${originalUrl}/${_id}`).status(201).json({
-            ...order.toObject(),
-            receiptUrl,
-        });
+        return await createResource(originalUrl, order, res);
     } catch (e) {
         const errors = e.errors ? Object.values(e.errors) : [];
         const messages = errors.map(({ message }) => message).join('\n');
