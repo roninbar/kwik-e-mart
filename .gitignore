@@ -3,3 +3,4 @@ debug.log
 .vscode/launch.json
 *.zip
 server/public/receipts
+server/public/shop/receipts

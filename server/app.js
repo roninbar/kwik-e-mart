@@ -12,6 +12,8 @@ const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/shop';
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET'] || '';
 
+global.staticFilesDir = path.join(__dirname, 'public', 'shop');
+
 debug('server:mongodb')(`Connecting to ${MONGODBURL}...`);
 mongoose.connect(MONGODBURL, {
     useUnifiedTopology: true,
@@ -46,7 +48,7 @@ app.use('/api/user', require('./routers/user'));
 app.use('/api/category', passport.allow('user', 'admin'), require('./routers/category'));
 app.use('/api/order', require('./routers/order'));
 
-app.use(express.static(path.join(__dirname, 'public', 'shop')));
+app.use(express.static(global.staticFilesDir));
 
 app.get('/*', function (req, res, next) {
     return '' === path.extname(req.path) && 'html' === req.accepts('html', 'json', 'xml')

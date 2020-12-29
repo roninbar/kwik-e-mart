@@ -1,4 +1,5 @@
 const { model, Schema } = require('mongoose');
+const debug = require('debug')('server:order');
 
 const schema = new Schema({
     customer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -32,6 +33,10 @@ schema.virtual('payment.cc.number')
         const match = ccnumber.match(/(\w{4})\s*$/);
         this.payment.cc.last4 = match && match.length >= 2 && match[1];
     });
+
+schema.post('save', function () {
+    debug(this);
+});
 
 module.exports = model('Order', schema);
 
