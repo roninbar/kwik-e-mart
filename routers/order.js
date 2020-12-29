@@ -14,10 +14,14 @@ router.post('/', passport.allow('user'), async function ({ originalUrl, user, bo
     log(util.inspect({ user, body }, { depth: 4, colors: true }));
     const order = new Order({ customer: user, ...body });
     await order.populate('items.product').execPopulate();
-    const { pdf: { filename: receipt } } = await generateReceipt(order, path.join(__dirname, '../public/receipts'));
+    const { pdf: { filename: receiptFilename } } = await generateReceipt(order, path.join(global.staticFilesDir, 'receipts'));
+    const receiptUrl = '/' + path.relative(global.staticFilesDir, receiptFilename).replace(path.sep, '/');
     try {
         const { _id } = await order.save();
-        return res.set('Content-Location', `${originalUrl}/${_id}`).status(201).json({ ...order.toObject(), receipt });
+        return res.set('Content-Location', `${originalUrl}/${_id}`).status(201).json({
+            ...order.toObject(),
+            receiptUrl,
+        });
     } catch (e) {
         const errors = e.errors ? Object.values(e.errors) : [];
         const messages = errors.map(({ message }) => message).join('\n');
