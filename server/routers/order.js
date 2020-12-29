@@ -1,11 +1,10 @@
-const { promises: fs } = require('fs');
 const path = require('path');
 const util = require('util');
 const debug = require('debug');
 const { Router } = require('express');
-const { mdToPdf } = require('md-to-pdf');
 const Order = require('../models/Order');
 const passport = require('../util/passport');
+const { generateReceipt } = require('../util/receipt');
 
 const log = debug('server:order');
 
@@ -37,18 +36,4 @@ router.get('/:id', async function ({ params: { id } }, res) {
 })
 
 module.exports = router;
-
-async function generateReceipt(order, dir) {
-    await fs.mkdir(dir, { recursive: true });
-    const rows = order.items.map(({ product: { name, price }, quantity }, idx) => `${idx + 1} | ${name} | ${quantity} | ${price} | ${quantity * price}`).join('\n');
-    const total = order.items.reduce((sum, { product: { price }, quantity }) => sum + quantity * price, 0);
-    const markdown =
-        `\\# | Product | Quantity | Price | Total
--|-|-|-|-
-${rows}
-| **Total:** | | | **${total}**`;
-    await fs.writeFile(path.join(dir, `${order._id}.md`), markdown);
-    const pdf = await mdToPdf({ content: markdown }, { dest: path.join(dir, `${order._id}.pdf`) });
-    return { markdown, pdf };
-}
 
