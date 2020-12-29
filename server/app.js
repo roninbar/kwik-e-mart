@@ -52,7 +52,7 @@ app.use(express.static(global.staticFilesDir));
 
 app.get('/*', function (req, res, next) {
     return '' === path.extname(req.path) && 'html' === req.accepts('html', 'json', 'xml')
-        ? res.sendFile(path.join(__dirname, 'public', 'shop', 'index.html'))
+        ? res.sendFile(path.join(global.staticFilesDir, 'index.html'))
         : next();
 });
 
