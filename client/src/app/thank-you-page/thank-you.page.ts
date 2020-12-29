@@ -29,9 +29,9 @@ export class ThankYouPage implements OnInit {
       products =>
         this.orderService
           .getLastOrder()
-          .products
-          .map(({ id, quantity }) => new OrderItem(
-            products.find(({ _id }) => _id === id),
+          .items
+          .map(({ product: { _id: productId }, quantity }) => new OrderItem(
+            products.find(({ _id }) => _id === productId),
             quantity,
           ))
     ));
