@@ -24,7 +24,11 @@ const schema = new Schema({
     timestamps: true,
 });
 
-schema.virtual('payment.cc.number').set(function (ccnumber) {
+schema.virtual('payment.cc.number')
+    .get(function () {
+        return `**** **** **** ${this.payment.cc.last4}`;
+    })
+    .set(function (ccnumber) {
         const match = ccnumber.match(/(\w{4})\s*$/);
         this.payment.cc.last4 = match && match.length >= 2 && match[1];
     });
