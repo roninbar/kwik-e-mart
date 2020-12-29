@@ -1,5 +1,9 @@
+const path = require('path');
+const debug = require('debug');
 const { model, Schema } = require('mongoose');
-const debug = require('debug')('server:order');
+const { generateReceipt } = require('../util/receipt');
+
+const log = debug('server:order');
 
 const schema = new Schema({
     customer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
@@ -21,6 +25,7 @@ const schema = new Schema({
         product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
         quantity: { type: Number, required: true },
     }],
+    receiptUrl: String,
 }, {
     timestamps: true,
 });
@@ -34,8 +39,10 @@ schema.virtual('payment.cc.number')
         this.payment.cc.last4 = match && match.length >= 2 && match[1];
     });
 
-schema.post('save', function () {
-    debug(this);
+schema.post('save', async function (order, next) {
+    const { pdf: { filename: receiptFilename } } = await generateReceipt(order);
+    order.receiptUrl = '/' + path.relative(global.staticFilesDir, receiptFilename).replace(path.sep, '/');
+    return next();
 });
 
 module.exports = model('Order', schema);
