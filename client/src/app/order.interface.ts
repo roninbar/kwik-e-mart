@@ -33,4 +33,5 @@ export interface IOrder {
         product: IProduct;
         quantity: number;
     }[];
+    receiptUrl: string;
 }
