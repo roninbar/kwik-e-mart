@@ -16,5 +16,13 @@ export class OrderItemsTableComponent {
   @Input() dataSource: OrderItem[];
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['name', 'qty', 'price', 'total'];
+  displayedColumns = ['name', 'quantity', 'price', 'total'];
+
+  public totalItems(): number {
+    return this.dataSource.reduce((sum, { quantity }) => sum + quantity, 0);
+  }
+
+  public totalPrice(): number {
+    return this.dataSource.reduce((sum, { product: { price } }) => sum + price, 0);
+  }
 }
