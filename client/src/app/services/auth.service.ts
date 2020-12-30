@@ -4,7 +4,20 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IUser } from './user.interface';
 
-const NOUSER = { username: '', name: { first: '', last: '' } };
+const NOUSER = {
+  _id: '',
+  role: 'user',
+  email: '',
+  name: {
+    first: '',
+    last: '',
+  },
+  address: {
+    city: '',
+    street: '',
+    house: 0,
+  },
+};
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +31,7 @@ export class AuthService {
   ) { }
 
   public userIsLoggedIn(): boolean {
-    return Boolean(this.loggedInUser.username);
+    return Boolean(this.loggedInUser.email);
   }
 
   public getLoggedInUser(): IUser {

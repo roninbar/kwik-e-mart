@@ -7,7 +7,7 @@
                     <mat-horizontal-stepper linear #stepper>
                         <mat-step label="Step 1">
                             <div class="form-group">
-                                <input class="form-control p-3" type="text" name="id" id="id" autocomplete="off" placeholder="ID (ת.ז.)" required ngModel>
+                                <input class="form-control p-3" type="text" name="_id" id="id" autocomplete="off" placeholder="ID (ת.ז.)" required ngModel>
                             </div>
                             <div class="form-group">
                                 <input class="form-control p-3" type="email" name="email" id="email" autocomplete="email" placeholder="E-Mail" required ngModel>
@@ -17,7 +17,7 @@
                                     required ngModel>
                             </div>
                             <div class="form-group">
-                                <input class="form-control p-3" type="password" id="passwordRepeat" autocomplete="new-password" placeholder="Repeat Password"
+                                <input class="form-control p-3" type="password" name="passwordRepeat" id="passwordRepeat" autocomplete="off" placeholder="Repeat Password"
                                     required ngModel>
                             </div>
                             <div>
@@ -27,28 +27,28 @@
                         <mat-step label="Step 2">
                             <div class="form-group">
                                 <select class="custom-select" name="city" id="city" placeholder="City" required ngModel>
-                                    <option value="jerusalem">Jerusalem</option>
-                                    <option value="tel-aviv">Tel Aviv</option>
-                                    <option value="haifa">Haifa</option>
-                                    <option value="rishon-lezion">Rishon LeZion</option>
-                                    <option value="petah-tikva">Petah Tikva</option>
-                                    <option value="ashdod">Ashdod</option>
-                                    <option value="netanya">Netanya</option>
-                                    <option value="beer-sheva">Beer Sheva</option>
-                                    <option value="bnei-brak">Bnei Brak</option>
-                                    <option value="holon">Holon</option>
+                                    <option value="Jerusalem">Jerusalem</option>
+                                    <option value="Tel Aviv">Tel Aviv</option>
+                                    <option value="Haifa">Haifa</option>
+                                    <option value="Rishon LeZion">Rishon LeZion</option>
+                                    <option value="Petah Tikva">Petah Tikva</option>
+                                    <option value="Ashdod">Ashdod</option>
+                                    <option value="Netanya">Netanya</option>
+                                    <option value="Beer Sheva">Beer Sheva</option>
+                                    <option value="Bnei Brak">Bnei Brak</option>
+                                    <option value="Holon">Holon</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input class="form-control p-3" type="text" name="street" id="street" autocomplete="street-address" placeholder="Street Address"
+                                <input class="form-control p-3" type="text" name="streetAddress" id="streetAddress" autocomplete="street-address"
+                                    placeholder="Street Address" required ngModel>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control p-3" type="text" name="firstName" id="firstName" autocomplete="given-name" placeholder="First Name"
                                     required ngModel>
                             </div>
                             <div class="form-group">
-                                <input class="form-control p-3" type="text" name="first-name" id="firstName" autocomplete="given-name" placeholder="First Name"
-                                    required ngModel>
-                            </div>
-                            <div class="form-group">
-                                <input class="form-control p-3" type="text" name="last-name" id="lastName" autocomplete="family-name" placeholder="Last Name"
+                                <input class="form-control p-3" type="text" name="lastName" id="lastName" autocomplete="family-name" placeholder="Last Name"
                                     required ngModel>
                             </div>
                             <div class="form-group">
