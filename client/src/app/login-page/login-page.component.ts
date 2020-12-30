@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginPageComponent {
 
-  username: string;
+  email: string;
   password: string;
 
   constructor(
@@ -22,7 +22,7 @@ export class LoginPageComponent {
   ) { }
 
   onSubmit(): void {
-    this.authService.logInRx(this.username, this.password)
+    this.authService.logInRx(this.email, this.password)
       .pipe(catchError((error: HttpErrorResponse) => {
         this.alertService.postAlert(error.statusText);
         if (error.error instanceof ErrorEvent) {

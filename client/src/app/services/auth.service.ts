@@ -40,11 +40,11 @@ export class AuthService {
 
   /**
    * Log in.
-   * @param username Username
+   * @param email E-Mail
    * @param password Password
    */
-  public logInRx(username: string, password: string): Observable<IUser> {
-    return this.http.post<IUser>('/api/auth/login', new HttpParams({ fromObject: { username, password } })).pipe(
+  public logInRx(email: string, password: string): Observable<IUser> {
+    return this.http.post<IUser>('/api/auth/login', new HttpParams({ fromObject: { email, password } })).pipe(
       tap(user => {
         this.loggedInUser = user;
         return user;
