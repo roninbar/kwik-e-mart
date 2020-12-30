@@ -24,6 +24,7 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { OrderItemsTableComponent } from './checkout-page/order-items-table/order-items-table.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
+import { SignupPage } from './signup-page/signup.page';
 import { ThankYouPage } from './thank-you-page/thank-you.page';
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ThankYouPage } from './thank-you-page/thank-you.page';
     LoginPageComponent,
     OrderItemsTableComponent,
     ShoppingPageComponent,
+    SignupPage,
     ThankYouPage,
   ],
   imports: [
