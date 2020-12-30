@@ -7,7 +7,7 @@ const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const router = new Router();
 
 router.post('/login',
-    passport.authenticate('local'),
+    passport.authenticate('local', { userProperty: 'email' }),
     function (req, res) {
         res.json(req.user);
     }

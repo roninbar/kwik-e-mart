@@ -4,7 +4,7 @@ const hash = require('../util/hash');
 const schema = new Schema({
     _id: { type: String, match: /^\d{9}$/ },
     role: { type: String, required: true, enum: ['user', 'admin'] },
-    username: { type: String, required: true, unique: true, trim: true, lowercase: true },
+    email: { type: String, required: true, unique: true, trim: true, lowercase: true },
     passwordHash: { type: String, required: true, select: false },
     name: {
         first: { type: String, required: true, trim: true },
@@ -56,7 +56,9 @@ schema.virtual('streetAddress')
         return `${this.address.house} ${this.address.street}`;
     })
     .set(function (streetAddress) {
-        const { groups: { house, street } } = streetAddress.match(/^(?<house>\d+)\s+(?<street>.*)$/);
+        const { groups: { house, street } } =
+            streetAddress.match(/^(?<house>\d+)\s+(?<street>.*)$/) ||
+            streetAddress.match(/^(?<street>.*)\s+(?<house>\d+)$/);
         Object.assign(this.address, { street, house });
     });
 

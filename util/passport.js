@@ -3,9 +3,9 @@ const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 const User = require('../models/User');
 
-passport.use(new LocalStrategy(async function (username, password, done) {
+passport.use(new LocalStrategy(async function (email, password, done) {
     try {
-        const user = await User.findOne({ username }, '+passwordHash');
+        const user = await User.findOne({ email }, '+passwordHash');
         return done(null, user && user.validPassword(password) && user.set('passwordHash', undefined));
     }
     catch (error) {
