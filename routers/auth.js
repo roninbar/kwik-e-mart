@@ -1,15 +1,17 @@
-const debug = require('debug')('server:auth');
+const debug = require('debug');
 const { Router } = require('express');
 const passport = require('../util/passport');
 
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 
+const log = debug('server:auth');
+
 const router = new Router();
 
 router.post('/login',
-    passport.authenticate('local', { userProperty: 'email' }),
+    passport.authenticate('local'),
     function (req, res) {
-        res.json(req.user);
+        return res.json(req.user);
     }
 );
 
