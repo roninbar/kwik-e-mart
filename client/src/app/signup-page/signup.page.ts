@@ -1,14 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   templateUrl: './signup.page.html',
   styleUrls: ['./signup.page.css']
 })
-export class SignupPage implements OnInit {
+// tslint:disable-next-line: component-class-suffix
+export class SignupPage {
 
   constructor() { }
 
-  ngOnInit(): void {
+  public submit(f: NgForm): void {
+    console.log(f.value);
   }
 
 }
