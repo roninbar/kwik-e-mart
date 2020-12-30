@@ -16,6 +16,7 @@ router.post('/', passport.allow('user'), async function ({ originalUrl, user, bo
     try {
         return await createResource(originalUrl, order, res);
     } catch (e) {
+        log(e);
         const errors = e.errors ? Object.values(e.errors) : [];
         const messages = errors.map(({ message }) => message).join('\n');
         return res.status(e.errors ? 400 : 500).send(messages);
