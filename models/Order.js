@@ -5,6 +5,18 @@ const { generateReceipt } = require('../util/receipt');
 
 const log = debug('server:order');
 
+const itemSchema = new Schema({
+    product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
+    quantity: { type: Number, required: true },
+    purchasePrice: { type: Schema.Types.Decimal128, get: Number, required: true },
+}, {
+    _id: false,
+    id: false,
+    toJSON: {
+        getters: true,
+    },
+});
+
 const schema = new Schema({
     customer: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     delivery: {
@@ -17,27 +29,35 @@ const schema = new Schema({
     },
     payment: {
         cc: {
-            last4: { type: String, match: /^\w{4}$/, required: true, trim: true },
-        }
+            number: {
+                type: String,
+                match: /^\w{4}$/,
+                trim: true,
+                get(value) {
+                    return `**** **** **** ${value}`;
+                },
+                set(value) {
+                    const match = value.match(/(\w{4})\s*$/);
+                    return match && match.length >= 2 && match[1];
+                },
+                required: true,
+            },
+        },
     },
-    items: [{
-        _id: { type: Schema.Types.ObjectId, select: false },
-        product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
-        quantity: { type: Number, required: true },
-    }],
+    items: [itemSchema],
     receiptUrl: String,
 }, {
+    id: false,
     timestamps: true,
+    toJSON: {
+        depopulate: true,
+        getters: true,
+    },
 });
 
-schema.virtual('payment.cc.number')
-    .get(function () {
-        return `**** **** **** ${this.payment.cc.last4}`;
-    })
-    .set(function (ccnumber) {
-        const match = ccnumber.match(/(\w{4})\s*$/);
-        this.payment.cc.last4 = match && match.length >= 2 && match[1];
-    });
+schema.virtual('total').get(function () {
+    return this.items.reduce((sum, { quantity, purchasePrice }) => sum + quantity * purchasePrice, 0).toFixed(2);
+});
 
 schema.post('save', async function (order, next) {
     const { pdf: { filename: receiptFilename } } = await generateReceipt(order);
