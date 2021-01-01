@@ -14,3 +14,29 @@ Method      | URL                                               | Request Payloa
 `DELETE`    | `/api/category/:categoryId/product/:productId`    |                               | Delete the specified product.                     | `admin`               |
 `POST`      | `/api/order`                                      |                               | Check out (create a new order).                   | `user`                |
 `GET`       | `/api/order/:orderId`                             |                               | Get details for the specified order.              | `admin`               |
+
+### Order Flow
+
+```mermaid
+sequenceDiagram
+client->>server: POST /api/order <br/> { items: [{ product: '<id>', price: 100.00, quantity: 8 }], total: 800.00 }
+server->>mongoose: new Order({ items: [{ product: <id>, quantity: 8, price: 100.00 }] })
+mongoose-->>server: order
+server->>mongoose: order.populate('items.product')
+mongoose->>mongo: products.find({ _id: [...] })
+alt No price changes
+mongo-->>mongoose: [{ _id: <productId>, price: 100.00 }]
+mongoose-->>server: 
+server->>server: validate prices
+server->>mongoose: order.save()
+mongoose->>mongo: orders.insertOne({ items: [{ product: <id>, quantity: 8, price: 100.00}] })
+mongo-->>mongoose: { insertId: ObjectId('...') }
+mongoose-->>server: { _id: <orderId>, items: [...], total: 800.00 }
+server-->>client: 201 Created <br/> Content-Location: /api/order/<orderId> <br/> { _id: <orderId>, items: [{ product: '<id>', price: 100.00, quantity: 8 }], total: 800.00 }
+else Some prices have changed
+mongo-->>mongoose: [{ _id: <productId>, price: 110.00 }]
+mongoose-->>server: 
+server->>server: validate prices
+server-->>client: 400 Bad Request <br/> <product> costs 110.00, not 100.00.
+end
+```
