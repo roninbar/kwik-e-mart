@@ -24,6 +24,13 @@ export class CheckoutPageComponent {
     });
   }
 
+  getCartTotal(): string {
+    return this.cartService
+      .getAllCartItems()
+      .reduce((total, { product: { price }, quantity }) => total + quantity * price, 0)
+      .toFixed(2);
+  }
+
   productIdOfCartItem(index: number, item: OrderItem): string {
     return item.product._id;
   }

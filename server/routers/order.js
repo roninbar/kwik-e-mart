@@ -13,14 +13,30 @@ const router = new Router();
 router.post('/', passport.allow('user'), async function ({ originalUrl, user, body }, res) {
     log(util.inspect({ user, body }, { depth: 4, colors: true }));
     const order = new Order({ customer: user, ...body });
-    try {
-        return await createResource(originalUrl, order, res);
-    } catch (e) {
-        log(e);
-        const errors = e.errors ? Object.values(e.errors) : [];
-        const messages = errors.map(({ message }) => message).join('\n');
-        return res.status(e.errors ? 400 : 500).send(messages);
+    await order.populate('items.product').execPopulate();
+    if (+order.total === +body.total && order.items.every(item => item.purchasePrice === item.product.price)) {
+        try {
+            return await createResource(originalUrl, order, res);
+        } catch (e) {
+            log(e);
+            const errors = e.errors ? Object.values(e.errors) : [];
+            const messages = errors.map(({ message }) => message).join('\n');
+            return res.status(e.errors ? 400 : 500).send(messages);
+        }
     }
+    else {
+        return res
+            .status(400)
+            .send(
+                +order.total !== +body.total
+                    ? `Total is ${order.total}, not ${body.total}.`
+                    : order.items
+                        .filter(item => item.purchasePrice !== item.product.priceDecimal)
+                        .map(item => `${item.product.name} costs ${item.product.price}, not ${item.purchasePrice}.`)
+                        .join('\n')
+            );
+    }
+
 });
 
 router.get('/all', async function (req, res) {

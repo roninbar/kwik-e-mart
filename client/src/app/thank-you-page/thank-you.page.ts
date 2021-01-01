@@ -10,31 +10,16 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./thank-you.page.css']
 })
 // tslint:disable-next-line: component-class-suffix
-export class ThankYouPage implements OnInit {
+export class ThankYouPage {
 
   public lastOrder = this.orderService.getLastOrder();
 
-  public lastOrderItems$ = this.getLastOrderItemsRx();
-
   constructor(
     public orderService: OrderService,
-    private productService: ProductService,
   ) { }
 
-  public ngOnInit(): void {
-  }
-
-  private getLastOrderItemsRx(): Observable<Array<OrderItem>> {
-    return this.productService.getAllProductsInCategoryRx('all').pipe(map(
-      products =>
-        this.orderService
-          .getLastOrder()
-          .items
-          .map(({ product: { _id: productId }, quantity }) => new OrderItem(
-            products.find(({ _id }) => _id === productId),
-            quantity,
-          ))
-    ));
+  public getTotalItems(): number {
+    return this.lastOrder.items.reduce((total, { quantity }) => total + quantity, 0);
   }
 
 }

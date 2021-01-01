@@ -22,7 +22,7 @@ export class CartService {
   setCartItem(product: IProduct, quantity: number): void {
     const map = this.getCartItemsMap();
     if (quantity > 0) {
-      map[product._id] = new OrderItem(product, quantity);
+      map[product._id] = new OrderItem(product, quantity, product.price);
     }
     else {
       delete map[product._id];

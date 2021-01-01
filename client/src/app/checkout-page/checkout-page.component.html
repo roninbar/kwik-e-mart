@@ -5,7 +5,9 @@
             <ng-container *ngFor="let item of cartService.getAllCartItems(); let i = index; trackBy: productIdOfCartItem">
                 <input type="hidden" name="items[{{i}}][product]" [ngModel]="item.product._id">
                 <input type="hidden" name="items[{{i}}][quantity]" [ngModel]="item.quantity">
+                <input type="hidden" name="items[{{i}}][purchasePrice]" [ngModel]="item.product.price">
             </ng-container>
+            <input type="hidden" name="total" [ngModel]="getCartTotal()">
             <div>
                 <button type="button" mat-button matStepperNext>Next</button>
             </div>

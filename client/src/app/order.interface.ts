@@ -26,12 +26,14 @@ export interface IOrder {
     };
     payment: {
         cc: {
-            last4: string;
+            number: string;
         };
     };
     items: {
         product: IProduct;
         quantity: number;
+        purchasePrice: number;
     }[];
+    total: string;
     receiptUrl: string;
 }
