@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, shareReplay, switchMap, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { OrderItem } from './order-item';
 import { IProduct } from './product';
 import { IProductCategory } from './product-category';
@@ -24,12 +24,10 @@ export class AppComponent implements OnInit {
   public readonly categoryName$: Observable<string> = this.router.events.pipe(
     filter((event) => event instanceof NavigationEnd),
     switchMap(() => this.route.firstChild?.params || of({})),
-    tap(console.log),
     map((params: any) => params.categoryId),
     filter((category) => !!category),
     distinctUntilChanged(),
     switchMap((category) => this.getCategoryNameRx(category)),
-    tap(console.log),
     shareReplay(1),
   );
 
@@ -44,6 +42,7 @@ export class AppComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
+    document.title = this.title;
     this.alertService.alert.subscribe((message) => this.openSnackBar(message));
   }
 
