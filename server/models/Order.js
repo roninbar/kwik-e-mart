@@ -56,8 +56,12 @@ const schema = new Schema({
     },
 });
 
+schema.virtual('totalItems').get(function () {
+    return this.items.reduce((total, { quantity }) => total + quantity, 0);
+});
+
 schema.virtual('total').get(function () {
-    return this.items.reduce((sum, { quantity, purchasePrice }) => sum + quantity * purchasePrice, 0).toFixed(2);
+    return this.items.reduce((total, { quantity, purchasePrice }) => total + quantity * purchasePrice, 0).toFixed(2);
 });
 
 schema.post('save', async function (order, next) {
