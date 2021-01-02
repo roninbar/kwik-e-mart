@@ -1,6 +1,7 @@
 const path = require('path');
 const debug = require('debug');
-const { model, Schema } = require('mongoose');
+const { connection, model, Schema } = require('mongoose');
+const autoIncrement = require('mongoose-auto-increment');
 const { generateReceipt } = require('../util/receipt');
 
 const log = debug('server:order');
@@ -64,6 +65,10 @@ schema.post('save', async function (order, next) {
     order.receiptUrl = '/' + path.relative(global.staticFilesDir, receiptFilename).replace(path.sep, '/');
     return next();
 });
+
+autoIncrement.initialize(connection);
+
+schema.plugin(autoIncrement.plugin, 'Order');
 
 module.exports = model('Order', schema);
 
