@@ -48,8 +48,7 @@ async function generateReceipt(order) {
 ${street} ${house}  
 ${city}  
 
-### Deliver On
-${deliveryDate.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}  
+### Deliver On ${deliveryDate.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' })}  
 
 | # | Product | Quantity | Price | Total |
 |-|-|-|-|-|
