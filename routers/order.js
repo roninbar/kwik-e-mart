@@ -31,7 +31,7 @@ router.post('/', passport.allow('user'), async function ({ originalUrl, user, bo
                 +order.total !== +body.total
                     ? `Total is ${order.total}, not ${body.total}.`
                     : order.items
-                        .filter(item => item.purchasePrice !== item.product.priceDecimal)
+                        .filter(item => item.purchasePrice !== item.product.price)
                         .map(item => `${item.product.name} costs ${item.product.price}, not ${item.purchasePrice}.`)
                         .join('\n')
             );
