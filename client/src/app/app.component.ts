@@ -4,7 +4,6 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
 import { OrderItem } from './order-item';
-import { IProduct } from './product';
 import { IProductCategory } from './product-category';
 import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
@@ -33,8 +32,8 @@ export class AppComponent implements OnInit {
 
   public constructor(
     public authService: AuthService,
+    public cartService: CartService,
     private alertService: AlertService,
-    private cartService: CartService,
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
@@ -46,29 +45,12 @@ export class AppComponent implements OnInit {
     this.alertService.alert.subscribe((message) => this.openSnackBar(message));
   }
 
-  public async goToHomePage(): Promise<boolean> {
-    return await this.router.navigateByUrl('/');
+  public goToHomePageAsync(): Promise<boolean> {
+    return this.router.navigateByUrl('/');
   }
 
-  public cartIsEmpty(): boolean {
-    const cartItems = this.cartService.getAllCartItems();
-    return cartItems.length === 0;
-  }
-
-  public getAllCartItems(): Array<OrderItem> {
-    return this.cartService.getAllCartItems();
-  }
-
-  public setCartItem(product: IProduct, quantity: number = 1): void {
-    this.cartService.setCartItem(product, quantity);
-  }
-
-  public checkOutAsync(f): Promise<boolean> {
+  public goToCheckOutAsync(): Promise<boolean> {
     return this.router.navigateByUrl('/checkout');
-  }
-
-  public getNumberOfCartItems(): number {
-    return this.cartService.getAllCartItems().reduce((a, { quantity: b }) => a + b, 0);
   }
 
   public productIdOfCartItem(index: number, item: OrderItem): string {

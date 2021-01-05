@@ -18,8 +18,8 @@
                 <th scope="row">{{k + 1}}</th>
                 <td>{{item.product.name}}</td>
                 <td>{{item.quantity}}</td>
-                <td>{{item.purchasePrice}}</td>
-                <td>{{item.quantity * item.purchasePrice}}</td>
+                <td>{{item.purchasePrice | currency}}</td>
+                <td>{{item.quantity * item.purchasePrice | currency}}</td>
             </tr>
         </tbody>
         <tfoot>
@@ -28,7 +28,7 @@
                 <th scope="col">Total:</th>
                 <th scope="col">{{getTotalItems()}}</th>
                 <th scope="col"></th>
-                <th scope="col">{{lastOrder.total}}</th>
+                <th scope="col">{{lastOrder.total | currency}}</th>
             </tr>
         </tfoot>
     </table>

@@ -39,21 +39,21 @@ export class ShoppingPageComponent implements OnInit {
   }
 
   cartIsEmpty(): boolean {
-    const cartItems = this.cartService.getAllCartItems();
+    const cartItems = this.cartService.getAllItems();
     return cartItems.length === 0;
   }
 
   getNumberOfCartItems(): number {
-    const cartItems = this.cartService.getAllCartItems();
+    const cartItems = this.cartService.getAllItems();
     return cartItems.reduce((a, { quantity: b }) => a + b, 0);
   }
 
   getAllCartItems(): Array<OrderItem> {
-    return this.cartService.getAllCartItems();
+    return this.cartService.getAllItems();
   }
 
   setCartItem(product: IProduct, quantity: number = 1): void {
-    this.cartService.setCartItem(product, quantity);
+    this.cartService.setItem(product, quantity);
   }
 
   checkOutAsync(f): Promise<boolean> {

@@ -19,16 +19,9 @@ export class CheckoutPageComponent {
 
   placeOrder(f: NgForm): void {
     this.orderService.placeOrderRx(f.value).subscribe(async () => {
-      this.cartService.emptyCart();
+      this.cartService.empty();
       await this.router.navigateByUrl('/thankyou');
     });
-  }
-
-  getCartTotal(): string {
-    return this.cartService
-      .getAllCartItems()
-      .reduce((total, { product: { price }, quantity }) => total + quantity * price, 0)
-      .toFixed(2);
   }
 
   productIdOfCartItem(index: number, item: OrderItem): string {

@@ -15,11 +15,19 @@ export class CartService {
     this.validateStoredCart();
   }
 
-  getAllCartItems(): Array<OrderItem> {
+  getAllItems(): Array<OrderItem> {
     return Object.values(this.getCartItemsMap());
   }
 
-  setCartItem(product: IProduct, quantity: number): void {
+  getTotalQuantity(): number {
+    return this.getTotal(item => item.quantity);
+  }
+
+  getTotalPrice(): number {
+    return this.getTotal(item => item.quantity * item.purchasePrice);
+  }
+
+  setItem(product: IProduct, quantity: number): void {
     const map = this.getCartItemsMap();
     if (quantity > 0) {
       map[product._id] = new OrderItem(product, quantity, product.price);
@@ -30,8 +38,18 @@ export class CartService {
     this.setCartItemsMap(map);
   }
 
-  emptyCart(): void {
+  empty(): void {
     this.setCartItemsMap({});
+  }
+
+  isEmpty(): boolean {
+    return this.getTotal(item => 1) === 0;
+  }
+
+  private getTotal(selectTerm: (item: OrderItem) => number): number {
+    return Object.values(this.getCartItemsMap())
+      .map(selectTerm)
+      .reduce((total, term) => total + term, 0);
   }
 
   private getCartItemsMap(): ICartItemsMap {

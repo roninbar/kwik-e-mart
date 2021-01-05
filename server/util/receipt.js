@@ -36,7 +36,7 @@ async function generateReceipt(order) {
     const dir = path.join(global.staticFilesDir, 'receipts');
     await fs.mkdir(dir, { recursive: true });
     const rows = order.items
-        .map(({ product: { name, price }, quantity }, idx) => `| ${idx + 1} | ${name} | ${quantity} | &euro;${price.toFixed(2)} | &euro;${(quantity * price).toFixed(2)} |`).join('\n');
+        .map(({ product: { name, price }, quantity }, idx) => `| ${idx + 1} | ${name} | ${quantity} | $${price.toFixed(2)} | $${(quantity * price).toFixed(2)} |`).join('\n');
 
     const markdown = `# Kwik-E-Mart
 **${createdAt.toLocaleString('en-GB')}**  
@@ -53,7 +53,7 @@ ${city}
 | # | Product | Quantity | Price | Total |
 |-|-|-|-|-|
 ${rows}
-| | **Total:** | **${totalItems}** | | **&euro;${total}** |
+| | **Total:** | **${totalItems}** | | **$${total}** |
 
 ### Paid By Credit Card
 CC Number: \`${ccnumber}\`  
