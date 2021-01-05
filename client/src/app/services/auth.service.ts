@@ -4,38 +4,29 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IUser } from './user.interface';
 
-const NOUSER = {
-  _id: '',
-  role: 'user',
-  email: '',
-  name: {
-    first: '',
-    last: '',
-  },
-  address: {
-    city: '',
-    street: '',
-    house: 0,
-  },
-};
+const USERLSKEY = 'user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private loggedInUser: IUser = NOUSER;
-
   constructor(
     private http: HttpClient,
   ) { }
 
-  public userIsLoggedIn(): boolean {
-    return Boolean(this.loggedInUser.email);
+  public getLoggedInUser(): IUser | null {
+    const userJson = localStorage.getItem(USERLSKEY);
+    return userJson && JSON.parse(userJson);
   }
 
-  public getLoggedInUser(): IUser {
-    return this.loggedInUser;
+  private setLoggedInUser(user: IUser): void {
+    if (user) {
+      localStorage.setItem(USERLSKEY, JSON.stringify(user));
+    }
+    else {
+      localStorage.removeItem(USERLSKEY);
+    }
   }
 
   /**
@@ -46,7 +37,7 @@ export class AuthService {
   public logInRx(email: string, password: string): Observable<IUser> {
     return this.http.post<IUser>('/api/auth/login', new HttpParams({ fromObject: { email, password } })).pipe(
       tap(user => {
-        this.loggedInUser = user;
+        this.setLoggedInUser(user);
         return user;
       }),
     );
@@ -56,7 +47,8 @@ export class AuthService {
    * Log out.
    */
   public logOutRx(): Observable<void> {
-    this.loggedInUser = NOUSER;
+    this.setLoggedInUser(null);
     return this.http.post<void>('/api/auth/logout', null);
   }
+
 }
