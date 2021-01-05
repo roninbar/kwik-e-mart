@@ -12,30 +12,26 @@
     <mat-sidenav class="sidenav" #cart position="end" fixedInViewport mode="over">
         <mat-toolbar class="justify-content-center">Your Cart</mat-toolbar>
         <form class="container-fluid" (ngSubmit)="goToCheckOutAsync(); cart.toggle()">
-            <div class="row row-cols-1">
-                <div class="p-2" *ngIf="cartService.isEmpty()">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="cart-title text-center">The cart is empty.</h5>
-                        </div>
+            <div class="row row-cols-1 p-2">
+                <div *ngIf="cartService.isEmpty()">
+                    <div class="card card-body">
+                        <h5 class="text-center">The cart is empty.</h5>
                     </div>
                 </div>
                 <ng-container *ngIf="!cartService.isEmpty()">
-                    <div class="p-2" *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
-                        <div class="card">
-                            <img class="card-img-top" [src]="item.product.imageUrl" [alt]="item.product.name">
-                            <div class="card-body">
-                                <h5 class="card-title text-center">{{item.product.name}}</h5>
-                                <h6 class="card-subtitle text-center">{{item.product.price | currency}}</h6>
-                                <input class="form-control mt-3" type="number" min="1" [name]="item.product._id" [value]="item.quantity"
-                                    (input)="cartService.setItem(item.product, +$event.target.value)">
-                            </div>
+                    <div class="card" *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
+                        <img class="card-img-top" [src]="item.product.imageUrl" [alt]="item.product.name">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{item.product.name}}</h5>
+                            <h6 class="card-subtitle text-center">{{item.product.price | currency}}</h6>
+                            <input class="form-control mt-3" type="number" min="1" [name]="item.product._id" [value]="item.quantity"
+                                (input)="cartService.setItem(item.product, +$event.target.value)">
                         </div>
                     </div>
+                    <hr class="bg-dark">
+                    <h5 class="text-center">Cart Total: {{cartService.getTotalPrice() | currency}}</h5>
                 </ng-container>
-                <div class="p-2">
-                    <button class="btn btn-primary w-100" type="submit" [disabled]="cartService.isEmpty()">Check Out</button>
-                </div>
+                <button class="btn btn-primary w-100 mt-3" type="submit" [disabled]="cartService.isEmpty()">Check Out</button>
             </div>
         </form>
     </mat-sidenav>
@@ -60,8 +56,8 @@
                     <span>Hello, {{authService.getLoggedInUser().name.first}}!</span>
                     <a class="ml-3 mr-1" routerLink="/login" (click)="logOut()">Log Out</a>
                     <!-- Shopping Cart Button -->
-                    <button type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()" [matBadgeHidden]="cartService.isEmpty()" matBadgeColor="warn"
-                        (click)="cart.toggle()">
+                    <button type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()" [matBadgeHidden]="cartService.isEmpty()"
+                        matBadgeColor="warn" (click)="cart.toggle()">
                         <mat-icon>shopping_cart</mat-icon>
                     </button>
                 </ng-container>
