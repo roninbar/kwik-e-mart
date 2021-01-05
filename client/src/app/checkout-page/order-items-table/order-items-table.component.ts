@@ -23,6 +23,6 @@ export class OrderItemsTableComponent {
   }
 
   public totalPrice(): number {
-    return this.dataSource.reduce((sum, { product: { price } }) => sum + price, 0);
+    return this.dataSource.reduce((sum, { quantity, product: { price } }) => sum + quantity * price, 0);
   }
 }
