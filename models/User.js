@@ -16,6 +16,7 @@ const schema = new Schema({
         house: { type: Number, required: true, min: 1 },
     },
 }, {
+    toJSON: { useProjection: true },
     timestamps: true,
 });
 

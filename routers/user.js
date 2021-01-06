@@ -11,7 +11,7 @@ router.put('/:id', async function ({ originalUrl, params: { id: _id }, body: { e
         user.overwrite(obj);
     }
     await user.save();
-    return res.set('Content-Location', originalUrl).status(isNew ? 201 : 200).json(user.toObject({ useProjection: true }));
+    return res.status(isNew ? 201 : 200).set('Content-Location', originalUrl).json(user);
 });
 
 module.exports = router;
