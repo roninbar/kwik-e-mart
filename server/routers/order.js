@@ -14,7 +14,7 @@ router.post('/', passport.allow('user'), async function ({ originalUrl, user, bo
     log(util.inspect({ user, body }, { depth: 4, colors: true }));
     const order = new Order({ customer: user, ...body });
     await order.populate('items.product').execPopulate();
-    if (+order.total === +body.total && order.items.every(item => item.purchasePrice === item.product.price)) {
+    if (+order.total === +body.total && order.items.every(item => item.product && item.purchasePrice === item.product.price)) {
         try {
             return await createResource(originalUrl, order, res);
         } catch (e) {
