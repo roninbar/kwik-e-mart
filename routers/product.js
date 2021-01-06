@@ -9,9 +9,8 @@ const router = new Router();
  * @param {ProductCategory} category
  */
 router.post('/', async function ({ originalUrl, category: { _id: categoryId }, body: { name, price, imageUrl } }, res) {
-    const product = new Product({ name, price, imageUrl, categoryId });
     try {
-        return await createResource(originalUrl, product, res);
+        return await createResource(res, originalUrl, new Product({ name, price, imageUrl, categoryId }));
     }
     catch ({ code, message }) {
         return res.status(code === 11000 ? 409 : 400).send(message);

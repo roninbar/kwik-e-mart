@@ -8,9 +8,8 @@ const router = new Router();
  * Create a new category.
  */
 router.post('/', async function ({ originalUrl, body: { name } }, res) {
-    const category = new ProductCategory({ name });
     try {
-        return await createResource(originalUrl, category, res);
+        return await createResource(res, originalUrl, new ProductCategory({ name }));
     }
     catch ({ code, message }) {
         return res.status(code === 11000 ? 409 : 500).send(message);
