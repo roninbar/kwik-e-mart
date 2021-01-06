@@ -1,14 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { distinctUntilChanged, filter, map, shareReplay, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
 import { OrderItem } from './order-item';
-import { IProductCategory } from './product-category';
 import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
-import { ProductService } from './services/product.service';
+import { ToolbarService } from './services/toolbar.service';
+import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
+import { SignupPage } from './signup-page/signup.page';
+import { ThankYouPage } from './thank-you-page/thank-you.page';
+
+type Page = SignupPage | LoginPageComponent | ShoppingPageComponent | CheckoutPageComponent | ThankYouPage;
 
 @Component({
   selector: 'app-root',
@@ -16,26 +20,16 @@ import { ProductService } from './services/product.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+
   public title = 'Kwik-E-Mart';
 
-  public readonly allCategories$: Observable<Array<IProductCategory>> = this.productService.getAllCategoriesRx();
-
-  public readonly categoryName$: Observable<string> = this.router.events.pipe(
-    filter((event) => event instanceof NavigationEnd),
-    switchMap(() => this.route.firstChild?.params || of({})),
-    map((params: any) => params.categoryId),
-    filter((category) => !!category),
-    distinctUntilChanged(),
-    switchMap((category) => this.getCategoryNameRx(category)),
-    shareReplay(1),
-  );
+  private activePage: Page;
 
   public constructor(
     public authService: AuthService,
     public cartService: CartService,
+    public toolbarService: ToolbarService,
     private alertService: AlertService,
-    private productService: ProductService,
-    private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
   ) { }
@@ -61,14 +55,16 @@ export class AppComponent implements OnInit {
     this.authService.logOutRx().subscribe();
   }
 
-  private openSnackBar(message: string): void {
-    this.snackBar.open(message, 'Dismiss');
+  public onActivate(page: Page): void {
+    this.activePage = page;
   }
 
-  private getCategoryNameRx(categoryId: string): Observable<string> {
-    return this.allCategories$.pipe(
-      map(categories => categories.find(category => category._id === categoryId).name),
-    );
+  public shoppingPageIsActive(): boolean {
+    return this.activePage instanceof ShoppingPageComponent;
+  }
+
+  private openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Dismiss');
   }
 
 }

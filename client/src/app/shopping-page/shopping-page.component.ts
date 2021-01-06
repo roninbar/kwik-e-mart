@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { combineLatest, Observable, of as observableOf } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { OrderItem } from '../order-item';
 import { IProduct } from '../product';
 import { IProductCategory } from '../product-category';
 import { AuthService } from '../services/auth.service';
 import { CartService } from '../services/cart.service';
 import { ProductService } from '../services/product.service';
+import { ToolbarService } from '../services/toolbar.service';
 
 @Component({
   templateUrl: './shopping-page.component.html',
@@ -17,46 +18,35 @@ export class ShoppingPageComponent implements OnInit {
 
   public readonly allCategories$: Observable<Array<IProductCategory>> = this.productService.getAllCategoriesRx();
 
-  public categoryName$: Observable<string> = this.getCategoryNameRx(this.getCategoryId());
+  private readonly categoryName$: Observable<string> = combineLatest([this.allCategories$, this.route.paramMap]).pipe(
+    map(([categories, paramMap]) => {
+      const { name } = categories.find(({ _id }) => _id === paramMap.get('categoryId'));
+      return name;
+    }),
+  );
 
-  public allProductsInCategory$: Observable<Array<IProduct>> = this.productService.getAllProductsInCategoryRx(this.getCategoryId());
+  public readonly allProductsInCategory$: Observable<Array<IProduct>> = this.route.paramMap.pipe(
+    switchMap(paramMap => this.productService.getAllProductsInCategoryRx(paramMap.get('categoryId'))),
+  );
 
   constructor(
+    public cartService: CartService,
     private authService: AuthService,
-    private cartService: CartService,
     private productService: ProductService,
+    private toolbarService: ToolbarService,
     private route: ActivatedRoute,
     private router: Router,
   ) { }
 
   ngOnInit(): void {
-    const categoryId = this.route.snapshot.paramMap.get('categoryId');
-    this.router.events.subscribe((event) => {
-      if (event instanceof ActivationEnd) {
-        this.setProductCategory(this.getCategoryId());
-      }
-    });
-  }
-
-  cartIsEmpty(): boolean {
-    const cartItems = this.cartService.getAllItems();
-    return cartItems.length === 0;
-  }
-
-  getNumberOfCartItems(): number {
-    const cartItems = this.cartService.getAllItems();
-    return cartItems.reduce((a, { quantity: b }) => a + b, 0);
-  }
-
-  getAllCartItems(): Array<OrderItem> {
-    return this.cartService.getAllItems();
+    this.categoryName$.subscribe({ next: categoryName => this.toolbarService.categoryName$.next(categoryName) });
   }
 
   setCartItem(product: IProduct, quantity: number = 1): void {
     this.cartService.setItem(product, quantity);
   }
 
-  checkOutAsync(f): Promise<boolean> {
+  checkOutAsync(): Promise<boolean> {
     return this.router.navigateByUrl('/checkout');
   }
 
@@ -70,19 +60,6 @@ export class ShoppingPageComponent implements OnInit {
 
   productIdOfCartItem(index: number, item: OrderItem): string {
     return item.product._id;
-  }
-
-  private setProductCategory(categoryId: string): void {
-    this.categoryName$ = this.getCategoryNameRx(categoryId);
-    this.allProductsInCategory$ = this.productService.getAllProductsInCategoryRx(categoryId);
-  }
-
-  private getCategoryNameRx(categoryId: string): Observable<string> {
-    return this.allCategories$.pipe(map(allCategories => allCategories.find(({ _id }) => _id === categoryId).name));
-  }
-
-  private getCategoryId(): string {
-    return this.route.snapshot.paramMap.get('categoryId');
   }
 
 }

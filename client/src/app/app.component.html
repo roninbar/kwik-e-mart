@@ -4,7 +4,7 @@
     <mat-menu #categories>
         <mat-toolbar>Categories</mat-toolbar>
         <mat-nav-list>
-            <a mat-list-item *ngFor="let category of allCategories$ | async" routerLink="/category/{{category._id}}">{{category.name}}</a>
+            <a mat-list-item *ngFor="let category of toolbarService.allCategories$ | async" routerLink="/category/{{category._id}}">{{category.name}}</a>
         </mat-nav-list>
     </mat-menu>
 
@@ -49,7 +49,7 @@
                 <span class="mx-3 cursor-pointer" (click)="goToHomePageAsync()">{{title}}</span>
                 <span class="flex-fill"></span>
                 <!-- Category Menu Button -->
-                <button *ngIf="!!(categoryName$ | async)" [matMenuTriggerFor]="categories">{{categoryName$ | async}}</button>
+                <button *ngIf="shoppingPageIsActive()" [matMenuTriggerFor]="categories">{{toolbarService.categoryName$ | async}}</button>
                 <span class="flex-fill"></span>
                 <!-- Logged-In User + Logout Button + Shopping Cart Button -->
                 <ng-container *ngIf="!!authService.getLoggedInUser()">
@@ -64,7 +64,7 @@
             </mat-toolbar-row>
         </mat-toolbar>
 
-        <router-outlet></router-outlet>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
 
     </mat-sidenav-content>
 
