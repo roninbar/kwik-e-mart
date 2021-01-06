@@ -1,6 +1,6 @@
-async function createResource(url, doc, res) {
+async function createResource(res, url, doc) {
     const { _id } = await doc.save();
-    return res.set('Content-Location', `${url}/${_id}`).status(201).json(doc);
+    return res.status(201).set('Content-Location', `${url}/${_id}`).json(doc);
 }
 
 exports.createResource = createResource;

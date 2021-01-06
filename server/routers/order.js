@@ -1,4 +1,3 @@
-const path = require('path');
 const util = require('util');
 const debug = require('debug');
 const { Router } = require('express');
@@ -16,7 +15,7 @@ router.post('/', passport.allow('user'), async function ({ originalUrl, user, bo
     await order.populate('items.product').execPopulate();
     if (+order.total === +body.total && order.items.every(item => item.product && item.purchasePrice === item.product.price)) {
         try {
-            return await createResource(originalUrl, order, res);
+            return await createResource(res, originalUrl, order);
         } catch (e) {
             log(e);
             const errors = e.errors ? Object.values(e.errors) : [];
