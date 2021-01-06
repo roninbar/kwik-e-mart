@@ -7,7 +7,7 @@
                 <input type="hidden" name="items[{{i}}][quantity]" [ngModel]="item.quantity">
                 <input type="hidden" name="items[{{i}}][purchasePrice]" [ngModel]="item.purchasePrice">
             </ng-container>
-            <input type="hidden" name="total" [ngModel]="cartService.getTotalPrice()">
+            <input type="hidden" name="total" [ngModel]="cartService.getTotalPrice().toFixed(2)">
             <div>
                 <button type="button" mat-button matStepperNext>Next</button>
             </div>
