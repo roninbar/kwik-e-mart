@@ -24,6 +24,11 @@
                             <input class="form-control mt-3" type="number" min="1" [name]="item.product._id" [value]="item.quantity"
                                 (input)="cartService.setItem(item.product, +$event.target.value)">
                         </div>
+                        <div class="card-footer d-flex justify-content-center">
+                            <button mat-icon-button (click)="cartService.setItem(item.product, 0)">
+                                <mat-icon>remove_shopping_cart</mat-icon>
+                            </button>
+                        </div>
                     </div>
                     <hr class="bg-dark">
                     <h5 class="text-center">Cart Total: {{cartService.getTotalPrice() | currency}}</h5>
