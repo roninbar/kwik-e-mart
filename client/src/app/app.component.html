@@ -21,8 +21,16 @@
                         <div class="card-body">
                             <h5 class="card-title text-center">{{item.product.name}}</h5>
                             <h6 class="card-subtitle text-center">{{item.product.price | currency}}</h6>
-                            <input class="form-control mt-3" type="number" min="1" [name]="item.product._id" [value]="item.quantity"
-                                (input)="cartService.setItem(item.product, +$event.target.value)">
+                            <div class="input-group mt-3">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-outline-primary" type="button" (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">-</button>
+                                </div>
+                                <input class="form-control text-center" type="number" min="1" [name]="item.product._id" [value]="item.quantity"
+                                    (input)="cartService.setItem(item.product, +$event.target.value)">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary" type="button" (click)="cartService.setItem(item.product, item.quantity + 1)">+</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="card-footer d-flex justify-content-center">
                             <button mat-icon-button (click)="cartService.setItem(item.product, 0)">
