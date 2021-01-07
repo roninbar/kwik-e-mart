@@ -23,12 +23,13 @@
                             <h6 class="card-subtitle text-center">{{item.product.price | currency}}</h6>
                             <div class="input-group mt-3">
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-outline-primary" type="button" (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">-</button>
+                                    <button class="btn btn-outline-primary" type="button"
+                                        (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">-</button>
                                 </div>
-                                <input class="form-control text-center" type="number" min="1" [name]="item.product._id" [value]="item.quantity"
-                                    (input)="cartService.setItem(item.product, +$event.target.value)">
+                                <input class="form-control text-center" type="number" min="1" readonly [name]="item.product._id" [value]="item.quantity">
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" type="button" (click)="cartService.setItem(item.product, item.quantity + 1)">+</button>
+                                    <button class="btn btn-outline-primary" type="button"
+                                        (click)="cartService.setItem(item.product, item.quantity + 1)">+</button>
                                 </div>
                             </div>
                         </div>
