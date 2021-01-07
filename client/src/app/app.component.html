@@ -36,7 +36,7 @@
                 <button class="btn btn-primary w-100 mt-3" type="submit" [disabled]="cartService.isEmpty()">
                     Check Out
                 </button>
-                <button class="btn btn-danger w-100 mt-3" type="reset" [disabled]="cartService.isEmpty()" (click)="cartService.empty()">
+                <button class="btn btn-danger w-100 mt-3" [disabled]="cartService.isEmpty()" (click)="emptyCart()">
                     <mat-icon>remove_shopping_cart</mat-icon>
                 </button>
             </div>

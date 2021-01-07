@@ -63,6 +63,12 @@ export class AppComponent implements OnInit {
     return this.activePage instanceof ShoppingPageComponent;
   }
 
+  public emptyCart(): void {
+    if (confirm('Remove all items from the cart?')) {
+      this.cartService.empty();
+    }
+  }
+
   private openSnackBar(message: string): void {
     this.snackBar.open(message, 'Dismiss');
   }
