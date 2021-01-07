@@ -8,14 +8,20 @@ const log = debug('server:auth');
 
 const router = new Router();
 
-router.post('/login',
-    passport.authenticate('local'),
-    function (req, res) {
-        return res.json(req.user);
-    }
-);
+/**
+ * Get the current user (based on the session cookie)
+ */
+router.get('/', respondWithCurrentUser);
 
-router.post('/logout', function (req, res) {
+/**
+ * Log in
+ */
+router.put('/', passport.authenticate('local'), respondWithCurrentUser);
+
+/**
+ * Log out
+ */
+router.delete('/', function (req, res) {
     req.session.destroy(function (err) {
         if (err) {
             return res.sendStatus(500);
@@ -24,5 +30,9 @@ router.post('/logout', function (req, res) {
         return res.clearCookie(SIDNAME).sendStatus(205);
     });
 });
+
+function respondWithCurrentUser(req, res) {
+    return req.user ? res.json(req.user) : res.sendStatus(404);
+}
 
 module.exports = router;
