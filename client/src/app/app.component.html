@@ -33,7 +33,12 @@
                     <hr class="bg-dark">
                     <h5 class="text-center">Cart Total: {{cartService.getTotalPrice() | currency}}</h5>
                 </ng-container>
-                <button class="btn btn-primary w-100 mt-3" type="submit" [disabled]="cartService.isEmpty()">Check Out</button>
+                <button class="btn btn-primary w-100 mt-3" type="submit" [disabled]="cartService.isEmpty()">
+                    Check Out
+                </button>
+                <button class="btn btn-danger w-100 mt-3" type="reset" [disabled]="cartService.isEmpty()" (click)="cartService.empty()">
+                    <mat-icon>remove_shopping_cart</mat-icon>
+                </button>
             </div>
         </form>
     </mat-sidenav>
