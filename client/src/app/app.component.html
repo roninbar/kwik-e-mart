@@ -9,17 +9,14 @@
     </mat-menu>
 
     <!-- Shopping Cart Sidenav -->
-    <mat-sidenav class="sidenav" #cart position="end" fixedInViewport mode="over">
+    <mat-sidenav class="sidenav" mode="over" position="end" fixedInViewport #cart>
         <mat-toolbar class="justify-content-center">Your Cart</mat-toolbar>
-        <form class="container-fluid" (ngSubmit)="goToCheckOutAsync(); cart.toggle()">
+        <form class="container-fluid" (ngSubmit)="cart.toggle(); goToCheckOutAsync()">
             <div class="row row-cols-1 p-2">
-                <div *ngIf="cartService.isEmpty()">
-                    <div class="card card-body">
-                        <h5 class="text-center">The cart is empty.</h5>
-                    </div>
-                </div>
+                <div class="alert alert-secondary text-center" *ngIf="cartService.isEmpty()">The cart is empty.</div>
                 <ng-container *ngIf="!cartService.isEmpty()">
-                    <div class="card" *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
+                    <hr class="bg-dark">
+                    <div class="card my-2" *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
                         <img class="card-img-top" [src]="item.product.imageUrl" [alt]="item.product.name">
                         <div class="card-body">
                             <h5 class="card-title text-center">{{item.product.name}}</h5>
