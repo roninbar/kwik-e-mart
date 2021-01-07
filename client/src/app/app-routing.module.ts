@@ -8,12 +8,12 @@ import { SignupPage } from './signup-page/signup.page';
 import { ThankYouPage } from './thank-you-page/thank-you.page';
 
 const routes: Routes = [
-  { path: 'signup', component: SignupPage },
-  { path: 'login', component: LoginPageComponent },
+  { path: 'signup', component: SignupPage, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginPageComponent, canActivate: [AuthGuard] },
   { path: 'category/:categoryId', component: ShoppingPageComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutPageComponent, canActivate: [AuthGuard] },
   { path: 'thankyou', component: ThankYouPage, canActivate: [AuthGuard] },
-  { path: '', redirectTo: '/category/all', pathMatch: 'full' },
+  { path: '**', redirectTo: '/category/all', pathMatch: 'full' },
 ];
 
 @NgModule({
