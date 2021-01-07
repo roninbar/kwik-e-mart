@@ -1,7 +1,8 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { AlertService } from './alert.service';
 import { IUser } from './user.interface';
 
 const USERLSKEY = 'user';
@@ -13,7 +14,19 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-  ) { }
+    private alertService: AlertService,
+  ) {
+    this.http.get<IUser>('/api/auth').subscribe({
+      next: this.setLoggedInUser.bind(this),
+      error: (error: HttpErrorResponse) => {
+        if (error.status === 404) {
+          this.setLoggedInUser(null);
+        } else {
+          this.alertService.postAlert(`${error.status} ${error.statusText}`);
+        }
+      },
+    });
+  }
 
   public getLoggedInUser(): IUser | null {
     const userJson = localStorage.getItem(USERLSKEY);
@@ -35,11 +48,8 @@ export class AuthService {
    * @param password Password
    */
   public logInRx(email: string, password: string): Observable<IUser> {
-    return this.http.post<IUser>('/api/auth/login', new HttpParams({ fromObject: { email, password } })).pipe(
-      tap(user => {
-        this.setLoggedInUser(user);
-        return user;
-      }),
+    return this.http.put<IUser>('/api/auth', new HttpParams({ fromObject: { email, password } })).pipe(
+      tap(this.setLoggedInUser.bind(this)),
     );
   }
 
@@ -48,7 +58,7 @@ export class AuthService {
    */
   public logOutRx(): Observable<void> {
     this.setLoggedInUser(null);
-    return this.http.post<void>('/api/auth/logout', null);
+    return this.http.delete<void>('/api/auth');
   }
 
 }
