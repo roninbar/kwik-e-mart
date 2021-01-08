@@ -63,7 +63,14 @@ CC Number: \`${ccnumber}\`
     log(markdown);
     await fs.writeFile(path.join(dir, `${order._id}.md`), markdown);
     log('Generating PDF...');
-    const pdf = await mdToPdf({ content: markdown }, { dest: path.join(dir, `${order._id}.pdf`) });
+    const pdf = await mdToPdf({
+        content: markdown,
+    }, {
+        dest: path.join(dir, `${order._id}.pdf`),
+        launch_options: {
+            args: ['--no-sandbox']
+        },
+    });
     log('done.');
 
     return { markdown, pdf };
