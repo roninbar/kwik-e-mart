@@ -1,7 +1,7 @@
 const path = require('path');
 const debug = require('debug');
 const { promises: fs } = require('fs');
-const markdownPdf = require('markdown-pdf');
+const { mdToPdf } = require('md-to-pdf');
 
 const log = debug('server:receipt');
 
@@ -63,17 +63,10 @@ CC Number: \`${ccnumber}\`
     log(markdown);
     await fs.writeFile(path.join(dir, `${order._id}.md`), markdown);
     log('Generating PDF...');
-    const pdfPath = path.join(dir, `${order._id}.pdf`);
-    await new Promise(function (resolve, reject) {
-        try {
-            markdownPdf().from.string(markdown).to(pdfPath, resolve);
-        } catch (err) {
-            reject(err);
-        }
-    });
+    const pdf = await mdToPdf({ content: markdown }, { dest: path.join(dir, `${order._id}.pdf`) });
     log('done.');
 
-    return { markdown, pdf: { filename: pdfPath } };
+    return { markdown, pdf };
 }
 
 exports.generateReceipt = generateReceipt;
