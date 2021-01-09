@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
@@ -40,6 +41,7 @@ import { ThankYouPage } from './thank-you-page/thank-you.page';
     ThankYouPage,
   ],
   imports: [
+    AdminModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
