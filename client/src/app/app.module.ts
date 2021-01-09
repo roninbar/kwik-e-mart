@@ -23,6 +23,7 @@ import { AppComponent } from './app.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { OrderItemsTableComponent } from './checkout-page/order-items-table/order-items-table.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import { NotFoundPage } from './page-not-found/not-found.page';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
 import { SignupPage } from './signup-page/signup.page';
 import { ThankYouPage } from './thank-you-page/thank-you.page';
@@ -32,6 +33,7 @@ import { ThankYouPage } from './thank-you-page/thank-you.page';
     AppComponent,
     CheckoutPageComponent,
     LoginPageComponent,
+    NotFoundPage,
     OrderItemsTableComponent,
     ShoppingPageComponent,
     SignupPage,
