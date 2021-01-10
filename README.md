@@ -20,24 +20,32 @@
 
 ```mermaid
 sequenceDiagram
-client->>server: POST /api/order <br/> { items: [{ product: '<id>', quantity: 8, price: 100.00 }], total: 800.00 }
+client->>+server: POST /api/order <br/> { items: [{ product: '<id>', quantity: 8, price: 100.00 }], total: 800.00 }
 server->>mongoose: new Order({ items: [{ product: <id>, quantity: 8, price: 100.00 }] })
 mongoose-->>server: order
-server->>mongoose: order.populate('items.product')
-mongoose->>mongo: products.find({ _id: [...] })
 alt No price changes
+server->>+mongoose: order.save()
+mongoose->>+server: invoke validation hook
+server->>+mongoose: order.populate('items.product')
+mongoose->>mongo: products.find({ _id: [...] })
 mongo-->>mongoose: [{ _id: <productId>, price: 100.00 }]
-mongoose-->>server: { _id: orderId, items: [{ quantity: 8, price: 100.00, product: { _id: <productId>, price: 100.00 } }] }
+mongoose-->>-server: { _id: orderId, items: [{ quantity: 8, price: 100.00, product: { _id: <productId>, price: 100.00 } }] }
 server->>server: validate prices
-server->>mongoose: order.save()
+server-->>-mongoose: true
 mongoose->>mongo: orders.insertOne({ items: [{ product: <id>, quantity: 8, price: 100.00}] })
 mongo-->>mongoose: { insertId: ObjectId('...') }
-mongoose-->>server: { _id: <orderId>, items: [...], total: 800.00 }
+mongoose-->>-server: { _id: <orderId>, items: [...], total: 800.00 }
 server-->>client: 201 Created <br/> Content-Location: /api/order/<orderId> <br/> { _id: <orderId>, items: [{ product: '<id>', quantity: 8, price: 100.00 }], total: 800.00 }
 else Some prices have changed
+server->>+mongoose: order.save()
+mongoose->>+server: invoke validation hook
+server->>mongoose: order.populate('items.product')
+mongoose->>mongo: products.find({ _id: [...] })
 mongo-->>mongoose: [{ _id: <productId>, price: 110.00 }]
 mongoose-->>server: { _id: orderId, items: [{ quantity: 8, price: 100.00, product: { _id: <productId>, price: 110.00 } }] }
 server->>server: validate prices
-server-->>client: 400 Bad Request <br/> <product> costs 110.00, not 100.00.
+server-->>-mongoose: false
+mongoose--x-server: Error: <product> costs 110.00, not 100.00.
+server-->>-client: 400 Bad Request <br/> <product> costs 110.00, not 100.00.
 end
 ```
