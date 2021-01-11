@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   templateUrl: './admin.page.html',
@@ -7,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 // tslint:disable-next-line: component-class-suffix
 export class AdminPage implements OnInit {
 
-  constructor() { }
+  public readonly allCategories$ = this.productService.getAllCategoriesRx();
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit(): void {
   }

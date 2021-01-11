@@ -3,11 +3,13 @@
     <mat-sidenav class="sidenav" mode="over" position="start" #productDetails>
         <form (ngSubmit)="productDetails.toggle()">
             <input class="form-control" type="text" placeholder="Name" name="name">
-            <input class="form-control" type="number" placeholder="Price" name="price">
+            <input class="form-control" type="number" placeholder="Price" name="price" min="0">
             <input class="form-control" type="file" placeholder="Image" name="image">
             <label for="category">Category:
                 <select class="form-control" placeholder="Category" name="category" id="category">
-                    
+                    <option *ngFor="let category of (allCategories$ | async).slice(1)" value="category._id">
+                        {{category.name}}
+                    </option>
                 </select>
             </label>
             <button class="btn btn-primary mt-3">Save</button>
