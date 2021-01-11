@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IProduct } from '../product';
 import { IProductCategory } from '../product-category';
 
@@ -9,14 +9,14 @@ import { IProductCategory } from '../product-category';
 })
 export class ProductService {
 
-  public readonly currentProduct$ = new Subject<IProduct>();
+  public currentProduct: IProduct;
 
   constructor(
     private http: HttpClient,
   ) { }
 
   setCurrentProduct(product: IProduct): void {
-    this.currentProduct$.next(product);
+    this.currentProduct = product;
   }
 
   getAllCategoriesRx(): Observable<Array<IProductCategory>> {
