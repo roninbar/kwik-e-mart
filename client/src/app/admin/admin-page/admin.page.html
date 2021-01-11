@@ -1,2 +1,23 @@
-<h1>ADMIN</h1>
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+
+    <mat-sidenav class="sidenav" mode="over" position="start" #productDetails>
+        <form (ngSubmit)="productDetails.toggle()">
+            <input class="form-control" type="text" placeholder="Name" name="name">
+            <input class="form-control" type="number" placeholder="Price" name="price">
+            <input class="form-control" type="file" placeholder="Image" name="image">
+            <label for="category">Category:
+                <select class="form-control" placeholder="Category" name="category" id="category">
+                    
+                </select>
+            </label>
+            <button class="btn btn-primary mt-3">Save</button>
+        </form>
+    </mat-sidenav>
+
+    <router-outlet></router-outlet>
+
+    <button mat-fab color="primary" (click)="productDetails.toggle()">
+        <mat-icon>add</mat-icon>
+    </button>
+
+</mat-sidenav-container>
