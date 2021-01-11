@@ -10,7 +10,7 @@ export class AdminPage implements OnInit {
 
   public readonly allCategories$ = this.productService.getAllCategoriesRx();
 
-  constructor(private productService: ProductService) { }
+  constructor(public productService: ProductService) { }
 
   ngOnInit(): void {
   }

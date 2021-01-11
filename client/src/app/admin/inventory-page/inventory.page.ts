@@ -19,9 +19,13 @@ export class InventoryPage implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onClickProduct(product: IProduct): void {
+    this.productService.setCurrentProduct(product);
   }
 
   productIdOfProduct(index: number, product: IProduct): string {
