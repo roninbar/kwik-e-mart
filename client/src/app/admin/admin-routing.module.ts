@@ -1,10 +1,23 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { AdminPage } from './admin-page/admin.page';
+import { InventoryPage } from './inventory-page/inventory.page';
+import { RoleGuard } from './role.guard';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: 'admin',
+    component: AdminPage,
+    canActivate: [RoleGuard],
+    children: [
+      { path: 'category/:categoryId', component: InventoryPage },
+      { path: '', redirectTo: 'category/all', pathMatch: 'full' },
+    ],
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AdminRoutingModule { }
