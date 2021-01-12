@@ -19,13 +19,17 @@ export class ProductService {
     this.currentProduct = product;
   }
 
-  saveProductRx(categoryId: string, product: IProduct): Observable<IProduct> {
-    const fromObject = { ...product, price: product.price.toFixed(2) };
+  saveProductRx(categoryId: string, product: IProduct, imageFile: File): Observable<IProduct> {
+    const body = new FormData();
+    body.append('categoryId', product.categoryId);
+    body.append('name', product.name);
+    body.append('price', product.price.toFixed(2));
+    body.append('image', imageFile);
     if (typeof product._id === 'string') {
-      return this.http.put<IProduct>(`/api/category/${categoryId}/product/${product._id}`, new HttpParams({ fromObject }));
+      return this.http.put<IProduct>(`/api/category/${categoryId}/product/${product._id}`, body);
     }
     else {
-      return this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, new HttpParams({ fromObject }));
+      return this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, body);
     }
   }
 

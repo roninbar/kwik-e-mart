@@ -2,7 +2,7 @@
 
     <mat-sidenav class="sidenav" mode="over" position="start" [opened]="productService.currentProduct" #sidenav>
 
-        <form #f="ngForm" (ngSubmit)="saveProduct(f); sidenav.close()">
+        <form encType="multipart/form-data" #f="ngForm" (ngSubmit)="saveProduct(f, i); sidenav.close()">
             <input type="hidden" name="_id" [ngModel]="productService.currentProduct?._id">
             <div class="form-group">
                 <input class="form-control" type="text" placeholder="Name" name="name" [ngModel]="productService.currentProduct?.name" required>
@@ -11,8 +11,7 @@
                 <input class="form-control" type="number" min="0" placeholder="Price" name="price" [ngModel]="productService.currentProduct?.price" required>
             </div>
             <div class="form-group">
-                <input type="hidden" name="imageUrl" ngModel="http://placeimg.com/640/480">
-                <input class="form-control" type="file" placeholder="Image" name="image" required>
+                <input class="form-control" type="file" placeholder="Image" name="image" ngModel required #i>
             </div>
             <div class="form-group">
                 <input type="hidden" name="oldCategoryId" [ngModel]="productService.currentProduct?.categoryId">

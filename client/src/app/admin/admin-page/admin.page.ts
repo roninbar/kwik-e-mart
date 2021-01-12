@@ -20,9 +20,9 @@ export class AdminPage implements OnInit {
   ngOnInit(): void {
   }
 
-  saveProduct({ value: { oldCategoryId, newCategoryId, ...otherFields } }: NgForm): void {
+  saveProduct({ value: { oldCategoryId, newCategoryId, ...otherFields } }: NgForm, { files }: HTMLInputElement): void {
     this.productService.setCurrentProduct(null);
-    this.productService.saveProductRx(oldCategoryId, { categoryId: newCategoryId, ...otherFields }).subscribe();
+    this.productService.saveProductRx(oldCategoryId, { categoryId: newCategoryId, ...otherFields }, files[0]).subscribe();
   }
 
 }

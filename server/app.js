@@ -1,4 +1,5 @@
 const cookieParser = require('cookie-parser');
+const upload = require('express-fileupload');
 const passport = require('./util/passport');
 const session = require('express-session');
 const mongoose = require('mongoose');
@@ -42,6 +43,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(upload());
 
 app.use('/api/auth', require('./routers/auth'));
 app.use('/api/user', require('./routers/user'));
