@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     const destination = route.url[0]?.path;
     const loggedIn = Boolean(this.authService.getLoggedInUser());
     return destination === 'login' || destination === 'signup'
-      ? !loggedIn
+      ? !loggedIn || this.router.navigateByUrl('/')
       : loggedIn || this.router.navigateByUrl('/login');
   }
 
