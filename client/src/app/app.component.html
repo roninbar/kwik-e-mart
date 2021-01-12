@@ -70,11 +70,11 @@
                 <button *ngIf="shoppingPageIsActive()" [matMenuTriggerFor]="categories">{{toolbarService.categoryName$ | async}}</button>
                 <span class="flex-fill"></span>
                 <!-- Logged-In User + Logout Button + Shopping Cart Button -->
-                <ng-container *ngIf="!!authService.getLoggedInUser()">
-                    <span>Hello, {{authService.getLoggedInUser().name.first}}!</span>
+                <ng-container *ngIf="authService.getLoggedInUser() as user">
+                    <span>Hello, {{user.name.first}}!</span>
                     <a class="ml-3 mr-1" routerLink="/login" (click)="logOut()">Log Out</a>
                     <!-- Shopping Cart Button -->
-                    <button type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()" [matBadgeHidden]="cartService.isEmpty()"
+                    <button *ngIf="user.role === 'user'" type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()" [matBadgeHidden]="cartService.isEmpty()"
                         matBadgeColor="warn" (click)="cart.toggle()">
                         <mat-icon>shopping_cart</mat-icon>
                     </button>
