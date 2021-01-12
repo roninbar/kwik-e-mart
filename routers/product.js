@@ -9,7 +9,7 @@ const router = new Router();
 /**
  * @param {ProductCategory} category
  */
-router.post('/', async function ({ originalUrl, category: { _id: categoryId }, body: { name, price, imageUrl } }, res) {
+router.post('/', allow('admin'), async function ({ originalUrl, category: { _id: categoryId }, body: { name, price, imageUrl } }, res) {
     try {
         return await createResource(res, originalUrl, new Product({ name, price, imageUrl, categoryId }));
     }
@@ -24,19 +24,24 @@ router.put('/:productId', allow('admin'), async function ({ originalUrl, categor
     }
     try {
         const product = await Product.findOne({ _id: productId, categoryId: oldCategoryId });
-        product.overwrite({ name, price, imageUrl, categoryId: newCategoryId });
-        const result = await product.save();
-        return nModified > 0 ? res.status(204).set('Content-Location', originalUrl.replace(oldCategoryId, newCategoryId)).send() : res.sendStatus(ok ? 404 : 400);
+        if (product) {
+            product.overwrite({ name, price, imageUrl, categoryId: newCategoryId });
+            await product.save()
+            return res.set('Content-Location', originalUrl.replace(oldCategoryId, newCategoryId)).json(product);
+        }
+        else {
+            return res.sendStatus(404);
+        }
     }
-    catch (err) {
-        return res.sendStatus(500);
+    catch ({ message }) {
+        return res.status(400).send(message);
     }
 });
 
 /**
  * @param {ProductCategory} category
  */
-router.get('/all', async function ({ category }, res) {
+router.get('/all', allow('admin', 'user'), async function ({ category }, res) {
     if (category === true) {
         // `true` means all the categories.
         const products = await Product.find();
@@ -51,7 +56,7 @@ router.get('/all', async function ({ category }, res) {
     }
 });
 
-router.get('/:id', async function ({ category: { _id: categoryId }, params: { id: productId } }, res) {
+router.get('/:id', allow('admin', 'user'), async function ({ category: { _id: categoryId }, params: { id: productId } }, res) {
     const product = await Product.findOne({ _id: productId, categoryId });
     return product ? res.json(product) : res.sendStatus(404);
 });
