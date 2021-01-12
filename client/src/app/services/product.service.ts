@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProduct } from '../product';
@@ -17,6 +17,16 @@ export class ProductService {
 
   setCurrentProduct(product: IProduct): void {
     this.currentProduct = product;
+  }
+
+  saveProductRx(categoryId: string, product: IProduct): Observable<IProduct> {
+    const fromObject = { ...product, price: product.price.toFixed(2) };
+    if (typeof product._id === 'string') {
+      return this.http.put<IProduct>(`/api/category/${categoryId}/product/${product._id}`, new HttpParams({ fromObject }));
+    }
+    else {
+      return this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, new HttpParams({ fromObject }));
+    }
   }
 
   getAllCategoriesRx(): Observable<Array<IProductCategory>> {

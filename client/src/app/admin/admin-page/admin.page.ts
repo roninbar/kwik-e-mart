@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -17,6 +18,11 @@ export class AdminPage implements OnInit {
   constructor(public productService: ProductService) { }
 
   ngOnInit(): void {
+  }
+
+  saveProduct({ value: { oldCategoryId, newCategoryId, ...otherFields } }: NgForm): void {
+    this.productService.setCurrentProduct(null);
+    this.productService.saveProductRx(oldCategoryId, { categoryId: newCategoryId, ...otherFields }).subscribe();
   }
 
 }
