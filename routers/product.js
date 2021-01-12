@@ -1,27 +1,33 @@
 const { Router } = require('express');
+const { Types: { ObjectId } } = require('mongoose');
 const Product = require('../models/Product');
 const ProductCategory = require('../models/ProductCategory');
 const { allow } = require('../util/passport');
-const { createResource } = require('./utils');
+const { storeImageFile } = require('./utils');
 
 const router = new Router();
 
 /**
  * @param {ProductCategory} category
  */
-router.post('/', allow('admin'), async function ({ originalUrl, category: { _id: categoryId }, body: { name, price, imageUrl } }, res) {
+router.post('/', allow('admin'), async function ({ originalUrl, category: { _id: categoryId }, body: { name, price }, files: { image: imageFile } }, res) {
+    const _id = new ObjectId();
+    const imageUrl = await storeImageFile(_id, imageFile);
     try {
-        return await createResource(res, originalUrl, new Product({ name, price, imageUrl, categoryId }));
+        const product = new Product({ _id, name, price, imageUrl, categoryId });
+        await product.save();
+        return res.status(201).set('Content-Location', `${originalUrl}/${_id}`).json(product);
     }
     catch ({ code, message }) {
         return res.status(code === 11000 ? 409 : 400).send(message);
     }
 });
 
-router.put('/:productId', allow('admin'), async function ({ originalUrl, category: { _id: oldCategoryId }, params: { productId }, body: { _id, name, price, imageUrl, categoryId: newCategoryId } }, res) {
-    if (productId !== _id) {
-        return res.sendStatus(400);
-    }
+/**
+ * @param {ProductCategory} category
+ */
+router.put('/:productId', allow('admin'), async function ({ originalUrl, category: { _id: oldCategoryId }, params: { productId }, body: { name, price, categoryId: newCategoryId }, files: { image: imageFile } }, res) {
+    const imageUrl = await storeImageFile(productId, imageFile);
     try {
         const product = await Product.findOne({ _id: productId, categoryId: oldCategoryId });
         if (product) {
