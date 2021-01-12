@@ -35,8 +35,8 @@ router.use(
             req.category = categoryId === 'all' || await ProductCategory.findById(categoryId);
             return req.category ? next() : res.sendStatus(404);
         }
-        catch (err) {
-            return res.sendStatus(err.kind === 'ObjectId' ? 400 : 500);
+        catch ({ kind, message }) {
+            return res.status(kind === 'ObjectId' ? 400 : 500).send(message);
         }
     },
     require('./product'),
