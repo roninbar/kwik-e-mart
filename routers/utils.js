@@ -1,9 +1,16 @@
+const { constants: { W_OK } } = require('fs');
+const { mkdir, stat } = require('fs/promises');
 const path = require('path');
 
 async function storeImageFile(_id, imageFile) {
-    const imagesDir = path.join(global.staticFilesDir, 'products');
     const imageFileName = `${_id}${path.extname(imageFile.name)}`;
-    await imageFile.mv(path.join(imagesDir, imageFileName));
+    const imageDir = path.join(global.staticFilesDir, 'products');
+    try {
+        await stat(imageDir, W_OK);
+    } catch (e) {
+        await mkdir(imageDir, { recursive: true });
+    }
+    await imageFile.mv(path.join(imageDir, imageFileName));
     return `/products/${imageFileName}`;
 }
 
