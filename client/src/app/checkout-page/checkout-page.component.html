@@ -19,18 +19,17 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>City</mat-label>
-                <input type="text" matInput name="delivery[to][city]" ngModel required>
+                <input type="text" matInput name="delivery[to][city]" [(ngModel)]="city" (cdkAutofill)="autoFill()" required>
             </mat-form-field>
-            <div>
-                <mat-form-field appearance="outline">
-                    <mat-label>Street</mat-label>
-                    <input type="text" matInput name="delivery[to][street]" ngModel required>
-                </mat-form-field>
-                <mat-form-field appearance="outline">
-                    <mat-label>House #</mat-label>
-                    <input type="number" matInput name="delivery[to][house]" ngModel required>
-                </mat-form-field>
-            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Street</mat-label>
+                <input type="text" matInput name="delivery[to][street]" [(ngModel)]="street" (cdkAutofill)="autoFill()" required>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>House #</mat-label>
+                <input type="number" matInput name="delivery[to][house]" [(ngModel)]="house" (cdkAutofill)="autoFill()" required>
+            </mat-form-field>
+
             <div>
                 <button type="button" mat-button matStepperPrevious>Back</button>
                 <button type="button" mat-button matStepperNext>Next</button>
@@ -39,7 +38,7 @@
         <mat-step label="Choose your payment method.">
             <mat-form-field appearance="outline">
                 <mat-label>Card Number</mat-label>
-                <input type="text" matInput name="payment[cc][number]" ngModel required>
+                <input type="text" matInput name="payment[cc][number]" ngModel pattern="(\d{12})|(\d{16})" required>
             </mat-form-field>
             <div>
                 <button type="button" mat-button matStepperPrevious>Back</button>
