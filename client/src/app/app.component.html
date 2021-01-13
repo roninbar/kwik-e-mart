@@ -67,10 +67,10 @@
             </mat-toolbar-row>
         </mat-toolbar>
 
-        <nav class="nav" *ngIf="!shoppingPageIsActive()">
-            <div class="nav-item">
-                <a class="nav-link" routerLink="/category/all">Continue Shopping</a>
-            </div>
+        <nav class="nav" *ngIf="authService.getLoggedInUser()?.role === 'user' && !shoppingPageIsActive()">
+            <nav mat-tab-nav-bar>
+                <a mat-tab-link routerLink="/category/all">Continue Shopping</a>
+            </nav>
         </nav>
 
         <router-outlet (activate)="onActivate($event)"></router-outlet>
