@@ -2,7 +2,7 @@ tmp/
 debug.log
 .vscode/launch.json
 *.zip
-#server/public/products
+server/public/products
 server/public/receipts
-#server/public/shop/products
+server/public/shop/products
 server/public/shop/receipts
