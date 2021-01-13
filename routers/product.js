@@ -26,12 +26,18 @@ router.post('/', allow('admin'), async function ({ originalUrl, category: { _id:
 /**
  * @param {ProductCategory} category
  */
-router.put('/:productId', allow('admin'), async function ({ originalUrl, category: { _id: oldCategoryId }, params: { productId }, body: { name, price, categoryId: newCategoryId }, files: { image: imageFile } }, res) {
-    const imageUrl = await storeImageFile(productId, imageFile);
+router.put('/:productId', allow('admin'), async function ({ originalUrl, category: { _id: oldCategoryId }, params: { productId }, body: { name, price, categoryId: newCategoryId }, files }, res) {
     try {
         const product = await Product.findOne({ _id: productId, categoryId: oldCategoryId });
         if (product) {
-            product.overwrite({ name, price, imageUrl, categoryId: newCategoryId });
+            product.overwrite({
+                name,
+                price,
+                imageUrl: files && files.image
+                    ? await storeImageFile(productId, files.image)
+                    : product.imageUrl,
+                categoryId: newCategoryId,
+            });
             await product.save()
             return res.set('Content-Location', originalUrl.replace(oldCategoryId, newCategoryId)).json(product);
         }
