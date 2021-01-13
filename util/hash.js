@@ -1,7 +1,7 @@
 /* eslint-disable dot-notation */
 const crypto = require('crypto');
 
-const SECRET = process.env['SECRET'] || 'xyzzy';
+const SECRET = process.env['SECRET'] || '';
 
 function hash(password) {
     return crypto
