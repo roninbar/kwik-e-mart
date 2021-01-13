@@ -13,7 +13,7 @@ const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/shop';
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET'] || '';
 
-global.staticFilesDir = path.join(__dirname, 'public', 'shop');
+global.staticFilesDir = path.join(__dirname, 'public');
 
 debug('server:mongodb')(`Connecting to ${MONGODBURL}...`);
 mongoose.connect(MONGODBURL, {
