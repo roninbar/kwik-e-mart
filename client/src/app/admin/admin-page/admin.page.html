@@ -2,28 +2,47 @@
 
     <mat-sidenav class="sidenav" mode="over" position="start" [opened]="productService.currentProduct" #sidenav>
 
-        <form encType="multipart/form-data" #f="ngForm" (ngSubmit)="saveProduct(f, i); sidenav.close()">
-            <input type="hidden" name="_id" [ngModel]="productService.currentProduct?._id">
-            <div class="form-group">
-                <input class="form-control" type="text" placeholder="Name" name="name" [ngModel]="productService.currentProduct?.name" required>
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="number" min="0" placeholder="Price" name="price" [ngModel]="productService.currentProduct?.price" required>
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="file" placeholder="Image" name="image" ngModel required #i>
-            </div>
-            <div class="form-group">
-                <input type="hidden" name="oldCategoryId" [ngModel]="productService.currentProduct?.categoryId">
-                <label for="category">Category:
-                    <select class="form-control" placeholder="Category" name="categoryId" [ngModel]="productService.currentProduct?.categoryId" required>
-                        <option *ngFor="let category of allCategories$ | async" [value]="category._id">
-                            {{category.name}}
-                        </option>
-                    </select>
-                </label>
-            </div>
-            <div class="form-group">
+        <h1 class="text-center mt-3">Product Details</h1>
+
+        <form class="container-fluid" encType="multipart/form-data" #f="ngForm" (ngSubmit)="saveProduct(f, i); sidenav.close()">
+            <div class="row row-cols-1 p-2">
+                <div class="card">
+                    <div class="card-body">
+                        <input class="form-control" type="hidden" name="_id" [ngModel]="productService.currentProduct?._id">
+                        <div class="form-group">
+                            <label for="name">
+                                Name:
+                                <input class="form-control" type="text" id="name" placeholder="Name" name="name" [ngModel]="productService.currentProduct?.name"
+                                    required>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="price">
+                                Price:
+                                <input class="form-control" type="number" min="0" id="price" placeholder="Price" name="price"
+                                    [ngModel]="productService.currentProduct?.price" required>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="image">
+                                Image File:
+                                <input class="form-control-file" type="file" id="image" placeholder="Image" name="image" ngModel required #i>
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="hidden" name="oldCategoryId" [ngModel]="productService.currentProduct?.categoryId">
+                            <label for="category">
+                                Category:
+                                <select class="form-control" id="category" placeholder="Category" name="categoryId"
+                                    [ngModel]="productService.currentProduct?.categoryId" required>
+                                    <option *ngFor="let category of allCategories$ | async" [value]="category._id">
+                                        {{category.name}}
+                                    </option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                </div>
                 <button class="btn btn-primary mt-3">Save</button>
             </div>
         </form>
@@ -32,7 +51,7 @@
 
     <router-outlet></router-outlet>
 
-    <button mat-fab color="primary" (click)="sidenav.open()">
+    <button mat-fab color="primary" (click)="productService.setCurrentProduct(null); sidenav.open()">
         <mat-icon>add</mat-icon>
     </button>
 
