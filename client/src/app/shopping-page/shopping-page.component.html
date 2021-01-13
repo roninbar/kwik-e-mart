@@ -1,4 +1,7 @@
 <div class="container-fluid">
+  <nav mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let category of allCategories$ | async" [routerLink]="['..', category._id]">{{category.name}}</a>
+  </nav>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6">
     <div class="px-0" *ngFor="let product of allProductsInCategory$ | async; trackBy: productIdOfProduct">
       <div class="card m-2">
