@@ -19,6 +19,8 @@
 
 ### Order Flow
 
+Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil) to view the diagram on github.com.
+
 ```mermaid
 sequenceDiagram
 client->>+server: POST /api/order <br/> { items: [{ product: '<id>', quantity: 8, price: 100.00 }], total: 800.00 }
