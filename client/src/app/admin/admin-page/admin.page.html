@@ -7,6 +7,8 @@
         <form class="container-fluid" encType="multipart/form-data" #f="ngForm" (ngSubmit)="saveProduct(f, i); sidenav.close()">
             <div class="row row-cols-1 p-2">
                 <div class="card">
+                    <img class="card-img" *ngIf="!!productService.currentProduct" [src]="productService.currentProduct.imageUrl"
+                        [alt]="productService.currentProduct.name">
                     <div class="card-body">
                         <input class="form-control" type="hidden" name="_id" [ngModel]="productService.currentProduct?._id">
                         <div class="form-group">
