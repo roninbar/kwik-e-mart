@@ -1,0 +1,11 @@
+{
+    "name": "Kwik-E-Mart",
+    "description": "An online supermarket.",
+    "repository": "https://github.com/roninbar/kwik-e-mart",
+    "logo": "https://node-js-sample.herokuapp.com/node.svg",
+    "keywords": [
+        "node",
+        "express",
+        "static"
+    ]
+}
