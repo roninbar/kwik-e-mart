@@ -10,13 +10,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/roninbar/2020-11-05-online-shop.git"
+    "url": "git+https://github.com/roninbar/kwik-e-mart.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/roninbar/2020-11-05-online-shop/issues"
+    "url": "https://github.com/roninbar/kwik-e-mart/issues"
   },
-  "homepage": "https://github.com/roninbar/2020-11-05-online-shop#readme"
+  "homepage": "https://github.com/roninbar/kwik-e-mart#readme"
 }
