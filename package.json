@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Online Shop",
   "main": "index.js",
+  "engines": {
+    "node": "14.15.x"
+  },
   "scripts": {
     "heroku-deploy": "git subtree push --prefix server heroku master",
     "heroku-local": "cd server && heroku local",
