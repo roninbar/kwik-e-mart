@@ -6,3 +6,4 @@ server/public/products
 server/public/receipts
 server/public/shop/products
 server/public/shop/receipts
+.env
