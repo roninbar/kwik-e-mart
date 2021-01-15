@@ -1,1 +1,1 @@
-web: NODE_PATH=./server/node_modules npm start
+web: cd server; npm start
