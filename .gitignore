@@ -1,6 +1,7 @@
 tmp/
 debug.log
 .vscode/launch.json
+.vscode/settings.json
 *.zip
 server/public/products
 server/public/receipts
