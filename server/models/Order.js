@@ -39,7 +39,7 @@ const schema = new Schema({
                 },
                 set(value) {
                     const match = value.match(/(\w{4})\s*$/);
-                    return match && match.length >= 2 && match[1];
+                    return match?.[1];
                 },
                 required: true,
             },
