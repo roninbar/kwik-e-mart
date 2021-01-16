@@ -25,7 +25,7 @@
             "generator": "secret"
         },
         "DEBUG": {
-            "description": "Mask for log messages to display",
+            "description": "Mask for log messages",
             "value": "server:*"
         },
         "MONGODBURL": {

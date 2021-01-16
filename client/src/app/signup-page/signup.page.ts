@@ -19,7 +19,7 @@ export class SignupPage {
 
   public submit(f: NgForm): void {
     this.userService.createRx(f.value).subscribe(async () => {
-      this.alertService.postAlert(`Congratulations, ${f.value.firstName}! You are now a member of Quik-E-Mart! Please log in using your e-mail and password.`);
+      this.alertService.postAlert(`Congratulations, ${f.value.firstName}! You are now a member of Kwik-E-Mart! Please log in using your e-mail and password.`);
       return await this.router.navigateByUrl('/login');
     });
   }
