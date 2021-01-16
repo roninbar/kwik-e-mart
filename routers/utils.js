@@ -1,4 +1,5 @@
-const { promises: { mkdir, stat }, constants: { W_OK } } = require('fs');
+const { constants: { W_OK } } = require('fs');
+const { mkdir, stat } = require('fs/promises');
 const path = require('path');
 
 async function storeImageFile(_id, imageFile) {
