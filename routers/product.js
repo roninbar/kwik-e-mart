@@ -33,7 +33,7 @@ router.put('/:productId', allow('admin'), async function ({ originalUrl, categor
             product.overwrite({
                 name,
                 price,
-                imageUrl: files && files.image
+                imageUrl: files?.image
                     ? await storeImageFile(productId, files.image)
                     : product.imageUrl,
                 categoryId: newCategoryId,

@@ -6,7 +6,7 @@ const User = require('../models/User');
 passport.use(new LocalStrategy({ usernameField: 'email' }, async function (email, password, done) {
     try {
         const user = await User.findOne({ email }, '+passwordHash');
-        return done(null, user && user.validPassword(password) && user.set('passwordHash', undefined));
+        return done(null, user?.validPassword(password) && user.set('passwordHash', undefined));
     }
     catch (error) {
         return done(error);
