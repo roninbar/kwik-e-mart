@@ -3,8 +3,3 @@ debug.log
 .vscode/launch.json
 .vscode/settings.json
 *.zip
-server/public/products
-server/public/receipts
-server/public/shop/products
-server/public/shop/receipts
-.env
