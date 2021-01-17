@@ -31,7 +31,8 @@
         },
         "MONGODBURL": {
             "description": "MongoDB connection string",
-            "value": "mongodb+srv://guest:guest@cluster0.ahima.mongodb.net/kwik-e-mart"
+            "value": "mongodb+srv://guest:guest@cluster0.ahima.mongodb.net/kwik-e-mart",
+            "required": false
         }
     }
 }
