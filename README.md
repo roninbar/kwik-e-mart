@@ -8,6 +8,8 @@ https://kwik-ee-mart.herokuapp.com/
 
 To deploy your own instance of this application, switch to the `heroku` branch of this repo and follow the instructions [there](https://github.com/roninbar/kwik-e-mart/tree/heroku#readme).
 
+![Heroku Branch](README/images/heroku-branch.png)
+
 ### API Endpoints
 
 | Method   | URL                                            | Request Payload                                                       | Response                                                                                                            | Semantics                                             | Required Privilege                  | Comments                                                                                     |
