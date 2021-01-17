@@ -1,0 +1,36 @@
+{
+    "name": "Kwik-E-Mart",
+    "description": "An online supermarket",
+    "repository": "https://github.com/roninbar/kwik-e-mart",
+    "logo": "https://cdn.shopify.com/s/files/1/0016/0425/5788/products/SD1622_600x.jpg?v=1543461710",
+    "keywords": [
+        "node",
+        "express",
+        "static",
+        "ecommerce",
+        "supermarket"
+    ],
+    "stack": "heroku-20",
+    "buildpacks": [
+        {
+            "url": "heroku/nodejs"
+        },
+        {
+            "url": "jontewks/puppeteer"
+        }
+    ],
+    "env": {
+        "SECRET": {
+            "description": "A secret key for signing passwords and session cookies",
+            "generator": "secret"
+        },
+        "DEBUG": {
+            "description": "Mask for log messages",
+            "value": "server:*"
+        },
+        "MONGODBURL": {
+            "description": "MongoDB connection string",
+            "value": "mongodb+srv://guest:guest@cluster0.ahima.mongodb.net/heroku/kwik-e-mart"
+        }
+    }
+}
