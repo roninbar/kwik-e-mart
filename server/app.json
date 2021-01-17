@@ -27,8 +27,7 @@
         },
         "MONGODBURL": {
             "description": "MongoDB connection string (please change this to point to your own cluster)",
-            "value": "e.g. mongodb+srv://username:password@cluster0-jtpxd.mongodb.net/kwik-e-mart",
-            "required": false
+            "value": "e.g. mongodb+srv://username:password@cluster0-jtpxd.mongodb.net/kwik-e-mart"
         },
         "SECRET": {
             "description": "A secret key for signing passwords and session cookies",
