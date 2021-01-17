@@ -2,11 +2,11 @@
 
 ##### Live Version
 
-https://shop-roninbar.herokuapp.com/
+https://kwik-ee-mart.herokuapp.com/
 
 ##### Deploy Your Own
 
-To deploy your own instance of this application, switch to the [heroku branch](./tree/heroku) of this repo and follow the instructions [there](./tree/heroku#readme).
+To deploy your own instance of this application, switch to the `heroku` branch of this repo and follow the instructions [there](https://github.com/roninbar/kwik-e-mart/tree/heroku#readme).
 
 ### API Endpoints
 
