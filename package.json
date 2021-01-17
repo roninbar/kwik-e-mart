@@ -9,7 +9,8 @@
   "scripts": {
     "heroku-deploy": "git subtree push --prefix server heroku master",
     "heroku-local": "cd server && heroku local",
-    "heroku-open": "heroku open"
+    "heroku-open": "heroku open",
+    "github-heroku-push": "git subtree push --prefix server origin heroku"
   },
   "repository": {
     "type": "git",
