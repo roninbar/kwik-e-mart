@@ -35,8 +35,7 @@
         },
         "SIDNAME": {
             "description": "Session ID cookie name",
-            "value": "connect.sid",
-            "required": false
+            "value": "connect.sid"
         }
     }
 }
