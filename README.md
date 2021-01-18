@@ -6,9 +6,7 @@ https://kwik-ee-mart.herokuapp.com/
 
 #### Deploy Your Own
 
-To deploy your own instance of this application, switch to the `heroku` branch of this repo and follow the instructions [there](https://github.com/roninbar/kwik-e-mart/tree/heroku#readme).
-
-[![Heroku Branch](README/images/heroku-branch.png)](https://github.com/roninbar/kwik-e-mart/tree/heroku)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/roninbar/kwik-e-mart/tree/heroku)
 
 ### API Endpoints
 
