@@ -29,7 +29,7 @@ https://kwik-ee-mart.herokuapp.com/
 
 ### Order Flow
 
-Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil) to view the diagram on github.com.
+Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil) to view the diagram on GitHub.
 
 ```mermaid
 sequenceDiagram
