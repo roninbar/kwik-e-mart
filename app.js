@@ -9,7 +9,7 @@ const debug = require('debug');
 const path = require('path');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
-const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/shop';
+const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/kwik-e-mart';
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET'] || '';
 
