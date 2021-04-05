@@ -47,7 +47,7 @@ app.use(upload());
 
 app.use('/api/auth', require('./routers/auth'));
 app.use('/api/user', require('./routers/user'));
-app.use('/api/category', passport.allow('user', 'admin'), require('./routers/category'));
+app.use('/api/category', passport.allow('customer', 'admin'), require('./routers/category'));
 app.use('/api/order', require('./routers/order'));
 
 app.use(express.static(global.staticFilesDir));

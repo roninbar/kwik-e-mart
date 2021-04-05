@@ -9,7 +9,7 @@ const log = debug('server:order');
 
 const router = new Router();
 
-router.post('/', passport.allow('user'), async function ({ originalUrl, user, body }, res) {
+router.post('/', passport.allow('customer'), async function ({ originalUrl, user, body }, res) {
     log(util.inspect({ user, body }, { depth: 4, colors: true }));
     const order = new Order({ customer: user, ...body });
     await order.populate('items.product').execPopulate();
