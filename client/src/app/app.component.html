@@ -59,7 +59,7 @@
                     <span>Hello, {{user.name.first}}!</span>
                     <a class="ml-3 mr-1" routerLink="/login" (click)="logOut()">Log Out</a>
                     <!-- Shopping Cart Button -->
-                    <button *ngIf="user.role === 'user'" type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()"
+                    <button *ngIf="user.role === 'customer'" type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()"
                         [matBadgeHidden]="cartService.isEmpty()" matBadgeColor="warn" (click)="cart.toggle()">
                         <mat-icon>shopping_cart</mat-icon>
                     </button>
@@ -67,7 +67,7 @@
             </mat-toolbar-row>
         </mat-toolbar>
 
-        <nav class="nav" *ngIf="authService.getLoggedInUser()?.role === 'user' && !shoppingPageIsActive()">
+        <nav class="nav" *ngIf="authService.getLoggedInUser()?.role === 'customer' && !shoppingPageIsActive()">
             <nav mat-tab-nav-bar>
                 <a mat-tab-link routerLink="/category/all">Continue Shopping</a>
             </nav>

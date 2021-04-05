@@ -18,6 +18,6 @@ export class UserGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean | Promise<boolean> {
     const { role } = this.authService.getLoggedInUser();
-    return role === 'user' || this.router.navigateByUrl('/admin');
+    return role === 'customer' || this.router.navigateByUrl('/admin');
   }
 }

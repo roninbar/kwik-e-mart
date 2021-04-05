@@ -3,7 +3,7 @@ const hash = require('../util/hash');
 
 const schema = new Schema({
     _id: { type: String, match: /^\d{9}$/ },
-    role: { type: String, required: true, enum: ['user', 'admin'] },
+    role: { type: String, required: true, enum: ['customer', 'admin'] },
     email: { type: String, required: true, unique: true, trim: true, lowercase: true },
     passwordHash: { type: String, required: true, select: false },
     name: {
