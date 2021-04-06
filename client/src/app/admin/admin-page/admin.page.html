@@ -2,40 +2,40 @@
 
     <mat-sidenav class="sidenav" mode="over" position="start" [opened]="productService.currentProduct" #sidenav>
 
-        <h1 class="text-center mt-3">Product Details</h1>
+        <h1>Product Details</h1>
 
-        <form class="container-fluid" encType="multipart/form-data" #f="ngForm" (ngSubmit)="saveProduct(f, i); sidenav.close()">
-            <div class="row row-cols-1 p-2">
-                <div class="card">
-                    <img class="card-img" *ngIf="!!productService.currentProduct" [src]="productService.currentProduct.imageUrl"
+        <form encType="multipart/form-data" #f="ngForm" (ngSubmit)="saveProduct(f, i); sidenav.close()">
+            <div>
+                <div>
+                    <img *ngIf="!!productService.currentProduct" [src]="productService.currentProduct.imageUrl"
                         [alt]="productService.currentProduct.name">
-                    <div class="card-body">
-                        <input class="form-control" type="hidden" name="_id" [ngModel]="productService.currentProduct?._id">
-                        <div class="form-group">
+                    <div>
+                        <input type="hidden" name="_id" [ngModel]="productService.currentProduct?._id">
+                        <div>
                             <label for="name">
                                 Name:
-                                <input class="form-control" type="text" id="name" placeholder="Name" name="name" [ngModel]="productService.currentProduct?.name"
+                                <input type="text" id="name" placeholder="Name" name="name" [ngModel]="productService.currentProduct?.name"
                                     required>
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div>
                             <label for="price">
                                 Price:
-                                <input class="form-control" type="number" min="0" id="price" placeholder="Price" name="price"
+                                <input type="number" min="0" id="price" placeholder="Price" name="price"
                                     [ngModel]="productService.currentProduct?.price" required>
                             </label>
                         </div>
-                        <div class="form-group">
+                        <div>
                             <label for="image">
                                 Image File:
-                                <input class="form-control-file" type="file" id="image" placeholder="Image" name="image" ngModel required #i>
+                                <input type="file" id="image" placeholder="Image" name="image" ngModel required #i>
                             </label>
                         </div>
-                        <div class="form-group">
-                            <input class="form-control" type="hidden" name="oldCategoryId" [ngModel]="productService.currentProduct?.categoryId">
+                        <div>
+                            <input type="hidden" name="oldCategoryId" [ngModel]="productService.currentProduct?.categoryId">
                             <label for="category">
                                 Category:
-                                <select class="form-control" id="category" placeholder="Category" name="categoryId"
+                                <select id="category" placeholder="Category" name="categoryId"
                                     [ngModel]="productService.currentProduct?.categoryId" required>
                                     <option *ngFor="let category of allCategories$ | async" [value]="category._id">
                                         {{category.name}}
@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-primary mt-3">Save</button>
+                <button>Save</button>
             </div>
         </form>
 
