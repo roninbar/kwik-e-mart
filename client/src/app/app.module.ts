@@ -1,4 +1,3 @@
-import { LayoutModule } from '@angular/cdk/layout';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -24,6 +23,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { OrderItemsTableComponent } from './checkout-page/order-items-table/order-items-table.component';
+import { CustomerModule } from './customer/customer.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { NotFoundPage } from './page-not-found/not-found.page';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
@@ -42,13 +42,13 @@ import { ThankYouPage } from './thank-you-page/thank-you.page';
     ThankYouPage,
   ],
   imports: [
+    CustomerModule,
     AdminModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    LayoutModule,
     MatBadgeModule,
     MatButtonModule,
     MatFormFieldModule,
