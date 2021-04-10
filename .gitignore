@@ -61,10 +61,10 @@ typings/
 .next
 
 # Generated receipts
-public/receipts
-public/shop/receipts
+public/receipts/
+public/shop/receipts/
 
 # Uploaded product images
-public/products
-public/shop/products
+public/products/
+public/shop/products/
 
