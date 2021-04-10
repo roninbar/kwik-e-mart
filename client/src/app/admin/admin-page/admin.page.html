@@ -1,6 +1,6 @@
 <mat-sidenav-container>
 
-    <mat-sidenav class="sidenav" mode="over" position="start" [opened]="productService.currentProduct" #sidenav>
+    <mat-sidenav class="sidenav" mode="over" position="start" [opened]="!!productService.currentProduct" #sidenav>
 
         <h1>Product Details</h1>
 
