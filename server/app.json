@@ -29,9 +29,12 @@
             "description": "MongoDB connection string (please change this to point to your own cluster)",
             "value": "e.g. mongodb+srv://username:password@cluster0-jtpxd.mongodb.net/kwik-e-mart"
         },
-        "SECRET": {
-            "description": "A secret key for signing passwords and session cookies",
+        "SECRET_FOR_SESSION": {
+            "description": "A secret key for signing session cookies",
             "generator": "secret"
+        },
+        "SECRET_FOR_USER": {
+            "description": "A secret key for hashing user credentials"
         },
         "SIDNAME": {
             "description": "Session ID cookie name",
