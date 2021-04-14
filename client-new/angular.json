@@ -93,7 +93,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "kwik-e-mart:build:production"
+              "browserTarget": "kwik-e-mart:build:production",
+              "proxyConfig": "proxy.conf.js"
             }
           }
         },
