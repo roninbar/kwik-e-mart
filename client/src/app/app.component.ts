@@ -7,6 +7,7 @@ import { OrderItem } from './order-item';
 import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
 import { CartService } from './services/cart.service';
+import { ProductService } from './services/product.service';
 import { ToolbarService } from './services/toolbar.service';
 import { ShoppingPageComponent } from './shopping-page/shopping-page.component';
 import { SignupPage } from './signup-page/signup.page';
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit {
   public constructor(
     public authService: AuthService,
     public cartService: CartService,
+    public productService: ProductService,
     public toolbarService: ToolbarService,
     private alertService: AlertService,
     private router: Router,

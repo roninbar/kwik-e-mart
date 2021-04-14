@@ -9,6 +9,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { AdminPage } from './admin-page/admin.page';
 import { AdminRoutingModule } from './admin-routing.module';
 import { InventoryPage } from './inventory-page/inventory.page';
+import { ProductForm } from './product/product.form';
 
 @NgModule({
   imports: [
@@ -24,6 +25,10 @@ import { InventoryPage } from './inventory-page/inventory.page';
   declarations: [
     AdminPage,
     InventoryPage,
+    ProductForm,
+  ],
+  exports: [
+    ProductForm
   ],
 })
 export class AdminModule { }

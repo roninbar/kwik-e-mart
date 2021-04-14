@@ -1,9 +1,16 @@
 <mat-sidenav-container class="sidenav-container">
 
+    <mat-sidenav class="sidenav" mode="over" position="start" [opened]="!!productService.currentProduct" #productSidenav>
+
+        <h1>Product Details</h1>
+        <app-product></app-product>
+
+    </mat-sidenav>
+
     <!-- Shopping Cart Sidenav -->
-    <mat-sidenav class="sidenav" mode="over" position="end" fixedInViewport #cart>
+    <mat-sidenav class="sidenav" mode="over" position="end" fixedInViewport #cartSidenav>
         <mat-toolbar class="justify-content-center">Your Cart</mat-toolbar>
-        <form class="container-fluid" (ngSubmit)="cart.toggle(); goToCheckOutAsync()">
+        <form class="container-fluid" (ngSubmit)="cartSidenav.toggle(); goToCheckOutAsync()">
             <div class="row row-cols-1 p-2">
                 <div class="alert alert-secondary text-center" *ngIf="cartService.isEmpty()">The cart is empty.</div>
                 <ng-container *ngIf="!cartService.isEmpty()">
@@ -60,7 +67,7 @@
                     <a class="ml-3 mr-1" routerLink="/login" (click)="logOut()">Log Out</a>
                     <!-- Shopping Cart Button -->
                     <button *ngIf="user.role === 'customer'" type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()"
-                        [matBadgeHidden]="cartService.isEmpty()" matBadgeColor="warn" (click)="cart.toggle()">
+                        [matBadgeHidden]="cartService.isEmpty()" matBadgeColor="warn" (click)="cartSidenav.toggle()">
                         <mat-icon>shopping_cart</mat-icon>
                     </button>
                 </ng-container>
