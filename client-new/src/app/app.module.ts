@@ -13,11 +13,11 @@ import { NotFoundPage } from './not-found/not-found.page';
     NotFoundPage,
   ],
   imports: [
+    AdminModule,
+    CustomerModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    AdminModule,
-    CustomerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
