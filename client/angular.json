@@ -90,12 +90,12 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "kwik-e-mart:build"
+            "browserTarget": "kwik-e-mart:build",
+            "proxyConfig": "proxy.conf.js"
           },
           "configurations": {
             "production": {
-              "browserTarget": "kwik-e-mart:build:production",
-              "proxyConfig": "proxy.conf.js"
+              "browserTarget": "kwik-e-mart:build:production"
             }
           }
         },
