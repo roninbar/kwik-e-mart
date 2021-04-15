@@ -5,10 +5,12 @@ import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomerModule } from './customer/customer.module';
+import { NotFoundPage } from './not-found/not-found.page';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NotFoundPage,
   ],
   imports: [
     BrowserModule,
