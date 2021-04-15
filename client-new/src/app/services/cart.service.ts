@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ICartItemsMap } from '../types/cart-items-map.interface';
-import { OrderItem } from '../order-item';
-import { IProduct } from '../product';
+import { OrderItem } from '../types/order-item';
+import { IProduct } from '../types/product.interface';
 
 const CARTITEMS = 'cartItems';
 

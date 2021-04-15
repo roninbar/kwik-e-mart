@@ -1,15 +1,15 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IProduct } from '../product';
-import { IProductCategory } from '../product-category';
+import { IProduct } from '../types/product.interface';
+import { IProductCategory } from '../types/product-category.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  public currentProduct: IProduct;
+  public currentProduct: IProduct | null = null;
 
   constructor(
     private http: HttpClient,
