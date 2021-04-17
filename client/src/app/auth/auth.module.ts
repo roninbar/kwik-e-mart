@@ -7,9 +7,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SignInPage } from './sign-in/sign-in.page';
+import { SignUpPage } from './sign-up/sign-up.page';
 
 @NgModule({
-  declarations: [SignInPage],
+  declarations: [
+    SignInPage,
+    SignUpPage,
+  ],
   imports: [
     CommonModule,
     FormsModule,
