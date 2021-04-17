@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CatalogPage } from './catalog/catalog.page';
-import { RootPage } from './root/root.page';
+import { CatalogPage } from './catalog-page/catalog.page';
+import { RootPage } from './root-page/root.page';
 
 const routes: Routes = [
   {

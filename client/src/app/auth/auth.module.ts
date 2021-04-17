@@ -6,8 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { AuthRoutingModule } from './auth-routing.module';
-import { SignInPage } from './sign-in/sign-in.page';
-import { SignUpPage } from './sign-up/sign-up.page';
+import { SignInPage } from './sign-in-page/sign-in.page';
+import { SignUpPage } from './sign-up-page/sign-up.page';
 
 @NgModule({
   declarations: [

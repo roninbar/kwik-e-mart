@@ -4,9 +4,9 @@ import { NgModule } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { CatalogPage } from './catalog/catalog.page';
+import { CatalogPage } from './catalog-page/catalog.page';
 import { CustomerRoutingModule } from './customer-routing.module';
-import { RootPage } from './root/root.page';
+import { RootPage } from './root-page/root.page';
 
 @NgModule({
   imports: [
