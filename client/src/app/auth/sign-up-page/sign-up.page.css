@@ -1,0 +1,32 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #eee;
+}
+
+mat-card {
+    padding: 50px 100px 20px;
+}
+
+mat-card-header {
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+mat-card-actions button {
+    text-transform: uppercase;
+}
