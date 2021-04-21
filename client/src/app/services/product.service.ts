@@ -15,7 +15,7 @@ export class ProductService {
     private http: HttpClient,
   ) { }
 
-  setCurrentProduct(product: IProduct): void {
+  setCurrentProduct(product: IProduct | null): void {
     this.currentProduct = product;
   }
 
