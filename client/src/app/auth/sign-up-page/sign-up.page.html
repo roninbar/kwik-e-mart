@@ -1,1 +1,70 @@
-<p>sign-up works!</p>
+<div class="container">
+    <div class="row">
+        <div class="card col-10 mx-auto mt-5">
+            <div class="card-body">
+                <form action="/api/user" method="post" #f="ngForm" (ngSubmit)="submit(f)">
+                    <h1 class="card-title mb-4 mt-1 text-center">Sign Up</h1>
+                    <mat-horizontal-stepper linear #stepper>
+                        <mat-step label="Step 1">
+                            <div class="form-group">
+                                <input class="form-control p-3" type="text" name="_id" id="id" autocomplete="off" placeholder="ID (ת.ז.)" required ngModel>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control p-3" type="email" name="email" id="email" autocomplete="email" placeholder="E-Mail" required ngModel>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control p-3" type="password" name="password" id="password" autocomplete="new-password" placeholder="Password"
+                                    required ngModel>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control p-3" type="password" name="passwordRepeat" id="passwordRepeat" autocomplete="off" placeholder="Repeat Password"
+                                    required ngModel>
+                            </div>
+                            <div>
+                                <button type="button" mat-button matStepperNext>Next</button>
+                            </div>
+                        </mat-step>
+                        <mat-step label="Step 2">
+                            <div class="form-group">
+                                <select class="custom-select" name="city" id="city" placeholder="City" required ngModel>
+                                    <option value="Jerusalem">Jerusalem</option>
+                                    <option value="Tel Aviv">Tel Aviv</option>
+                                    <option value="Haifa">Haifa</option>
+                                    <option value="Rishon LeZion">Rishon LeZion</option>
+                                    <option value="Petah Tikva">Petah Tikva</option>
+                                    <option value="Ashdod">Ashdod</option>
+                                    <option value="Netanya">Netanya</option>
+                                    <option value="Beer Sheva">Beer Sheva</option>
+                                    <option value="Bnei Brak">Bnei Brak</option>
+                                    <option value="Holon">Holon</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control p-3" type="text" name="streetAddress" id="streetAddress" autocomplete="street-address"
+                                    placeholder="Street Address" required ngModel>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control p-3" type="text" name="firstName" id="firstName" autocomplete="given-name" placeholder="First Name"
+                                    required ngModel>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control p-3" type="text" name="lastName" id="lastName" autocomplete="family-name" placeholder="Last Name"
+                                    required ngModel>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary btn-block text-uppercase" type="submit">Sign Up</button>
+                            </div>
+                            <div>
+                                <button type="button" mat-button matStepperPrevious>Back</button>
+                                <button type="button" mat-button (click)="stepper.reset()">Reset</button>
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                    <div class="col-sm-12">
+                        <a routerLink="/login">Already have an account? Log in!</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

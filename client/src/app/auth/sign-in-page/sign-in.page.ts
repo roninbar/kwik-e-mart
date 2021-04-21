@@ -41,6 +41,7 @@ export class SignInPage implements OnInit {
         }
         return throwError('Danger');
       }))
+      // tslint:disable-next-line: deprecation
       .subscribe(async () => await this.router.navigateByUrl('/'));
   }
 
