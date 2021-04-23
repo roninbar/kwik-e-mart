@@ -1,7 +1,7 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container>
 
     <!-- Product Details Sidenav -->
-    <mat-sidenav class="sidenav" mode="over" position="start" [opened]="!!productService.currentProduct" #productSidenav>
+    <mat-sidenav mode="over" position="start" [opened]="!!productService.currentProduct" #productSidenav>
 
         <h1>Product Details</h1>
 
@@ -15,7 +15,7 @@
             <mat-toolbar-row>
 
                 <!-- Website Title -->
-                <span class="mx-3 cursor-pointer">Kwik-E-Mart</span>
+                <span class="cursor-pointer">Kwik-E-Mart</span>
 
                 <span class="flex-fill"></span>
 
@@ -30,10 +30,6 @@
         </mat-toolbar>
 
         <router-outlet></router-outlet>
-
-        <button mat-fab color="primary" (click)="productService.setCurrentProduct(null)">
-            <mat-icon>add</mat-icon>
-        </button>
 
     </mat-sidenav-content>
 

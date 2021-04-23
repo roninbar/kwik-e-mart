@@ -32,3 +32,9 @@
         flex: calc(100% / 6) 0;
     }
 }
+
+[mat-fab] {
+    position: fixed;
+    bottom: 4rem;
+    right: 4rem;
+}

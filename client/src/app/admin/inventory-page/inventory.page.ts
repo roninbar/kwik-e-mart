@@ -18,7 +18,7 @@ export class InventoryPage implements OnInit {
   );
 
   constructor(
-    private productService: ProductService,
+    public productService: ProductService,
     private route: ActivatedRoute,
   ) { }
 
