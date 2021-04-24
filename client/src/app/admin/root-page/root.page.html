@@ -22,7 +22,7 @@
                 <!-- Logged-In User + Logout Button -->
                 <ng-container *ngIf="authService.getLoggedInUser() as user">
                     <span>Hello, {{user.name.first}}!</span>
-                    <a class="ml-3 mr-1" routerLink="/" (click)="logOut()">Log Out</a>
+                    <a class="cursor-pointer" (click)="logOut()">Log Out</a>
                 </ng-container>
 
             </mat-toolbar-row>

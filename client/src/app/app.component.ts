@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { AlertService } from './services/alert.service';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'kwik-e-root',
@@ -13,14 +15,15 @@ export class AppComponent implements OnInit {
 
   public constructor(
     private alertService: AlertService,
+    private authService: AuthService,
     private snackBar: MatSnackBar,
-  ) {
-
-  }
+    private router: Router,
+  ) { }
 
   public ngOnInit(): void {
     document.title = this.title;
     this.alertService.alert.subscribe((message: string) => this.openSnackBar(message));
+    this.authService.loggedInUserChange$.subscribe(() => this.router.navigateByUrl('/'));
   }
 
   private openSnackBar(message: string): void {

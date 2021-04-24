@@ -1,9 +1,9 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { AlertService } from './alert.service';
 import { IUser } from '../types/user.interface';
+import { AlertService } from './alert.service';
 
 const USERLSKEY = 'user';
 
@@ -12,10 +12,13 @@ const USERLSKEY = 'user';
 })
 export class AuthService {
 
+  public readonly loggedInUserChange$ = new EventEmitter<IUser | null>();
+
   constructor(
     private http: HttpClient,
     private alertService: AlertService,
   ) {
+    // tslint:disable-next-line: deprecation
     this.http.get<IUser>('/api/auth').subscribe({
       next: this.setLoggedInUser.bind(this),
       error: (error: HttpErrorResponse) => {
@@ -34,11 +37,15 @@ export class AuthService {
   }
 
   private setLoggedInUser(user: IUser | null): void {
+    const prevUser = this.getLoggedInUser();
     if (user) {
       localStorage.setItem(USERLSKEY, JSON.stringify(user));
     }
     else {
       localStorage.removeItem(USERLSKEY);
+    }
+    if (user?._id !== prevUser?._id) {
+      this.loggedInUserChange$.emit(user);
     }
   }
 
