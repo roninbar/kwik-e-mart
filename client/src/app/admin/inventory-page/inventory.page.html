@@ -1,5 +1,6 @@
 <nav mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let category of allCategories$ | async" [routerLink]="['..', category._id]">{{category.name}}</a>
+    <a mat-tab-link *ngFor="let category of allCategories$ | async" [routerLink]="['..', category._id]" [active]="activeCategoryId == category._id"
+        (click)="activeCategoryId = category._id">{{category.name}}</a>
 </nav>
 
 <div class="container">

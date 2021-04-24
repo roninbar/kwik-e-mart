@@ -11,6 +11,8 @@ import { IProduct } from 'src/app/types/product.interface';
 // tslint:disable-next-line: component-class-suffix
 export class InventoryPage implements OnInit {
 
+  public activeCategoryId = 'all';
+
   public readonly allCategories$ = this.productService.getAllCategoriesRx();
 
   public readonly allProductsInCategory$ = this.route.paramMap.pipe(
