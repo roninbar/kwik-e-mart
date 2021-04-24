@@ -62,9 +62,9 @@ typings/
 
 # Generated receipts
 public/receipts/
-public/shop/receipts/
+public/kwik-e-mart/receipts/
 
 # Uploaded product images
 public/products/
-public/shop/products/
+public/kwik-e-mart/products/
 
