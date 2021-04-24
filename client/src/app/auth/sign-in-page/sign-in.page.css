@@ -30,3 +30,7 @@ mat-card-actions {
 mat-card-actions button {
     text-transform: uppercase;
 }
+
+.text-center {
+    text-align: center;
+}

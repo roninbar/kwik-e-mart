@@ -26,6 +26,7 @@
                                 <input matInput type="password" name="passwordRepeat" id="passwordRepeat" autocomplete="off" required ngModel>
                             </mat-form-field>
                             <div>
+                                <button type="button" mat-button (click)="stepper.reset()">Reset</button>
                                 <button type="button" mat-button matStepperNext>Next</button>
                             </div>
                         </div>
@@ -59,9 +60,7 @@
                                 <mat-label>Last Name</mat-label>
                                 <input matInput type="text" name="lastName" id="lastName" autocomplete="family-name" required ngModel>
                             </mat-form-field>
-                            <div class="form-group">
-                                <button class="btn btn-primary btn-block text-uppercase" type="submit">Sign Up</button>
-                            </div>
+                            <button type="submit" mat-flat-button color="primary">Sign Up</button>
                             <div>
                                 <button type="button" mat-button matStepperPrevious>Back</button>
                                 <button type="button" mat-button (click)="stepper.reset()">Reset</button>
@@ -70,7 +69,7 @@
                     </mat-step>
                 </mat-horizontal-stepper>
             </mat-card-content>
-            <div class="col-sm-12">
+            <div class="text-center">
                 <a routerLink="../signin">Already have an account? Log in!</a>
             </div>
         </form>
