@@ -21,8 +21,12 @@
 
                 <!-- Logged-In User + Logout Button -->
                 <ng-container *ngIf="authService.getLoggedInUser() as user">
-                    <span>Hello, {{user.name.first}}!</span>
-                    <a class="cursor-pointer" (click)="logOut()">Log Out</a>
+                    <button mat-button [matMenuTriggerFor]="userMenu">Hello, {{user.name.first}}!</button>
+                    <mat-menu #userMenu="matMenu">
+                        <button mat-menu-item (click)="logOut()">
+                            <mat-icon>logout</mat-icon>Log Out
+                        </button>
+                    </mat-menu>
                 </ng-container>
 
             </mat-toolbar-row>
