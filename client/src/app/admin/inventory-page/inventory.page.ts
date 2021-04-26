@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { ProductService } from 'src/app/services/product.service';
@@ -10,6 +10,8 @@ import { IProduct } from 'src/app/types/product.interface';
 })
 // tslint:disable-next-line: component-class-suffix
 export class InventoryPage implements OnInit {
+
+  @Output() edit = new EventEmitter<IProduct>();
 
   public activeCategoryId = 'all';
 
@@ -27,8 +29,14 @@ export class InventoryPage implements OnInit {
   ngOnInit(): void {
   }
 
-  onClickProduct(product: IProduct): void {
-    this.productService.setCurrentProduct(product);
+  onClickProduct(product: IProduct | null): void {
+    this.edit.emit(product || {
+      _id: '',
+      name: 'New Product',
+      price: 0,
+      imageUrl: '/assets/unknown.jpg',
+      categoryId: this.activeCategoryId,
+    });
   }
 
 }

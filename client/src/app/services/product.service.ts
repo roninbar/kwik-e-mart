@@ -9,15 +9,9 @@ import { IProductCategory } from '../types/product-category.interface';
 })
 export class ProductService {
 
-  public currentProduct: IProduct | null = null;
-
   constructor(
     private http: HttpClient,
   ) { }
-
-  setCurrentProduct(product: IProduct | null): void {
-    this.currentProduct = product;
-  }
 
   saveProductRx(categoryId: string, product: IProduct, imageFile: File): Observable<IProduct> {
     const body = new FormData();
@@ -25,12 +19,9 @@ export class ProductService {
     body.append('name', product.name);
     body.append('price', product.price.toFixed(2));
     body.append('image', imageFile);
-    if (typeof product._id === 'string') {
-      return this.http.put<IProduct>(`/api/category/${categoryId}/product/${product._id}`, body);
-    }
-    else {
-      return this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, body);
-    }
+    return typeof product._id === 'string'
+      ? this.http.put<IProduct>(`/api/category/${categoryId}/product/${product._id}`, body)
+      : this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, body);
   }
 
   getAllCategoriesRx(): Observable<Array<IProductCategory>> {
@@ -40,4 +31,5 @@ export class ProductService {
   getAllProductsInCategoryRx(categoryId: string): Observable<Array<IProduct>> {
     return this.http.get<Array<IProduct>>(`/api/category/${categoryId}/product/all`);
   }
+
 }

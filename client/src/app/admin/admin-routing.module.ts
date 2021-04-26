@@ -10,8 +10,8 @@ const routes: Routes = [
     component: RootPage,
     canActivate: [RoleGuard],
     children: [
-      { path: 'inventory/:categoryId', component: InventoryPage },
-      { path: '', pathMatch: 'full', redirectTo: 'inventory/all' },
+      { path: '', pathMatch: 'full', redirectTo: 'all' },
+      { path: ':categoryId', component: InventoryPage },
     ],
   },
 

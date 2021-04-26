@@ -1,9 +1,9 @@
 <mat-sidenav-container>
 
     <!-- Product Details Sidenav -->
-    <mat-sidenav mode="over" position="start" [opened]="!!productService.currentProduct" #productSidenav>
+    <mat-sidenav mode="over" position="start" [opened]="!!editedProduct" (closed)="editedProduct = null">
 
-        <h1>Product Details</h1>
+        <h1>{{editedProduct?.name}}</h1>
 
     </mat-sidenav>
 
@@ -33,7 +33,7 @@
 
         </mat-toolbar>
 
-        <router-outlet></router-outlet>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
 
     </mat-sidenav-content>
 
