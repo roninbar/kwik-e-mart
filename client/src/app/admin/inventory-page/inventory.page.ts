@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { ProductService } from 'src/app/services/product.service';
 import { IProduct } from 'src/app/types/product.interface';
 
@@ -15,6 +15,10 @@ export class InventoryPage implements OnInit {
 
   public readonly allCategories$ = this.productService.getAllCategoriesRx().pipe(
     map(categories => categories.filter(({ _id }) => _id !== 'all')),
+    tap(categories => (
+      categories.map(({ _id }) => _id).includes(this.getCurrentCategoryId()) ||
+      this.router.navigate(['..', categories[0]._id], { relativeTo: this.route })
+    )),
   );
 
   public readonly allProductsInCategory$ = this.route.paramMap.pipe(
@@ -23,6 +27,7 @@ export class InventoryPage implements OnInit {
 
   constructor(
     public productService: ProductService,
+    public router: Router,
     private route: ActivatedRoute,
   ) { }
 
