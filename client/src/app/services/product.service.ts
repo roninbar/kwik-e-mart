@@ -13,14 +13,16 @@ export class ProductService {
     private http: HttpClient,
   ) { }
 
-  saveProductRx(categoryId: string, product: IProduct, imageFile: File): Observable<IProduct> {
+  saveProductRx(product: IProduct, imageFile?: File): Observable<IProduct> {
     const body = new FormData();
-    body.append('categoryId', product.categoryId);
+    body.append('_id', product._id);
     body.append('name', product.name);
     body.append('price', product.price.toFixed(2));
-    body.append('image', imageFile);
-    return typeof product._id === 'string'
-      ? this.http.put<IProduct>(`/api/category/${categoryId}/product/${product._id}`, body)
+    if (imageFile) {
+      body.append('image', imageFile);
+    }
+    return product._id
+      ? this.http.put<IProduct>(`/api/category/${product.categoryId}/product/${product._id}`, body)
       : this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, body);
   }
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { FileInputComponent } from 'ngx-material-file-input';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { IProduct } from 'src/app/types/product.interface';
@@ -16,6 +19,7 @@ export class RootPage implements OnInit {
   public constructor(
     public authService: AuthService,
     public productService: ProductService,
+    private route: ActivatedRoute,
   ) { }
 
   public ngOnInit(): void {
@@ -32,6 +36,13 @@ export class RootPage implements OnInit {
 
   public onEdit(product: IProduct): void {
     this.editedProduct = product;
+  }
+
+  saveProduct({ value: product }: NgForm, imageFileInput: FileInputComponent): void {
+    product.categoryId ||= this.route.snapshot.paramMap.get('categoryId');
+    const imageFile = imageFileInput.value?.files[0];
+    // tslint:disable-next-line: deprecation
+    this.productService.saveProductRx(product, imageFile).subscribe();
   }
 
   public logOut(): void {
