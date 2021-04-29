@@ -1,6 +1,6 @@
 {
-  "name": "server",
-  "version": "0.0.1",
+  "name": "kwik-e-mart",
+  "version": "0.1.0",
   "private": true,
   "engines": {
     "node": "14.x"
