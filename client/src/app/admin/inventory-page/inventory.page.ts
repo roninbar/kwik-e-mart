@@ -14,7 +14,9 @@ export class InventoryPage implements OnInit {
   @Output() edit = new EventEmitter<IProduct>();
 
   public readonly allCategories$ = this.productService.getAllCategoriesRx().pipe(
+    // Don't show the 'all' category in admin mode because it makes the (+) button ambiguous.
     map(categories => categories.filter(({ _id }) => _id !== 'all')),
+    // If :categoryId is not a valid category ID, navigate to the first category.
     tap(categories => (
       categories.map(({ _id }) => _id).includes(this.getCurrentCategoryId()) ||
       this.router.navigate(['..', categories[0]._id], { relativeTo: this.route })
@@ -39,7 +41,7 @@ export class InventoryPage implements OnInit {
       _id: '',
       name: '',
       price: 0,
-      imageUrl: '/assets/unknown.jpg',
+      imageUrl: '/assets/unknown.webp',
       categoryId: this.getCurrentCategoryId(),
     });
   }
