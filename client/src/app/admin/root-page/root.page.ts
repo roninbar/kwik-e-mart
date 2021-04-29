@@ -14,6 +14,8 @@ import { InventoryPage } from '../inventory-page/inventory.page';
 // tslint:disable-next-line: component-class-suffix
 export class RootPage implements OnInit {
 
+  private inventoryPage: InventoryPage | undefined;
+
   public editedProduct: IProduct | null = null;
 
   public constructor(
@@ -27,7 +29,8 @@ export class RootPage implements OnInit {
 
   public onActivate(page: Component): void {
     if (page instanceof InventoryPage) {
-      page.edit.subscribe((product: IProduct) => this.onEdit(product));
+      this.inventoryPage = page;
+      this.inventoryPage.edit.subscribe((product: IProduct) => this.onEdit(product));
     }
     else {
       throw new Error(`Expected argument to be of type InventoryPage but got ${page}.`);
@@ -42,7 +45,7 @@ export class RootPage implements OnInit {
     product.categoryId ||= this.route.snapshot.paramMap.get('categoryId');
     const imageFile = imageFileInput.value?.files[0];
     // tslint:disable-next-line: deprecation
-    this.productService.saveProductRx(product, imageFile).subscribe();
+    this.productService.saveProductRx(product, imageFile).subscribe(() => this.inventoryPage?.touch());
   }
 
   public logOut(): void {

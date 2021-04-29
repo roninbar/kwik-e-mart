@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { merge } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { ProductService } from 'src/app/services/product.service';
 import { IProduct } from 'src/app/types/product.interface';
@@ -10,6 +11,8 @@ import { IProduct } from 'src/app/types/product.interface';
 })
 // tslint:disable-next-line: component-class-suffix
 export class InventoryPage implements OnInit {
+
+  private readonly dataChange$ = new EventEmitter();
 
   @Output() edit = new EventEmitter<IProduct>();
 
@@ -23,20 +26,27 @@ export class InventoryPage implements OnInit {
     )),
   );
 
-  public readonly allProductsInCategory$ = this.route.paramMap.pipe(
-    switchMap(paramMap => this.productService.getAllProductsInCategoryRx(paramMap.get('categoryId') || 'all')),
+  /**
+   * Emits an array of products whenever one of the following happens:
+   * (1) the category changes or
+   * (2) a product is added or modified by the user.
+   */
+  public readonly allProductsInCategory$ = merge<ParamMap>(this.route.paramMap, this.dataChange$).pipe(
+    switchMap(paramMap => this.productService.getAllProductsInCategoryRx(
+      paramMap?.get('categoryId') || this.getCurrentCategoryId()
+    )),
   );
 
-  constructor(
+  public constructor(
     public productService: ProductService,
     public router: Router,
     private route: ActivatedRoute,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  onClickProduct(product: IProduct | null): void {
+  public onClickProduct(product: IProduct | null): void {
     this.edit.emit(product || {
       _id: '',
       name: '',
@@ -44,6 +54,10 @@ export class InventoryPage implements OnInit {
       imageUrl: '/assets/unknown.webp',
       categoryId: this.getCurrentCategoryId(),
     });
+  }
+
+  public touch(): void {
+    this.dataChange$.emit();
   }
 
   public getCurrentCategoryId(): string {
