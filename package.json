@@ -1,7 +1,7 @@
 {
   "name": "kwik-e-mart",
-  "version": "1.0.0",
-  "description": "Online Shop",
+  "version": "0.1.0",
+  "description": "An online supermarket",
   "main": "index.js",
   "scripts": {
     "github-heroku-push": "git subtree push --prefix server origin heroku",
