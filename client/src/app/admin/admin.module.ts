@@ -11,10 +11,10 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 import { AdminRoutingModule } from './admin-routing.module';
 import { InventoryPage } from './inventory-page/inventory.page';
 import { RootPage } from './root-page/root.page';
-import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 @NgModule({
   imports: [
