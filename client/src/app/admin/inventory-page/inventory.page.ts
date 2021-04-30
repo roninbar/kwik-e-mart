@@ -21,7 +21,7 @@ export class InventoryPage implements OnInit {
     map(categories => categories.filter(({ _id }) => _id !== 'all')),
     // If :categoryId is not a valid category ID, navigate to the first category.
     tap(categories => (
-      categories.map(({ _id }) => _id).includes(this.getCurrentCategoryId()) ||
+      categories.map(({ _id }) => _id).includes(this.getCategoryId()) ||
       this.router.navigate(['..', categories[0]._id], { relativeTo: this.route })
     )),
   );
@@ -33,7 +33,7 @@ export class InventoryPage implements OnInit {
    */
   public readonly allProductsInCategory$ = merge<ParamMap>(this.route.paramMap, this.dataChange$).pipe(
     switchMap(paramMap => this.productService.getAllProductsInCategoryRx(
-      paramMap?.get('categoryId') || this.getCurrentCategoryId()
+      paramMap?.get('categoryId') || this.getCategoryId()
     )),
   );
 
@@ -52,7 +52,7 @@ export class InventoryPage implements OnInit {
       name: '',
       price: 0,
       imageUrl: '/assets/unknown.webp',
-      categoryId: this.getCurrentCategoryId(),
+      categoryId: this.getCategoryId(),
     });
   }
 
@@ -60,7 +60,8 @@ export class InventoryPage implements OnInit {
     this.dataChange$.emit();
   }
 
-  public getCurrentCategoryId(): string {
+  public getCategoryId(): string {
     return this.route.snapshot.paramMap.get('categoryId') || '';
   }
+
 }
