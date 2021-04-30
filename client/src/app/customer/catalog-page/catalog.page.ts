@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { IProduct } from 'src/app/types/product.interface';
 
@@ -17,16 +18,21 @@ export class CatalogPage implements OnInit {
     switchMap(paramMap => this.productService.getAllProductsInCategoryRx(paramMap.get('categoryId') || 'all')),
   );
 
-  constructor(
+  public constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private route: ActivatedRoute,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  onClickProduct(product: IProduct): void {
-    this.productService.setCurrentProduct(product);
+  public setCartItem(product: IProduct, quantity: number = 1): void {
+    this.cartService.setItem(product, quantity);
+  }
+
+  public getCategoryId(): string {
+    return this.route.snapshot.paramMap.get('categoryId') || '';
   }
 
 }

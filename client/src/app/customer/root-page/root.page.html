@@ -1,1 +1,83 @@
-<router-outlet></router-outlet>
+<mat-sidenav-container>
+
+    <!-- Shopping Cart Sidenav -->
+    <mat-sidenav mode="push" position="start" fixedInViewport #sidenav>
+
+        <form (ngSubmit)="sidenav.toggle(); goToCheckOutAsync()">
+            <div class="alert alert-secondary text-center" *ngIf="cartService.isEmpty()">The cart is empty.</div>
+            <ng-container *ngIf="!cartService.isEmpty()">
+                <hr class="bg-dark">
+                <div class="card my-2" *ngFor="let item of cartService.getAllItems()">
+                    <img class="card-img-top" [src]="item.product.imageUrl" [alt]="item.product.name">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{item.product.name}}</h5>
+                        <h6 class="card-subtitle text-center">{{item.product.price | currency}}</h6>
+                        <div class="input-group mt-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary" type="button"
+                                    (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">-</button>
+                            </div>
+                            <input class="form-control text-center" type="number" min="1" readonly [name]="item.product._id" [value]="item.quantity">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button" (click)="cartService.setItem(item.product, item.quantity + 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-center">
+                        <button mat-icon-button (click)="cartService.setItem(item.product, 0)">
+                            <mat-icon>remove_shopping_cart</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <hr class="bg-dark">
+                <h5 class="text-center">Cart Total: {{cartService.getTotalPrice() | currency}}</h5>
+            </ng-container>
+            <div class="btn-group">
+                <button class="btn btn-primary mt-3" type="submit" [disabled]="cartService.isEmpty()">
+                    Check Out
+                </button>
+                <button class="btn btn-outline-danger mt-3 flex-grow-0" [disabled]="cartService.isEmpty()" (click)="emptyCart()">
+                    <mat-icon>remove_shopping_cart</mat-icon>
+                </button>
+            </div>
+        </form>
+
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+
+        <!-- Main Toolbar -->
+        <mat-toolbar color="primary">
+
+            <mat-toolbar-row>
+
+                <!-- Website Title -->
+                <span class="cursor-pointer">Kwik-E-Mart</span>
+
+                <span class="flex-fill"></span>
+
+                <!-- Shopping Cart Button -->
+                <button type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()"
+                    [matBadgeHidden]="cartService.isEmpty()" matBadgeColor="warn" (click)="sidenav.toggle()">
+                    <mat-icon>shopping_cart</mat-icon>
+                </button>
+
+                <!-- Logged-In User + Logout Button -->
+                <ng-container *ngIf="authService.getLoggedInUser() as user">
+                    <button mat-button [matMenuTriggerFor]="userMenu">Hello, {{user.name.first}}!</button>
+                    <mat-menu #userMenu="matMenu">
+                        <button mat-menu-item (click)="logOut()">
+                            <mat-icon>logout</mat-icon>Log Out
+                        </button>
+                    </mat-menu>
+                </ng-container>
+
+            </mat-toolbar-row>
+
+        </mat-toolbar>
+
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
+
+    </mat-sidenav-content>
+
+</mat-sidenav-container>

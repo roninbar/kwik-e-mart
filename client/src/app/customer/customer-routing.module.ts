@@ -10,7 +10,12 @@ const routes: Routes = [
     component: RootPage,
     canActivate: [RoleGuard],
     children: [
-      { path: 'category/:categoryId', component: CatalogPage },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'all',
+      },
+      { path: ':categoryId', component: CatalogPage },
     ],
   },
 ];
