@@ -39,6 +39,7 @@ export class ShoppingPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // tslint:disable-next-line: deprecation
     this.categoryName$.subscribe({ next: categoryName => this.toolbarService.categoryName$.next(categoryName) });
   }
 
@@ -51,6 +52,7 @@ export class ShoppingPageComponent implements OnInit {
   }
 
   logOut(): void {
+    // tslint:disable-next-line: deprecation
     this.authService.logOutRx().subscribe();
   }
 

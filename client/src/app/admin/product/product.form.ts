@@ -30,6 +30,7 @@ export class ProductForm implements OnInit {
 
   saveProduct({ value: { oldCategoryId, newCategoryId, ...otherFields } }: NgForm, { files }: HTMLInputElement): void {
     this.productService.setCurrentProduct(null);
+    // tslint:disable-next-line: deprecation
     this.productService.saveProductRx(oldCategoryId, { categoryId: newCategoryId, ...otherFields }, files[0]).subscribe();
   }
 

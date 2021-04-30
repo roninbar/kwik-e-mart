@@ -54,6 +54,7 @@ export class AppComponent implements OnInit {
   }
 
   public logOut(): void {
+    // tslint:disable-next-line: deprecation
     this.authService.logOutRx().subscribe();
   }
 
