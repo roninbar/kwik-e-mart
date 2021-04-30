@@ -8,11 +8,11 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { CatalogPage } from './catalog-page/catalog.page';
+import { RootPage } from './0_root/root.page';
+import { CatalogPage } from './1_catalog/catalog.page';
+import { CheckoutPage } from './2_checkout/checkout.page';
+import { ThankYouPage } from './3_thank-you/thank-you.page';
 import { CustomerRoutingModule } from './customer-routing.module';
-import { RootPage } from './root-page/root.page';
-import { CheckoutPage } from './checkout/checkout.page';
-import { ThankYouPage } from './thank-you/thank-you.page';
 
 @NgModule({
   imports: [

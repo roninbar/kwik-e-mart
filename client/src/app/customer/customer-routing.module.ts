@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CatalogPage } from './catalog-page/catalog.page';
+import { RootPage } from './0_root/root.page';
+import { CatalogPage } from './1_catalog/catalog.page';
 import { RoleGuard } from './role.guard';
-import { RootPage } from './root-page/root.page';
 
 const routes: Routes = [
   {

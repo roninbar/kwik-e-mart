@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
-import { CatalogPage } from '../catalog-page/catalog.page';
-import { CheckoutPage } from '../checkout/checkout.page';
-import { ThankYouPage } from '../thank-you/thank-you.page';
+import { CatalogPage } from '../1_catalog/catalog.page';
+import { CheckoutPage } from '../2_checkout/checkout.page';
+import { ThankYouPage } from '../3_thank-you/thank-you.page';
 
 type Page = CatalogPage | CheckoutPage | ThankYouPage;
 

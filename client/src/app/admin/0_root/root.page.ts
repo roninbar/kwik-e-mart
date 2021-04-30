@@ -5,7 +5,7 @@ import { FileInputComponent } from 'ngx-material-file-input';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { IProduct } from 'src/app/types/product.interface';
-import { InventoryPage } from '../inventory-page/inventory.page';
+import { InventoryPage } from '../1_inventory/inventory.page';
 
 @Component({
   templateUrl: './root.page.html',

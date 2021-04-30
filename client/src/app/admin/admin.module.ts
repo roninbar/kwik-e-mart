@@ -12,9 +12,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { RootPage } from './0_root/root.page';
+import { InventoryPage } from './1_inventory/inventory.page';
 import { AdminRoutingModule } from './admin-routing.module';
-import { InventoryPage } from './inventory-page/inventory.page';
-import { RootPage } from './root-page/root.page';
 
 @NgModule({
   imports: [

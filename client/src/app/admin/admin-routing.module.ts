@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InventoryPage } from './inventory-page/inventory.page';
+import { RootPage } from './0_root/root.page';
+import { InventoryPage } from './1_inventory/inventory.page';
 import { RoleGuard } from './role.guard';
-import { RootPage } from './root-page/root.page';
 
 const routes: Routes = [
   {
