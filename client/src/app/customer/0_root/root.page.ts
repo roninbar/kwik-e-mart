@@ -9,6 +9,7 @@ import { ThankYouPage } from '../3_thank-you/thank-you.page';
 type Page = CatalogPage | CheckoutPage | ThankYouPage;
 
 @Component({
+  selector: 'kwik-e-mart-customer',
   templateUrl: './root.page.html',
   styleUrls: ['./root.page.css']
 })
