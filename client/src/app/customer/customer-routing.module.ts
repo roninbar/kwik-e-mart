@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RootPage } from './0_root/root.page';
 import { CatalogPage } from './1_catalog/catalog.page';
+import { CheckoutPage } from './2_checkout/checkout.page';
+import { ThankYouPage } from './3_thank-you/thank-you.page';
 import { RoleGuard } from './role.guard';
 
 const routes: Routes = [
@@ -13,9 +15,11 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'all',
+        redirectTo: 'catalog/all',
       },
-      { path: ':categoryId', component: CatalogPage },
+      { path: 'catalog/:categoryId', component: CatalogPage },
+      { path: 'checkout', component: CheckoutPage },
+      { path: 'thankyou', component: ThankYouPage },
     ],
   },
 ];

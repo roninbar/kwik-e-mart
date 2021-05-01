@@ -3,40 +3,42 @@
     <!-- Shopping Cart Sidenav -->
     <mat-sidenav mode="push" position="start" fixedInViewport #sidenav>
 
-        <form (ngSubmit)="sidenav.toggle(); goToCheckOutAsync()">
-            <div class="alert alert-secondary text-center" *ngIf="cartService.isEmpty()">The cart is empty.</div>
+        <form (ngSubmit)="sidenav.close(); goToCheckOutAsync()">
+            <div *ngIf="cartService.isEmpty()">The cart is empty.</div>
             <ng-container *ngIf="!cartService.isEmpty()">
                 <hr class="bg-dark">
-                <div class="card my-2" *ngFor="let item of cartService.getAllItems()">
-                    <img class="card-img-top" [src]="item.product.imageUrl" [alt]="item.product.name">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">{{item.product.name}}</h5>
-                        <h6 class="card-subtitle text-center">{{item.product.price | currency}}</h6>
-                        <div class="input-group mt-3">
-                            <div class="input-group-prepend">
-                                <button class="btn btn-outline-primary" type="button"
-                                    (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">-</button>
-                            </div>
-                            <input class="form-control text-center" type="number" min="1" readonly [name]="item.product._id" [value]="item.quantity">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-primary" type="button" (click)="cartService.setItem(item.product, item.quantity + 1)">+</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer d-flex justify-content-center">
-                        <button mat-icon-button (click)="cartService.setItem(item.product, 0)">
+                <mat-card *ngFor="let item of cartService.getAllItems()">
+                    <img mat-card-image [src]="item.product.imageUrl" [alt]="item.product.name">
+                    <mat-card-header>
+                        <mat-card-title>{{item.product.name}}</mat-card-title>
+                        <mat-card-subtitle>{{item.product.price | currency}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Quantity</mat-label>
+                            <button mat-icon-button matPrefix (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">
+                                <mat-icon>remove_circle</mat-icon>
+                            </button>
+                            <input matInput type="number" [name]="item.product._id" [value]="item.quantity" min="1" readonly>
+                            <button mat-icon-button matSuffix (click)="cartService.setItem(item.product, item.quantity + 1)">
+                                <mat-icon>add_circle</mat-icon>
+                            </button>
+                        </mat-form-field>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-flat-button color="warn" (click)="cartService.setItem(item.product, 0)">
                             <mat-icon>remove_shopping_cart</mat-icon>
                         </button>
-                    </div>
-                </div>
+                    </mat-card-actions>
+                </mat-card>
                 <hr class="bg-dark">
                 <h5 class="text-center">Cart Total: {{cartService.getTotalPrice() | currency}}</h5>
             </ng-container>
             <div class="btn-group">
-                <button class="btn btn-primary mt-3" type="submit" [disabled]="cartService.isEmpty()">
+                <button type="submit" [disabled]="cartService.isEmpty()">
                     Check Out
                 </button>
-                <button class="btn btn-outline-danger mt-3 flex-grow-0" [disabled]="cartService.isEmpty()" (click)="emptyCart()">
+                <button type="reset" [disabled]="cartService.isEmpty()" (click)="emptyCart()">
                     <mat-icon>remove_shopping_cart</mat-icon>
                 </button>
             </div>
@@ -57,8 +59,8 @@
                 <span class="flex-fill"></span>
 
                 <!-- Shopping Cart Button -->
-                <button type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()"
-                    [matBadgeHidden]="cartService.isEmpty()" matBadgeColor="warn" (click)="sidenav.toggle()">
+                <button type="button" mat-icon-button [matBadge]="cartService.getTotalQuantity()" [matBadgeHidden]="cartService.isEmpty()" matBadgeColor="warn"
+                    (click)="sidenav.toggle()">
                     <mat-icon>shopping_cart</mat-icon>
                 </button>
 

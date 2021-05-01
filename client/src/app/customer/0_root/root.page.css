@@ -35,12 +35,15 @@ mat-sidenav {
     }
 }
 
-mat-card-header {
-    display: flex;
-    flex-flow: column nowrap;
+:host ::ng-deep .mat-form-field-infix {
+    width: revert;
+}
+
+mat-card-content mat-form-field input {
+    text-align: center;
 }
 
 mat-card-actions {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }

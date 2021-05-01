@@ -3,7 +3,9 @@ import { NgModule } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -18,13 +20,15 @@ import { CustomerRoutingModule } from './customer-routing.module';
   imports: [
     CommonModule,
     MatBadgeModule,
+    MatButtonModule,
     MatCardModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
     MatMenuModule,
     MatSidenavModule,
     MatTabsModule,
     MatToolbarModule,
-    MatButtonModule,
     CustomerRoutingModule,
   ],
   declarations: [
