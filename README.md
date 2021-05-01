@@ -2,7 +2,7 @@
 
 #### Live Version
 
-https://kwik-e-mart-roninbar.herokuapp.com/
+https://roninbar.herokuapp.com/
 
 #### Deploy Your Own
 
