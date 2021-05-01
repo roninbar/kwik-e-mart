@@ -35,6 +35,10 @@ mat-sidenav {
     }
 }
 
+mat-sidenav mat-card {
+    margin: 1rem 0;
+}
+
 mat-card-content mat-form-field input {
     text-align: center;
 }
