@@ -6,12 +6,12 @@
         <form (ngSubmit)="sidenav.close(); goToCheckOutAsync()">
             <h2 *ngIf="cartService.isEmpty()">The cart is empty.</h2>
             <ng-container *ngIf="!cartService.isEmpty()">
-                <hr />
+                <mat-divider></mat-divider>
                 <mat-card *ngFor="let item of cartService.getAllItems()">
-                    <img mat-card-image [src]="item.product.imageUrl" [alt]="item.product.name">
                     <mat-card-header>
                         <mat-card-title>{{item.product.name}}</mat-card-title>
                         <mat-card-subtitle>{{item.product.price | currency}}</mat-card-subtitle>
+                        <img mat-card-avatar [src]="item.product.imageUrl" [alt]="item.product.name">
                     </mat-card-header>
                     <mat-card-content>
                         <mat-form-field appearance="outline">
@@ -31,10 +31,10 @@
                         </button>
                     </mat-card-actions>
                 </mat-card>
-                <hr />
-                <h5>Cart Total: {{cartService.getTotalPrice() | currency}}</h5>
+                <mat-divider></mat-divider>
+                <h2>Cart Total: {{cartService.getTotalPrice() | currency}}</h2>
             </ng-container>
-            <div class="btn-group">
+            <div>
                 <button type="submit" [disabled]="cartService.isEmpty()">
                     Check Out
                 </button>
