@@ -7,7 +7,7 @@
             <h2 *ngIf="cartService.isEmpty()">The cart is empty.</h2>
             <ng-container *ngIf="!cartService.isEmpty()">
                 <mat-divider></mat-divider>
-                <mat-card *ngFor="let item of cartService.getAllItems()">
+                <mat-card *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
                     <mat-card-header>
                         <mat-card-title>{{item.product.name}}</mat-card-title>
                         <mat-card-subtitle>{{item.product.price | currency}}</mat-card-subtitle>
@@ -16,11 +16,11 @@
                     <mat-card-content>
                         <mat-form-field appearance="outline">
                             <mat-label>Quantity</mat-label>
-                            <button mat-icon-button matPrefix (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">
+                            <button matPrefix type="button" mat-icon-button (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">
                                 <mat-icon>remove_circle</mat-icon>
                             </button>
                             <input matInput type="number" [name]="item.product._id" [value]="item.quantity" min="1" readonly>
-                            <button mat-icon-button matSuffix (click)="cartService.setItem(item.product, item.quantity + 1)">
+                            <button matSuffix type="button" mat-icon-button (click)="cartService.setItem(item.product, item.quantity + 1)">
                                 <mat-icon>add_circle</mat-icon>
                             </button>
                         </mat-form-field>

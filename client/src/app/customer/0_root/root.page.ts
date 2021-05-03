@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { OrderItem } from 'src/app/types/order-item';
 import { CatalogPage } from '../1_catalog/catalog.page';
 import { CheckoutPage } from '../2_checkout/checkout.page';
 import { ThankYouPage } from '../3_thank-you/thank-you.page';
@@ -44,6 +45,10 @@ export class RootPage implements OnInit {
   public logOut(): void {
     // tslint:disable-next-line: deprecation
     this.authService.logOutRx().subscribe();
+  }
+
+  public productIdOfCartItem(index: number, item: OrderItem): string {
+    return item.product._id;
   }
 
 }
