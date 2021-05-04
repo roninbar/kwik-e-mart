@@ -11,21 +11,21 @@
                         <div class="field-group">
                             <mat-form-field appearance="fill">
                                 <mat-label>ID (ת.ז.)</mat-label>
-                                <input matInput type="text" name="_id" id="id" autocomplete="off" required ngModel>
+                                <input matInput type="text" name="_id" autocomplete="off" required ngModel>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>E-Mail</mat-label>
-                                <input matInput type="email" name="email" id="email" autocomplete="email" required ngModel>
+                                <input matInput type="email" name="email" autocomplete="email" required ngModel>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>Password</mat-label>
-                                <input matInput type="password" name="password" id="password" autocomplete="new-password" required ngModel>
+                                <input matInput type="password" name="password" autocomplete="new-password" required ngModel>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>Repeat Password</mat-label>
-                                <input matInput type="password" name="passwordRepeat" id="passwordRepeat" autocomplete="off" required ngModel>
+                                <input matInput type="password" name="passwordRepeat" autocomplete="off" required ngModel>
                             </mat-form-field>
-                            <div>
+                            <div class="stepper-buttons">
                                 <button type="button" mat-button (click)="stepper.reset()">Reset</button>
                                 <button type="button" mat-button matStepperNext>Next</button>
                             </div>
@@ -35,7 +35,8 @@
                         <div class="field-group">
                             <mat-form-field appearance="fill">
                                 <mat-label>City</mat-label>
-                                <mat-select name="city" required ngModel>
+                                <input matInput [matAutocomplete]="auto" type="text" name="city" required ngModel>
+                                <mat-autocomplete #auto="matAutocomplete">
                                     <mat-option value="Jerusalem">Jerusalem</mat-option>
                                     <mat-option value="Tel Aviv">Tel Aviv</mat-option>
                                     <mat-option value="Haifa">Haifa</mat-option>
@@ -46,25 +47,25 @@
                                     <mat-option value="Beer Sheva">Beer Sheva</mat-option>
                                     <mat-option value="Bnei Brak">Bnei Brak</mat-option>
                                     <mat-option value="Holon">Holon</mat-option>
-                                </mat-select>
+                                </mat-autocomplete>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>Street Address</mat-label>
-                                <input matInput type="text" name="streetAddress" id="streetAddress" autocomplete="street-address" required ngModel>
+                                <input matInput type="text" name="streetAddress" autocomplete="street-address" required ngModel>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>First Name</mat-label>
-                                <input matInput type="text" name="firstName" id="firstName" autocomplete="given-name" required ngModel>
+                                <input matInput type="text" name="firstName" autocomplete="given-name" required ngModel>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>Last Name</mat-label>
-                                <input matInput type="text" name="lastName" id="lastName" autocomplete="family-name" required ngModel>
+                                <input matInput type="text" name="lastName" autocomplete="family-name" required ngModel>
                             </mat-form-field>
-                            <button type="submit" mat-flat-button color="primary">Sign Up</button>
-                            <div>
+                            <div class="stepper-buttons">
                                 <button type="button" mat-button matStepperPrevious>Back</button>
                                 <button type="button" mat-button (click)="stepper.reset()">Reset</button>
                             </div>
+                            <button type="submit" mat-flat-button color="primary">Sign Up</button>
                         </div>
                     </mat-step>
                 </mat-horizontal-stepper>
