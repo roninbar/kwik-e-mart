@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { ICartItemsMap } from '../types/cart-items-map.interface';
 import { OrderItem } from '../types/order-item';
 import { IProduct } from '../types/product.interface';
@@ -9,6 +9,8 @@ const CARTITEMS = 'cartItems';
   providedIn: 'root'
 })
 export class CartService {
+
+  public readonly change = new EventEmitter();
 
   constructor() {
     this.validateStoredCart();
@@ -57,6 +59,7 @@ export class CartService {
 
   private setCartItemsMap(map: ICartItemsMap): void {
     localStorage.setItem(CARTITEMS, JSON.stringify(map));
+    this.change.emit();
   }
 
   /**

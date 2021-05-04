@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
@@ -19,11 +20,15 @@ export class RootPage implements OnInit {
 
   private activePage: Page | undefined;
 
+  @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
+
   public constructor(
     public authService: AuthService,
     public cartService: CartService,
     private router: Router,
-  ) { }
+  ) {
+    this.cartService.change.subscribe(() => this.sidenav.open());
+  }
 
   public ngOnInit(): void {
   }
