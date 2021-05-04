@@ -34,11 +34,11 @@
                 <mat-divider></mat-divider>
                 <h2>Cart Total: {{cartService.getTotalPrice() | currency}}</h2>
             </ng-container>
-            <div>
-                <button type="submit" [disabled]="cartService.isEmpty()">
-                    Check Out
+            <div class="cart-actions">
+                <button mat-flat-button type="submit" color="primary" [disabled]="cartService.isEmpty()">
+                    <mat-icon>point_of_sale</mat-icon>
                 </button>
-                <button type="reset" [disabled]="cartService.isEmpty()" (click)="emptyCart()">
+                <button mat-flat-button type="reset" color="warn" [disabled]="cartService.isEmpty()" (click)="emptyCart()">
                     <mat-icon>remove_shopping_cart</mat-icon>
                 </button>
             </div>

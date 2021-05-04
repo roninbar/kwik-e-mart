@@ -39,11 +39,16 @@ mat-sidenav mat-card {
     margin: 1rem 0;
 }
 
-mat-card-content mat-form-field input {
+mat-card mat-form-field input {
     text-align: center;
 }
 
 mat-card-actions {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: space-evenly;
 }
