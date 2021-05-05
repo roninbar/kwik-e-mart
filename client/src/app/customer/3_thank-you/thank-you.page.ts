@@ -10,8 +10,10 @@ export class ThankYouPage {
 
   public readonly lastOrder = this.orderService.getLastOrder();
 
+  public readonly summaryColumns = ['index', 'name', 'quantity', 'price', 'total'];
+
   constructor(
-    public orderService: OrderService,
+    private orderService: OrderService,
   ) { }
 
   public getTotalItems(): number {
