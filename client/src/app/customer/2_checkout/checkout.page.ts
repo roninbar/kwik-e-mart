@@ -37,7 +37,7 @@ export class CheckoutPage {
     // tslint:disable-next-line: deprecation
     this.orderService.placeOrderRx(f.value).subscribe(async () => {
       this.cartService.empty();
-      await this.router.navigateByUrl('/thankyou');
+      await this.router.navigateByUrl('/customer/thankyou');
     });
   }
 

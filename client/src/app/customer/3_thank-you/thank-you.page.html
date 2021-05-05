@@ -1,1 +1,69 @@
-<p>thank-you works!</p>
+<main class="d-flex flex-column p-5">
+    <h4>Order #{{lastOrder._id}}</h4>
+    <h5>Placed on {{lastOrder.createdAt | date:"full"}}</h5>
+    <hr>
+    <h4>Order Summary</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of lastOrder.items; let k = index">
+                <th scope="row">{{k + 1}}</th>
+                <td>{{item.product.name}}</td>
+                <td>{{item.quantity}}</td>
+                <td>{{item.purchasePrice | currency}}</td>
+                <td>{{item.quantity * item.purchasePrice | currency}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Total:</th>
+                <th scope="col">{{getTotalItems()}}</th>
+                <th scope="col"></th>
+                <th scope="col">{{lastOrder.total | currency}}</th>
+            </tr>
+        </tfoot>
+    </table>
+    <hr>
+    <h4>Delivery</h4>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">City</th>
+                <td>{{lastOrder.delivery.to.city}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Street</th>
+                <td>{{lastOrder.delivery.to.street}}</td>
+            </tr>
+            <tr>
+                <th scope="row">House</th>
+                <td>{{lastOrder.delivery.to.house}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Date</th>
+                <td>{{lastOrder.delivery.on | date:"longDate"}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+    <h4>Payment Details</h4>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th scope="row">CC Number</th>
+                <td>{{lastOrder.payment.cc.number}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a [href]="lastOrder.receiptUrl" download>Download PDF</a>
+    <!-- <img src="/assets/thankyoucomeagain.jpg" alt="Thank you! Come again!"> -->
+</main>
