@@ -1,15 +1,9 @@
-main {
+mat-card {
+    margin: 2rem;
     padding: 2rem;
 }
 
-table[mat-table] {
-    width: 100%;
-}
-
-.mat-footer-cell {
-    border-bottom: 0;
-}
-
-mat-divider {
-    margin: 1rem 0;
+mat-card mat-divider + * {
+    display: block;
+    padding-top: 16px;
 }

@@ -1,70 +1,52 @@
-<main class="d-flex flex-column p-5">
-    <h5>Order #{{lastOrder._id}}</h5>
-    <h5>Placed on {{lastOrder.createdAt | date:"full"}}</h5>
-    <mat-divider></mat-divider>
-    <h2>Order Summary</h2>
-    <table mat-table [dataSource]="lastOrder.items">
-        <ng-container matColumnDef="index">
-            <th mat-header-cell *matHeaderCellDef>No.</th>
-            <td mat-cell *matCellDef="let item">{{1}}</td>
-            <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-        <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let item">{{item.product.name}}</td>
-            <td mat-footer-cell *matFooterCellDef>Total:</td>
-        </ng-container>
-        <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef>Quantity</th>
-            <td mat-cell *matCellDef="let item">{{item.quantity}}</td>
-            <td mat-footer-cell *matFooterCellDef>{{0}}</td>
-        </ng-container>
-        <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef>Price</th>
-            <td mat-cell *matCellDef="let item">{{item.purchasePrice | currency}}</td>
-            <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-        <ng-container matColumnDef="total">
-            <th mat-header-cell *matHeaderCellDef>Total</th>
-            <td mat-cell *matCellDef="let item">{{item.quantity * item.purchasePrice | currency}}</td>
-            <td mat-footer-cell *matFooterCellDef>{{lastOrder.total}}</td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="summaryColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: summaryColumns"></tr>
-        <tr mat-footer-row *matFooterRowDef="summaryColumns"></tr>
-    </table>
-    <mat-divider></mat-divider>
-    <h2>Delivery</h2>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th scope="row">City</th>
-                <td>{{lastOrder.delivery.to.city}}</td>
-            </tr>
-            <tr>
-                <th scope="row">Street</th>
-                <td>{{lastOrder.delivery.to.street}}</td>
-            </tr>
-            <tr>
-                <th scope="row">House</th>
-                <td>{{lastOrder.delivery.to.house}}</td>
-            </tr>
-            <tr>
-                <th scope="row">Date</th>
-                <td>{{lastOrder.delivery.on | date:"longDate"}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <mat-divider></mat-divider>
-    <h2>Payment Details</h2>
-    <table class="table">
-        <tbody>
-            <tr>
-                <th scope="row">CC Number</th>
-                <td>{{lastOrder.payment.cc.number}}</td>
-            </tr>
-        </tbody>
-    </table>
-    <mat-divider></mat-divider>
-    <a [href]="lastOrder.receiptUrl" download>Download PDF</a>
-</main>
+<mat-card>
+    <img mat-card-image src="/assets/thankyoucomeagain.jpg" />
+    <mat-card-header>
+        <mat-card-title>Order #{{lastOrder._id}}</mat-card-title>
+        <mat-card-subtitle>Placed on {{lastOrder.createdAt | date:"full"}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-divider></mat-divider>
+        <h2>Order Summary</h2>
+        <kwik-e-mart-order-summary [dataSource]="lastOrder.items"></kwik-e-mart-order-summary>
+    </mat-card-content>
+    <mat-card-content>
+        <mat-divider></mat-divider>
+        <h2>Delivery</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th scope="row">City</th>
+                    <td>{{lastOrder.delivery.to.city}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Street</th>
+                    <td>{{lastOrder.delivery.to.street}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">House</th>
+                    <td>{{lastOrder.delivery.to.house}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Date</th>
+                    <td>{{lastOrder.delivery.on | date:"longDate"}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </mat-card-content>
+    <mat-card-content>
+        <mat-divider></mat-divider>
+        <h2>Payment Details</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th scope="row">CC Number</th>
+                    <td>{{lastOrder.payment.cc.number}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </mat-card-content>
+    <mat-card-footer>
+        <mat-divider></mat-divider>
+        <a [href]="lastOrder.receiptUrl" download>Download PDF</a>
+    </mat-card-footer>
+</mat-card>
