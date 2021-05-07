@@ -53,14 +53,15 @@ router.put('/:productId', allow('admin'), async function ({ originalUrl, categor
 /**
  * @param {ProductCategory} category
  */
-router.get('/all', allow('admin', 'customer'), async function ({ category }, res) {
+router.get('/all', allow('admin', 'customer'), async function ({ category, query: { q } }, res) {
+    const filter = q ? { name: { $regex: q, $options: 'i' } } : {};
     if (category === true) {
         // `true` means all the categories.
-        const products = await Product.find();
+        const products = await Product.find(filter);
         return res.json(products);
     }
     else if (category instanceof ProductCategory) {
-        await category.populate('products').execPopulate();
+        await category.populate({ path: 'products', match: filter }).execPopulate();
         return res.json(category.products);
     }
     else {
