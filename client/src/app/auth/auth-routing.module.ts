@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { SignInPage } from './sign-in-page/sign-in.page';
 import { SignUpPage } from './sign-up-page/sign-up.page';
+import { WelcomePage } from './welcome/welcome.page';
 
 const routes: Routes = [
   {
     path: 'auth',
     canActivate: [AuthGuard],
+    component: WelcomePage,
     children: [
       {
         path: 'signup',
