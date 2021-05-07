@@ -1,21 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductService } from 'src/app/services/product.service';
 import { IProduct } from 'src/app/types/product.interface';
 
+const CATEGORYID = 'categoryId';
+const Q = 'q';
+
 @Component({
   templateUrl: './catalog.page.html',
-  styleUrls: ['./catalog.page.css']
+  styleUrls: ['./catalog.page.css'],
 })
 // tslint:disable-next-line: component-class-suffix
 export class CatalogPage implements OnInit {
 
   public readonly allCategories$ = this.productService.getAllCategoriesRx();
 
-  public readonly allProductsInCategory$ = this.route.paramMap.pipe(
-    switchMap(paramMap => this.productService.getAllProductsInCategoryRx(paramMap.get('categoryId') || 'all')),
+  public readonly allProductsInCategory$ = combineLatest([this.route.paramMap, this.route.queryParamMap]).pipe(
+    switchMap(([paramMap, queryParamMap]) => this.productService.getAllProductsInCategoryRx(
+      paramMap.get(CATEGORYID) || 'all',
+      queryParamMap.get(Q) || undefined,
+    )),
   );
 
   public constructor(
@@ -24,8 +31,7 @@ export class CatalogPage implements OnInit {
     private route: ActivatedRoute,
   ) { }
 
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void { }
 
   public setCartItem(product: IProduct, quantity: number = 1): void {
     this.cartService.setItem(product, quantity);

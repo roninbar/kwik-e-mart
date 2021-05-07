@@ -30,8 +30,8 @@ export class ProductService {
     return this.http.get<Array<IProductCategory>>('/api/category/all');
   }
 
-  getAllProductsInCategoryRx(categoryId: string): Observable<Array<IProduct>> {
-    return this.http.get<Array<IProduct>>(`/api/category/${categoryId}/product/all`);
+  getAllProductsInCategoryRx(categoryId: string, q?: string): Observable<Array<IProduct>> {
+    return this.http.get<Array<IProduct>>(`/api/category/${categoryId}/product/all` + (q ? `?q=${q}` : ''));
   }
 
 }

@@ -76,6 +76,16 @@
 
             </mat-toolbar-row>
 
+            <mat-toolbar-row>
+
+                <!-- Search Box -->
+                <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput (input)="setFilter($event)">
+                </mat-form-field>
+
+            </mat-toolbar-row>
+
         </mat-toolbar>
 
         <router-outlet (activate)="onActivate($event)"></router-outlet>

@@ -38,6 +38,11 @@ export class RootPage implements OnInit {
     this.activePage = page;
   }
 
+  public setFilter(event: Event): void {
+    const { value } = event.target as HTMLInputElement;
+    this.router.navigate([], { queryParams: value ? { q: value } : {} });
+  }
+
   public emptyCart(): void {
     if (confirm('Remove all items from the cart?')) {
       this.cartService.empty();

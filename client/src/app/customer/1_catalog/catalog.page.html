@@ -1,5 +1,5 @@
 <nav mat-tab-nav-bar>
-    <a mat-tab-link *ngFor="let category of allCategories$ | async" [routerLink]="['..', category._id]"
+    <a mat-tab-link *ngFor="let category of allCategories$ | async" [routerLink]="['..', category._id]" queryParamsHandling="preserve"
         [active]="getCategoryId() === category._id">{{category.name}}</a>
 </nav>
 
