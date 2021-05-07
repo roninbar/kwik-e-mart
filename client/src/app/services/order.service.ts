@@ -11,12 +11,16 @@ const LASTORDER = 'lastOrder';
 })
 export class OrderService {
 
-  constructor(private http: HttpClient) { }
+  public constructor(private http: HttpClient) { }
 
-  placeOrderRx(fields: { [key: string]: string }): Observable<IOrder> {
+  public placeOrderRx(fields: { [key: string]: string }): Observable<IOrder> {
     return this.http
       .post<IOrder>('/api/order', new HttpParams({ fromObject: fields }))
       .pipe(tap(order => this.setLastOrder(order)));
+  }
+
+  public getAllOrdersRx(): Observable<Array<IOrder>> {
+    return this.http.get<Array<IOrder>>('/api/order/all');
   }
 
   public getLastOrder(): IOrder {
