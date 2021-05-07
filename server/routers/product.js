@@ -53,7 +53,7 @@ router.put('/:productId', allow('admin'), async function ({ originalUrl, categor
 /**
  * @param {ProductCategory} category
  */
-router.get('/all', allow('admin', 'customer'), async function ({ category, query: { q } }, res) {
+router.get('/all', async function ({ category, query: { q } }, res) {
     const filter = q ? { name: { $regex: q, $options: 'i' } } : {};
     if (category === true) {
         // `true` means all the categories.
@@ -69,7 +69,10 @@ router.get('/all', allow('admin', 'customer'), async function ({ category, query
     }
 });
 
-router.get('/:id', allow('admin', 'customer'), async function ({ category: { _id: categoryId }, params: { id: productId } }, res) {
+/**
+ * @param {ProductCategory} category
+ */
+router.get('/:id', async function ({ category: { _id: categoryId }, params: { id: productId } }, res) {
     const product = await Product.findOne({ _id: productId, categoryId });
     return product ? res.json(product) : res.sendStatus(404);
 });
