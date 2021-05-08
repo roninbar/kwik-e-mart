@@ -3,14 +3,24 @@
         <router-outlet></router-outlet>
     </mat-grid-tile>
     <mat-grid-tile>
-        <img src="/assets/thankyoucomeagain.jpg">
+        <img src="/assets/kwikemart.png">
     </mat-grid-tile>
     <mat-grid-tile>
-        <mat-list>
-            <mat-list-item>{{nProducts$ | async}} products available in {{nCategories$ | async}} categories.</mat-list-item>
-            <mat-list-item>{{nOrders$ | async}} orders placed so far.</mat-list-item>
-            <mat-list-item>{{cartService.getTotalQuantity()}} items in the shopping cart.</mat-list-item>
-            <mat-list-item>Your last order totaled {{orderService.getLastOrder().total | currency}}.</mat-list-item>
-        </mat-list>
+        <mat-card>
+            <mat-list>
+                <mat-list-item>
+                    {{nProducts$ | async}} products available in {{nCategories$ | async}} categories.
+                </mat-list-item>
+                <mat-list-item>
+                    {{nOrders$ | async}} orders placed so far.
+                </mat-list-item>
+                <mat-list-item *ngIf="!!orderService.getLastOrder()">
+                    Your last order totaled {{orderService.getLastOrder().total | currency}}.
+                </mat-list-item>
+                <mat-list-item *ngIf="!cartService.isEmpty()">
+                    You have {{cartService.getTotalQuantity()}} items in the shopping cart.
+                </mat-list-item>
+            </mat-list>
+        </mat-card>
     </mat-grid-tile>
 </mat-grid-list>
