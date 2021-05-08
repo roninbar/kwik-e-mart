@@ -13,7 +13,7 @@ const count = map((array: any[]) => array.length);
 // tslint:disable-next-line: component-class-suffix
 export class WelcomePage implements OnInit {
 
-  public readonly nCategories$ = this.productService.getAllCategoriesRx().pipe(count);
+  public readonly nCategories$ = this.productService.getAllCategoriesRx().pipe(count, map(n => n - 1));
   public readonly nProducts$ = this.productService.getAllProductsInCategoryRx('all').pipe(count);
   public readonly nOrders$ = this.orderService.getAllOrdersRx().pipe(count);
 
