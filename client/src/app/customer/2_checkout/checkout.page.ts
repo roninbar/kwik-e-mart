@@ -19,6 +19,8 @@ export class CheckoutPage {
   street = '';
   house = 0;
 
+  readonly minDeliveryDate = moment().add(1, 'day');
+
   deliveryDateFilter: DateFilterFn<Moment | null> = (date) => false;
 
   constructor(
