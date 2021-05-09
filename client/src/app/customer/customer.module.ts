@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,11 +31,13 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
     MatBadgeModule,
     MatButtonModule,
     MatCardModule,
+    MatDatepickerModule,
     MatDividerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatMomentDateModule,
     MatSidenavModule,
     MatSortModule,
     MatStepperModule,
@@ -41,6 +45,9 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
     MatTabsModule,
     MatToolbarModule,
     CustomerRoutingModule,
+  ],
+  providers: [
+    { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }
   ],
   declarations: [
     RootPage,
