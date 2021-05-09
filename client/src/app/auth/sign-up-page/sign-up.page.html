@@ -37,16 +37,7 @@
                                 <mat-label>City</mat-label>
                                 <input matInput [matAutocomplete]="auto" type="text" name="city" required ngModel>
                                 <mat-autocomplete #auto="matAutocomplete">
-                                    <mat-option value="Jerusalem">Jerusalem</mat-option>
-                                    <mat-option value="Tel Aviv">Tel Aviv</mat-option>
-                                    <mat-option value="Haifa">Haifa</mat-option>
-                                    <mat-option value="Rishon LeZion">Rishon LeZion</mat-option>
-                                    <mat-option value="Petah Tikva">Petah Tikva</mat-option>
-                                    <mat-option value="Ashdod">Ashdod</mat-option>
-                                    <mat-option value="Netanya">Netanya</mat-option>
-                                    <mat-option value="Beer Sheva">Beer Sheva</mat-option>
-                                    <mat-option value="Bnei Brak">Bnei Brak</mat-option>
-                                    <mat-option value="Holon">Holon</mat-option>
+                                    <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
                                 </mat-autocomplete>
                             </mat-form-field>
                             <mat-form-field appearance="fill">

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
+import { CitiesService } from 'src/app/services/cities.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,7 +12,10 @@ import { UserService } from 'src/app/services/user.service';
 // tslint:disable-next-line: component-class-suffix
 export class SignUpPage implements OnInit {
 
+  public readonly cities = this.citiesService.cities;
+
   constructor(
+    private citiesService: CitiesService,
     private alertService: AlertService,
     private userService: UserService,
     private router: Router,

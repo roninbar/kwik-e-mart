@@ -6,6 +6,7 @@ import * as moment from 'moment';
 import { Moment } from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
+import { CitiesService } from 'src/app/services/cities.service';
 import { OrderService } from 'src/app/services/order.service';
 import { OrderItem } from 'src/app/types/order-item';
 
@@ -15,19 +16,23 @@ import { OrderItem } from 'src/app/types/order-item';
 })
 // tslint:disable-next-line: component-class-suffix
 export class CheckoutPage {
-  city = '';
-  street = '';
+
   house = 0;
+  street = '';
+  city = '';
+
+  readonly cities = this.citiesService.cities;
 
   readonly minDeliveryDate = moment().add(1, 'day');
 
   deliveryDateFilter: DateFilterFn<Moment | null> = (date) => false;
 
   constructor(
-    private router: Router,
     public cartService: CartService,
     private authService: AuthService,
-    private orderService: OrderService
+    private citiesService: CitiesService,
+    private orderService: OrderService,
+    private router: Router,
   ) {
     this.orderService.getAllOrdersRx().subscribe((orders) => {
       // Count the number of orders on each date.
