@@ -3,6 +3,10 @@
     <!-- Product Details Sidenav -->
     <mat-sidenav mode="push" position="start" fixedInViewport [opened]="!!editedProduct" (closed)="editedProduct = null" #sidenav>
 
+        <button mat-icon-button type="button" (click)="sidenav.close()">
+            <mat-icon>close</mat-icon>
+        </button>
+
         <form method="post" action="/api/category/0/product" encType="multipart/form-data" #product="ngForm"
             (ngSubmit)="saveProduct(product, image); sidenav.close()">
             <input type="hidden" name="_id" [ngModel]="editedProduct?._id">

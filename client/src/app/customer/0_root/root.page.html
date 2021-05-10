@@ -3,6 +3,10 @@
     <!-- Shopping Cart Sidenav -->
     <mat-sidenav mode="push" position="start" fixedInViewport #sidenav>
 
+        <button mat-icon-button type="button" (click)="sidenav.close()">
+            <mat-icon>close</mat-icon>
+        </button>
+
         <form (ngSubmit)="sidenav.close(); goToCheckOutAsync()">
             <h2 *ngIf="cartService.isEmpty()">The cart is empty.</h2>
             <ng-container *ngIf="!cartService.isEmpty()">
