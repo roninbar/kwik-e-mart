@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IOrder } from '../types/order.interface';
+import { AlertService, httpAlert } from './alert.service';
 
 const LASTORDER = 'lastOrder';
 
@@ -11,16 +12,16 @@ const LASTORDER = 'lastOrder';
 })
 export class OrderService {
 
-  public constructor(private http: HttpClient) { }
+  public constructor(private http: HttpClient, private alertService: AlertService) { }
 
   public placeOrderRx(fields: { [key: string]: string }): Observable<IOrder> {
     return this.http
       .post<IOrder>('/api/order', new HttpParams({ fromObject: fields }))
-      .pipe(tap(order => this.setLastOrder(order)));
+      .pipe(tap(order => this.setLastOrder(order)), httpAlert(this.alertService));
   }
 
   public getAllOrdersRx(): Observable<Array<IOrder>> {
-    return this.http.get<Array<IOrder>>('/api/order/all');
+    return this.http.get<Array<IOrder>>('/api/order/all').pipe(httpAlert(this.alertService));
   }
 
   public getLastOrder(): IOrder {

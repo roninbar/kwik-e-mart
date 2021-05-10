@@ -3,7 +3,7 @@ import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { IUser } from '../types/user.interface';
-import { AlertService } from './alert.service';
+import { AlertService, httpAlert } from './alert.service';
 
 const USERLSKEY = 'user';
 
@@ -56,6 +56,7 @@ export class AuthService {
    */
   public logInRx(email: string, password: string): Observable<IUser | null> {
     return this.http.put<IUser>('/api/auth', new HttpParams({ fromObject: { email, password } })).pipe(
+      httpAlert(this.alertService),
       tap(this.setLoggedInUser.bind(this)),
     );
   }
