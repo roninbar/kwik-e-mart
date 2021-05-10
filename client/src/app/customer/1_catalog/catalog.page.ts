@@ -33,8 +33,9 @@ export class CatalogPage implements OnInit {
 
   public ngOnInit(): void { }
 
-  public setCartItem(product: IProduct, quantity: number = 1): void {
-    this.cartService.setItem(product, quantity);
+  public addCartItem(product: IProduct, delta: number = 1): void {
+    const quantity = this.cartService.getItem(product._id)?.quantity || 0;
+    this.cartService.setItem(product, quantity + delta);
   }
 
   public getCategoryId(): string {

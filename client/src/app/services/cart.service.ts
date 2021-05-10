@@ -16,6 +16,11 @@ export class CartService {
     this.validateStoredCart();
   }
 
+  getItem(productId: string): OrderItem | null {
+    const map = this.getCartItemsMap();
+    return map[productId] || null;
+  }
+
   getAllItems(): Array<OrderItem> {
     return Object.values(this.getCartItemsMap());
   }
