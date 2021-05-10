@@ -45,10 +45,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(upload());
 
-app.use('/api/auth', require('./routers/auth'));
 app.use('/api/user', require('./routers/user'));
-app.use('/api/category', require('./routers/category'));
+app.use('/api/auth', require('./routers/auth'));
 app.use('/api/order', require('./routers/order'));
+app.use('/api/category', require('./routers/category'));
 
 app.use(express.static(global.staticFilesDir));
 

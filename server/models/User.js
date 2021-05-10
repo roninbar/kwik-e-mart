@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Error } = require('mongoose');
 const hash = require('../util/hash');
 
 const schema = new Schema({
@@ -57,10 +57,16 @@ schema.virtual('streetAddress')
         return `${this.address.house} ${this.address.street}`;
     })
     .set(function (streetAddress) {
-        const { groups: { house, street } } =
-            streetAddress.match(/^(?<house>\d+)\s+(?<street>.*)$/) ||
-            streetAddress.match(/^(?<street>.*)\s+(?<house>\d+)$/);
-        Object.assign(this.address, { street, house });
+        const match =
+            streetAddress.match(/^(?<house>\d+)\s+(?<street>.+)$/) ||
+            streetAddress.match(/^(?<street>.+)\s+(?<house>\d+)$/);
+        if (match) {
+            const { groups: { house, street } } = match;
+            Object.assign(this.address, { street, house });
+        }
+        else {
+            throw new Error(`"${streetAddress}" is not a valid street address. A valid address must match either /^\\d+\\s+.+$/ or /^.+\\s+\\d+$/.`);
+        }
     });
 
 module.exports = model('User', schema);
