@@ -58,11 +58,13 @@ export class CheckoutPage {
   }
 
   placeOrder(f: NgForm): void {
-    // tslint:disable-next-line: deprecation
-    this.orderService.placeOrderRx(f.value).subscribe(async () => {
-      this.cartService.empty();
-      await this.router.navigateByUrl('/customer/thankyou');
-    });
+    if (f.valid) {
+      // tslint:disable-next-line: deprecation
+      this.orderService.placeOrderRx(f.value).subscribe(async () => {
+        this.cartService.empty();
+        await this.router.navigateByUrl('/customer/thankyou');
+      });
+    }
   }
 
   productIdOfCartItem(index: number, item: OrderItem): string {

@@ -17,12 +17,14 @@
                 <mat-label>Date</mat-label>
                 <input matInput type="text" name="delivery[on]" ngModel required [matDatepicker]="picker" [matDatepickerFilter]="deliveryDateFilter"
                     [min]="minDeliveryDate">
+                <mat-error>Please choose an available date.</mat-error>
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>City</mat-label>
                 <input matInput type="text" name="delivery[to][city]" [(ngModel)]="city" (cdkAutofill)="autoFill()" required [matAutocomplete]="auto">
+                <mat-error>Please type a valid city name.</mat-error>
                 <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
                 </mat-autocomplete>
@@ -30,10 +32,12 @@
             <mat-form-field appearance="outline">
                 <mat-label>Street</mat-label>
                 <input matInput type="text" name="delivery[to][street]" [(ngModel)]="street" (cdkAutofill)="autoFill()" required>
+                <mat-error>Please type a valid street name.</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>House #</mat-label>
                 <input matInput type="number" name="delivery[to][house]" [(ngModel)]="house" (cdkAutofill)="autoFill()" required>
+                <mat-error>Please type a valid street name.</mat-error>
             </mat-form-field>
             <div>
                 <button mat-button type="button" matStepperPrevious>Back</button>
@@ -43,7 +47,8 @@
         <mat-step label="Choose your payment method.">
             <mat-form-field appearance="outline">
                 <mat-label>Card Number</mat-label>
-                <input matInput type="text" name="payment[cc][number]" ngModel pattern="(\d{12})|(\d{16})" required>
+                <input matInput type="text" name="payment[cc][number]" ngModel pattern="^(\d{12})$|^(\d{16})$" required>
+                <mat-error>Please type a valid CC number.</mat-error>
             </mat-form-field>
             <div>
                 <button mat-button type="button" matStepperPrevious>Back</button>
@@ -51,7 +56,7 @@
             </div>
         </mat-step>
         <mat-step label="Place your order.">
-            <button mat-raised-button color="primary" type="submit">Place Order</button>
+            <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Place Order</button>
             <div>
                 <button mat-button type="button" matStepperPrevious>Back</button>
                 <button mat-button type="button" (click)="stepper.reset()">Reset</button>
