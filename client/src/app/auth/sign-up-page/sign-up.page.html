@@ -1,6 +1,6 @@
 <div class="container">
     <mat-card>
-        <form action="/api/user" method="post" #f="ngForm" (ngSubmit)="submit(f)">
+        <form action="/api/user" method="post" [formGroup]="form" (ngSubmit)="submit()">
             <mat-card-header>
                 <mat-card-title>Welcome to Kwik-E-Mart!</mat-card-title>
                 <mat-card-subtitle>Fill up your personal info below.</mat-card-subtitle>
@@ -11,19 +11,23 @@
                         <div class="field-group">
                             <mat-form-field appearance="fill">
                                 <mat-label>ID (ת.ז.)</mat-label>
-                                <input matInput type="text" name="_id" autocomplete="off" required ngModel>
+                                <input matInput type="text" name="id" formControlName="_id" autocomplete="off" required pattern="^\d{9}$">
+                                <mat-error>Please type 9 decimal digits.</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>E-Mail</mat-label>
-                                <input matInput type="email" name="email" autocomplete="email" required ngModel>
+                                <input matInput type="email" name="email" formControlName="email" autocomplete="email" required>
+                                <mat-error>Please type a valid email.</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>Password</mat-label>
-                                <input matInput type="password" name="password" autocomplete="new-password" required ngModel>
+                                <input matInput type="password" name="password" formControlName="password" autocomplete="new-password" required pattern="^[^\s]+$">
+                                <mat-error>Please type a password.</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>Repeat Password</mat-label>
-                                <input matInput type="password" name="passwordRepeat" autocomplete="off" required ngModel>
+                                <input matInput type="password" name="passwordRepeat" formControlName="passwordRepeat" autocomplete="off" required>
+                                <mat-error>The passwords don't match.</mat-error>
                             </mat-form-field>
                             <div class="stepper-buttons">
                                 <button type="button" mat-button (click)="stepper.reset()">Reset</button>
@@ -35,28 +39,32 @@
                         <div class="field-group">
                             <mat-form-field appearance="fill">
                                 <mat-label>City</mat-label>
-                                <input matInput [matAutocomplete]="auto" type="text" name="city" required ngModel>
+                                <input matInput [matAutocomplete]="auto" type="text" name="city" formControlName="city" required>
+                                <mat-error>Please type your city.</mat-error>
                                 <mat-autocomplete #auto="matAutocomplete">
                                     <mat-option *ngFor="let city of cities" [value]="city">{{city}}</mat-option>
                                 </mat-autocomplete>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>Street Address</mat-label>
-                                <input matInput type="text" name="streetAddress" autocomplete="street-address" required ngModel>
+                                <input matInput type="text" name="streetAddress" autocomplete="street-address" formControlName="streetAddress" required pattern="^(\d+\s+\w+)|(\w+\s+\d+)$">
+                                <mat-error>Please type a valid street address, including the house number.</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>First Name</mat-label>
-                                <input matInput type="text" name="firstName" autocomplete="given-name" required ngModel>
+                                <input matInput type="text" name="firstName" autocomplete="given-name" formControlName="firstName" required>
+                                <mat-error>Please type your first (given) name.</mat-error>
                             </mat-form-field>
                             <mat-form-field appearance="fill">
                                 <mat-label>Last Name</mat-label>
-                                <input matInput type="text" name="lastName" autocomplete="family-name" required ngModel>
+                                <input matInput type="text" name="lastName" autocomplete="family-name" formControlName="lastName" required>
+                                <mat-error>Please type your last (family) name.</mat-error>
                             </mat-form-field>
                             <div class="stepper-buttons">
                                 <button type="button" mat-button matStepperPrevious>Back</button>
                                 <button type="button" mat-button (click)="stepper.reset()">Reset</button>
                             </div>
-                            <button type="submit" mat-flat-button color="primary">Sign Up</button>
+                            <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">Sign Up</button>
                         </div>
                     </mat-step>
                 </mat-horizontal-stepper>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { CitiesService } from 'src/app/services/cities.service';
@@ -12,6 +12,17 @@ import { UserService } from 'src/app/services/user.service';
 // tslint:disable-next-line: component-class-suffix
 export class SignUpPage implements OnInit {
 
+  public readonly form = new FormGroup({
+    _id: new FormControl('', [Validators.required, Validators.pattern(/^\d{9}$/)]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.pattern(/^[^\s]+$/)]),
+    passwordRepeat: new FormControl('', [Validators.required, Validators.pattern(/^[^\s]+$/)]),
+    city: new FormControl('', [Validators.required]),
+    streetAddress: new FormControl('', [Validators.required, Validators.pattern(/^(\d+\s+\w+)|(\w+\s+\d+)$/)]),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+  });
+
   public readonly cities = this.citiesService.cities;
 
   constructor(
@@ -21,14 +32,14 @@ export class SignUpPage implements OnInit {
     private router: Router,
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
   }
 
-  public submit(f: NgForm): void {
+  public submit(): void {
     // tslint:disable-next-line: deprecation
-    this.userService.createRx(f.value).subscribe(async () => {
-      this.alertService.postAlert(`Congratulations, ${f.value.firstName}! You are now a member of Kwik-E-Mart! Please log in using your e-mail and password.`);
-      return await this.router.navigateByUrl('/login');
+    this.userService.createRx(this.form.value).subscribe(async () => {
+      this.alertService.postAlert(`Congratulations, ${this.form.value.firstName}! You are now a member of Kwik-E-Mart! Please log in using your e-mail and password.`);
+      return await this.router.navigate(['../signin']);
     });
   }
 
