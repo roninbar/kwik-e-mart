@@ -23,14 +23,9 @@ export class SignUpPage implements OnInit {
     lastName: new FormControl('', [Validators.required]),
   }, {
     validators: form => {
-      if (form.get('password')?.value === form.get('passwordRepeat')?.value) {
-        return null;
-      }
-      else {
-        const errors = {};
-        form.get('passwordRepeat')?.setErrors(errors);
-        return errors;
-      }
+      const errors = form.get('password')?.value === form.get('passwordRepeat')?.value ? null : {};
+      form.get('passwordRepeat')?.setErrors(errors);
+      return null;
     },
   });
 
