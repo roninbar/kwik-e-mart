@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { CitiesService } from 'src/app/services/cities.service';
@@ -21,6 +21,17 @@ export class SignUpPage implements OnInit {
     streetAddress: new FormControl('', [Validators.required, Validators.pattern(/^(\d+\s+\w+)|(\w+\s+\d+)$/)]),
     firstName: new FormControl('', [Validators.required]),
     lastName: new FormControl('', [Validators.required]),
+  }, {
+    validators: form => {
+      if (form.get('password')?.value === form.get('passwordRepeat')?.value) {
+        return null;
+      }
+      else {
+        const errors = {};
+        form.get('passwordRepeat')?.setErrors(errors);
+        return errors;
+      }
+    },
   });
 
   public readonly cities = this.citiesService.cities;
