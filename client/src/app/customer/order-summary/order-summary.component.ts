@@ -25,29 +25,25 @@ export class OrderSummaryComponent {
   public readonly displayedColumns = ['name', 'quantity', 'price', 'total'];
 
   public readonly matchingItemIds$ = this.route.queryParamMap.pipe(
-    map((queryParamMap) =>
-      this.cartService
+    map((queryParamMap) => {
+      const q = queryParamMap.get(Q)?.toLowerCase() || '';
+      return this.cartService
         .getAllItems()
         .filter(
           ({ product: { name } }) =>
-            queryParamMap.has(Q) &&
-            name
-              .toLowerCase()
-              .includes(queryParamMap.get(Q)?.toLowerCase() || '')
+            queryParamMap.has(Q) && name.toLowerCase().includes(q)
         )
-        .map(({ product: { _id } }) => _id)
-    )
+        .map(({ product: { _id } }) => _id);
+    })
   );
 
   public constructor(
     private cartService: CartService,
     private route: ActivatedRoute
-  ) { }
+  ) {}
 
   public doesMatchRx(productId: string): Observable<boolean> {
-    return this.matchingItemIds$.pipe(
-      map(ids => ids.includes(productId))
-    );
+    return this.matchingItemIds$.pipe(map((ids) => ids.includes(productId)));
   }
 
   public totalQuantity(): number {
