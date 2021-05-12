@@ -6,6 +6,7 @@ import { CitiesService } from 'src/app/services/cities.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
+  selector: 'kwik-e-mart-sign-up',
   templateUrl: './sign-up.page.html',
   styleUrls: ['./sign-up.page.css']
 })

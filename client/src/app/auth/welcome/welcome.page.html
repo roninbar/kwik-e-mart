@@ -1,11 +1,11 @@
-<mat-grid-list cols="3" gutterSize="32px">
-    <mat-grid-tile>
-        <router-outlet></router-outlet>
-    </mat-grid-tile>
-    <mat-grid-tile>
+<div class="grid-list">
+    <div class="grid-tile" id="welcome-image">
         <img src="/assets/kwikemart.png">
-    </mat-grid-tile>
-    <mat-grid-tile>
+    </div>
+    <div class="grid-tile" id="welcome-auth">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="grid-tile" id="welcome-stats">
         <mat-card>
             <mat-list>
                 <mat-list-item>
@@ -22,5 +22,5 @@
                 </mat-list-item>
             </mat-list>
         </mat-card>
-    </mat-grid-tile>
-</mat-grid-list>
+    </div>
+</div>

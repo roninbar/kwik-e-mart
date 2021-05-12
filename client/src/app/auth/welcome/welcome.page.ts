@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/services/product.service';
 const count = map((array: any[]) => array.length);
 
 @Component({
+  selector: 'kwik-e-mart-welcome',
   templateUrl: './welcome.page.html',
   styleUrls: ['./welcome.page.css'],
 })

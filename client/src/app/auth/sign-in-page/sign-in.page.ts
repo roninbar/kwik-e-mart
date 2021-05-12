@@ -7,6 +7,7 @@ import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
+  selector: 'kwik-e-mart-sign-in',
   templateUrl: './sign-in.page.html',
   styleUrls: ['./sign-in.page.css']
 })
