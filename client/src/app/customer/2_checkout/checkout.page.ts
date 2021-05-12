@@ -10,13 +10,14 @@ import { CitiesService } from 'src/app/services/cities.service';
 import { OrderService } from 'src/app/services/order.service';
 import { OrderItem } from 'src/app/types/order-item';
 
+const MAX_ORDERS_PER_DAY = 3;
+
 @Component({
   templateUrl: './checkout.page.html',
   styleUrls: ['./checkout.page.css'],
 })
 // tslint:disable-next-line: component-class-suffix
 export class CheckoutPage {
-
   house = 0;
   street = '';
   city = '';
@@ -25,13 +26,13 @@ export class CheckoutPage {
 
   readonly minDeliveryDate = moment().add(1, 'day');
 
-  deliveryDateFilter: DateFilterFn<Moment | null> = (date) => false;
+  public deliveryDateFilter: DateFilterFn<Moment | null> = (date) => false;
 
   constructor(
     public cartService: CartService,
-    private authService: AuthService,
     private citiesService: CitiesService,
     private orderService: OrderService,
+    private authService: AuthService,
     private router: Router,
   ) {
     this.orderService.getAllOrdersRx().subscribe((orders) => {
@@ -44,7 +45,7 @@ export class CheckoutPage {
           {}
         );
       this.deliveryDateFilter = (date) =>
-        date ? (nOrders[date.toISOString()] || 0) < 3 : false;
+        !!date && (nOrders[date.toISOString()] || 0) < MAX_ORDERS_PER_DAY;
     });
   }
 
@@ -58,13 +59,11 @@ export class CheckoutPage {
   }
 
   placeOrder(f: NgForm): void {
-    if (f.valid) {
-      // tslint:disable-next-line: deprecation
-      this.orderService.placeOrderRx(f.value).subscribe(async () => {
-        this.cartService.empty();
-        await this.router.navigateByUrl('/customer/thankyou');
-      });
-    }
+    // tslint:disable-next-line: deprecation
+    this.orderService.placeOrderRx(f.value).subscribe(async () => {
+      this.cartService.empty();
+      await this.router.navigateByUrl('/customer/thankyou');
+    });
   }
 
   productIdOfCartItem(index: number, item: OrderItem): string {
