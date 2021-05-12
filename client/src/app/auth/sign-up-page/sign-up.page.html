@@ -64,10 +64,10 @@
                                 <button type="button" mat-button matStepperPrevious>Back</button>
                                 <button type="button" mat-button (click)="stepper.reset()">Reset</button>
                             </div>
-                            <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">Sign Up</button>
                         </div>
                     </mat-step>
                 </mat-horizontal-stepper>
+                <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">Sign Up</button>
             </mat-card-content>
         </form>
         <div class="text-center">
