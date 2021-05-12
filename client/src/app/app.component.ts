@@ -5,7 +5,7 @@ import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
 
 @Component({
-  selector: 'kwik-e-root',
+  selector: 'kwik-e-mart-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
