@@ -52,17 +52,11 @@
             </mat-form-field>
             <div>
                 <button mat-button type="button" matStepperPrevious>Back</button>
-                <button mat-button type="button" matStepperNext>Next</button>
-            </div>
-        </mat-step>
-        <mat-step label="Place your order.">
-            <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Place Order</button>
-            <div>
-                <button mat-button type="button" matStepperPrevious>Back</button>
                 <button mat-button type="button" (click)="stepper.reset()">Reset</button>
             </div>
         </mat-step>
     </mat-vertical-stepper>
+    <button mat-raised-button color="primary" type="submit" [disabled]="f.invalid">Place Your Order</button>
 </form>
 
 <mat-divider></mat-divider>
