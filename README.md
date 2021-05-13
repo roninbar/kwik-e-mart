@@ -1,4 +1,4 @@
-![Kwik-E-Mart](README/images/kwikemart.png)
+[![Kwik-E-Mart](README/images/kwikemart.png)](https://roninbar.herokuapp.com)
 
 ### Deployment
 
