@@ -1,6 +1,6 @@
 <div class="container">
     <mat-card>
-        <form novalidate (ngSubmit)="onSubmit()">
+        <form #f="ngForm" (ngSubmit)="onSubmit()">
             <mat-card-header>
                 <mat-card-title>Welcome to Kwik-E-Mart!</mat-card-title>
                 <mat-card-subtitle>Please sign in.</mat-card-subtitle>
@@ -16,7 +16,7 @@
                 </mat-form-field>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-flat-button color="primary" type="submit">Sign In</button>
+                <button mat-flat-button color="primary" type="submit" [disabled]="f.invalid">Sign In</button>
             </mat-card-actions>
         </form>
         <div class="text-center">
