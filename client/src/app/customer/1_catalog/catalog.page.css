@@ -28,3 +28,17 @@
         grid-template-columns: repeat(6, 1fr);
     }
 }
+
+mat-card {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.spacer {
+    flex: 1;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: space-around;
+}

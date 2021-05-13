@@ -10,6 +10,7 @@
             <mat-card-title>{{product.name}}</mat-card-title>
             <mat-card-subtitle>{{product.price | currency}}</mat-card-subtitle>
         </mat-card-header>
+        <div class="spacer"></div>
         <mat-card-actions>
             <button mat-icon-button color="primary" (click)="addCartItem(product)">
                 <mat-icon>add_shopping_cart</mat-icon>
