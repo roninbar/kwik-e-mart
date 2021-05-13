@@ -4,6 +4,13 @@
 
 https://roninbar.herokuapp.com/
 
+###### Test User Credentials
+
+| Role     | Username                 | Password   |
+| -------- | ------------------------ | ---------- |
+| customer | customer@kwik-e-mart.com | `customer` |
+| admin    | admin@kwik-e-mart.com    | `admin`    |
+
 #### Deploy Your Own
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/roninbar/kwik-e-mart/tree/heroku)
