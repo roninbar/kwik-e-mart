@@ -1,3 +1,5 @@
+![Kwik-E-Mart](README/images/kwikemart.png)
+
 ### Deployment
 
 #### Live Version
