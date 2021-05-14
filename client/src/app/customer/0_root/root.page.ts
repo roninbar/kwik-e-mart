@@ -4,11 +4,6 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderItem } from 'src/app/types/order-item';
-import { CatalogPage } from '../1_catalog/catalog.page';
-import { CheckoutPage } from '../2_checkout/checkout.page';
-import { ThankYouPage } from '../3_thank-you/thank-you.page';
-
-type Page = CatalogPage | CheckoutPage | ThankYouPage;
 
 @Component({
   selector: 'kwik-e-mart-customer',
@@ -18,7 +13,7 @@ type Page = CatalogPage | CheckoutPage | ThankYouPage;
 // tslint:disable-next-line: component-class-suffix
 export class RootPage implements OnInit {
 
-  private activePage: Page | undefined;
+  public readonly title = 'Kwik-E-Mart';
 
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
 
@@ -31,10 +26,6 @@ export class RootPage implements OnInit {
   }
 
   public ngOnInit(): void {
-  }
-
-  public onActivate(page: Page): void {
-    this.activePage = page;
   }
 
   public setFilter(event: Event): void {

@@ -1,3 +1,13 @@
+mat-toolbar {
+    display: inline-flex;
+    margin-top: 32px;
+    padding-left: 0;
+}
+
+mat-toolbar img {
+    margin-left: -18px;
+}
+
 .flex-fill {
     flex: 1 1 auto;
 }
