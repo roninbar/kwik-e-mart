@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const passport = require('passport');
 const { Strategy: LocalStrategy } = require('passport-local');
 const User = require('../models/User');
