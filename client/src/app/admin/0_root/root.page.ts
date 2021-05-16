@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FileInputComponent } from 'ngx-material-file-input';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
+import { S3Service } from 'src/app/services/s3.service';
 import { IProduct } from 'src/app/types/product.interface';
 import { InventoryPage } from '../1_inventory/inventory.page';
 
@@ -22,6 +23,7 @@ export class RootPage implements OnInit {
     public authService: AuthService,
     public productService: ProductService,
     private route: ActivatedRoute,
+    private s3: S3Service,
   ) { }
 
   public ngOnInit(): void {
@@ -41,11 +43,17 @@ export class RootPage implements OnInit {
     this.editedProduct = product;
   }
 
-  saveProduct({ value: product }: NgForm, imageFileInput: FileInputComponent): void {
+  public upload(image: FileInputComponent): void {
+    const file = image.value?.files[0];
+    if (file) {
+      this.s3.uploadRx(file).subscribe(url => this.editedProduct && (this.editedProduct.imageUrl = url));
+    }
+  }
+
+  public saveProduct({ value: product }: NgForm): void {
     product.categoryId ||= this.route.snapshot.paramMap.get('categoryId');
-    const imageFile = imageFileInput.value?.files[0];
     // tslint:disable-next-line: deprecation
-    this.productService.saveProductRx(product, imageFile).subscribe(() => this.inventoryPage?.touch());
+    this.productService.saveProductRx(product).subscribe(() => this.inventoryPage?.touch());
   }
 
   public logOut(): void {

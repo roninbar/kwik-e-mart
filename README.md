@@ -36,6 +36,15 @@ https://roninbar.herokuapp.com/
 | `POST`   | `/api/order`                                   |                                                                       |                                                                                                                     | Check out (create a new order).                       | `user`                              |                                                                                              |
 | `GET`    | `/api/order/all`                               |                                                                       |                                                                                                                     | Get a detailed list of all the orders.                | N/A                                 |                                                                                              |
 | `GET`    | `/api/order/:orderId`                          |                                                                       |                                                                                                                     | Get details for the specified order.                  | N/A                                 |                                                                                              |
+| `POST`   | `/api/s3`                                      | `type`                                                                |                                                                                                                     | Generate a new S3 signed URL for direct upload.       | `admin`                             |                                                                                              |
+
+### Product Image Upload
+
+Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil) to view the diagram on GitHub.
+
+```mermaid
+sequenceDiagram
+```
 
 ### Order Flow
 

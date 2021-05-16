@@ -1,13 +1,15 @@
+const mongoSession = require('connect-mongodb-session');
 const cookieParser = require('cookie-parser');
-const upload = require('express-fileupload');
-const passport = require('./util/passport');
+const debug = require('debug');
+const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
-const express = require('express');
 const logger = require('morgan');
-const debug = require('debug');
 const path = require('path');
-const MongoDBStore = require('connect-mongodb-session')(session);
+const passport = require('./util/passport');
+const { allow } = require('./util/passport');
+
+const MongoDBStore = mongoSession(session);
 
 const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/kwik-e-mart';
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
@@ -43,8 +45,8 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(upload());
 
+app.use('/api/s3', allow('admin'), require('./routers/s3'));
 app.use('/api/user', require('./routers/user'));
 app.use('/api/auth', require('./routers/auth'));
 app.use('/api/order', require('./routers/order'));

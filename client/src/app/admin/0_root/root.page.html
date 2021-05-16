@@ -7,20 +7,21 @@
             <mat-icon>close</mat-icon>
         </button>
 
-        <form method="post" action="/api/category/0/product" encType="multipart/form-data" #product="ngForm"
-            (ngSubmit)="saveProduct(product, image); sidenav.close()">
-            <input type="hidden" name="_id" [ngModel]="editedProduct?._id">
-            <input type="hidden" name="categoryId" [ngModel]="editedProduct?.categoryId">
-            <mat-card>
-                <img mat-card-image [src]="editedProduct?.imageUrl" [alt]="editedProduct?.name">
-                <mat-card-header>
-                    <mat-card-title>{{editedProduct?.name || 'New Product'}}</mat-card-title>
-                    <mat-card-subtitle>{{editedProduct?.price | currency}}</mat-card-subtitle>
-                </mat-card-header>
+        <mat-card>
+            <img mat-card-image [src]="editedProduct?.imageUrl" [alt]="editedProduct?.name">
+            <mat-card-header>
+                <mat-card-title>{{editedProduct?.name || 'New Product'}}</mat-card-title>
+                <mat-card-subtitle>{{editedProduct?.price | currency}}</mat-card-subtitle>
+            </mat-card-header>
+            <form method="post" action="/api/category/0/product" encType="multipart/form-data" #product="ngForm"
+                (ngSubmit)="saveProduct(product); sidenav.close()">
+                <input type="hidden" name="_id" [ngModel]="editedProduct?._id">
+                <input type="hidden" name="categoryId" [ngModel]="editedProduct?.categoryId">
+                <input type="hidden" name="imageUrl" [ngModel]="editedProduct?.imageUrl">
                 <mat-card-content>
                     <mat-form-field appearance="fill">
                         <mat-label>Image File</mat-label>
-                        <ngx-mat-file-input accept="image/*" #image></ngx-mat-file-input>
+                        <ngx-mat-file-input accept="image/*" #image (change)="upload(image)"></ngx-mat-file-input>
                         <mat-icon matSuffix>image</mat-icon>
                     </mat-form-field>
                     <mat-form-field appearance="fill">
@@ -36,8 +37,8 @@
                     <button mat-flat-button color="basic" type="reset" (click)="sidenav.close()">Cancel</button>
                     <button mat-flat-button color="primary" type="submit" [disabled]="product.invalid">Save</button>
                 </mat-card-actions>
-            </mat-card>
-        </form>
+            </form>
+        </mat-card>
 
     </mat-sidenav>
 

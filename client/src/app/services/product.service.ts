@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProduct } from '../types/product.interface';
@@ -15,17 +15,10 @@ export class ProductService {
     private alertService: AlertService,
   ) { }
 
-  saveProductRx(product: IProduct, imageFile?: File): Observable<IProduct> {
-    const body = new FormData();
-    body.append('_id', product._id);
-    body.append('name', product.name);
-    body.append('price', product.price.toFixed(2));
-    if (imageFile) {
-      body.append('image', imageFile);
-    }
+  saveProductRx(product: { [param: string]: string }): Observable<IProduct> {
     return (product._id
-      ? this.http.put<IProduct>(`/api/category/${product.categoryId}/product/${product._id}`, body)
-      : this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, body))
+      ? this.http.put<IProduct>(`/api/category/${product.categoryId}/product/${product._id}`, new HttpParams({ fromObject: product }))
+      : this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, new HttpParams({ fromObject: product })))
       .pipe(httpAlert(this.alertService));
   }
 
