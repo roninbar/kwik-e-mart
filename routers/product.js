@@ -1,22 +1,18 @@
 const { Router } = require('express');
-const { Types: { ObjectId } } = require('mongoose');
 const Product = require('../models/Product');
 const ProductCategory = require('../models/ProductCategory');
 const { allow } = require('../util/passport');
-const { storeImageFile } = require('./utils');
 
 const router = new Router();
 
 /**
  * @param {ProductCategory} category
  */
-router.post('/', allow('admin'), async function ({ originalUrl, category: { _id: categoryId }, body: { name, price }, files: { image: imageFile } }, res) {
-    const _id = new ObjectId();
-    const imageUrl = await storeImageFile(_id, imageFile);
+router.post('/', allow('admin'), async function ({ originalUrl, category: { _id: categoryId }, body: { name, price, imageUrl } }, res) {
     try {
-        const product = new Product({ _id, name, price, imageUrl, categoryId });
+        const product = new Product({ name, price, imageUrl, categoryId });
         await product.save();
-        return res.status(201).set('Content-Location', `${originalUrl}/${_id}`).json(product);
+        return res.status(201).set('Content-Location', `${originalUrl}/${product._id}`).json(product);
     }
     catch ({ code, message }) {
         return res.status(code === 11000 ? 409 : 400).send(message);
@@ -26,16 +22,14 @@ router.post('/', allow('admin'), async function ({ originalUrl, category: { _id:
 /**
  * @param {ProductCategory} category
  */
-router.put('/:productId', allow('admin'), async function ({ originalUrl, category: { _id: categoryId }, params: { productId }, body: { name, price }, files }, res) {
+router.put('/:productId', allow('admin'), async function ({ category: { _id: categoryId }, params: { productId }, body: { name, price, imageUrl } }, res) {
     try {
         const product = await Product.findOne({ _id: productId, categoryId });
         if (product) {
             product.overwrite({
                 name,
                 price,
-                imageUrl: files?.image
-                    ? await storeImageFile(productId, files.image)
-                    : product.imageUrl,
+                imageUrl,
                 categoryId,
             });
             await product.save()

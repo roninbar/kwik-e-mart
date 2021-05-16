@@ -10,11 +10,11 @@
     "start-with-env": "env-cmd node ./bin/www"
   },
   "dependencies": {
+    "aws-sdk": "^2.907.0",
     "connect-mongodb-session": "^2.4.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "express-fileupload": "^1.2.1",
     "express-session": "^1.17.1",
     "md-to-pdf": "^3.3.1",
     "mongoose": "^5.12.9",
