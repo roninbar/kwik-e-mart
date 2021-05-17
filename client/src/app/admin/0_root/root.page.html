@@ -1,7 +1,7 @@
 <mat-sidenav-container>
 
     <!-- Product Details Sidenav -->
-    <mat-sidenav mode="push" position="start" fixedInViewport [opened]="!!editedProduct" (closed)="editedProduct = null" #sidenav>
+    <mat-sidenav mode="push" position="start" fixedInViewport #sidenav [opened]="!!editedProduct" (closed)="editedProduct = null">
 
         <button mat-icon-button type="button" (click)="sidenav.close()">
             <mat-icon>close</mat-icon>
