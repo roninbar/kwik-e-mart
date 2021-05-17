@@ -17,6 +17,21 @@ https://roninbar.herokuapp.com/
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/roninbar/kwik-e-mart/tree/heroku)
 
+### Environment Variables
+
+| Name                    | Description                                   | Default Value                     |
+| ----------------------- | --------------------------------------------- | --------------------------------- |
+| `AWS_ACCESS_KEY_ID`     | AWS IAM access key ID.                        |                                   |
+| `AWS_REGION`            | AWS region.                                   | `eu-central-1`                    |
+| `AWS_S3_BUCKET`         | AWS S3 bucket name.                           | `kwik-e-mart`                     |
+| `AWS_SECRET_ACCESS_KEY` | AWS IAM access secret key.                    |                                   |
+| `DEBUG`                 | Filter for `debug` messages.                  | `server:*`                        |
+| `MONGODBURL`            | URL of the Mongo database.                    | `mongodb://localhost/kwik-e-mart` |
+| `PORT`                  | TCP port for incoming HTTP requests.          | `3000`                            |
+| `SECRET_FOR_SESSION`    | A secret encryption key for session cookies.  |                                   |
+| `SECRET_FOR_USER`       | A secret encryption key for user credentials. |                                   |
+| `SIDNAME`               | The name of the session cookie.               | `connect.sid`                     |
+
 ### API Endpoints
 
 | Method   | URL                                            | Request Payload                                                       | Response                                                                                                            | Semantics                                             | Required Privilege                  | Comments                                                                                     |
