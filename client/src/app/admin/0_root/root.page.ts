@@ -50,7 +50,7 @@ export class RootPage implements OnInit {
     }
   }
 
-  public saveProduct({ value: product }: NgForm): void {
+  public save({ value: product }: NgForm): void {
     product.categoryId ||= this.route.snapshot.paramMap.get('categoryId');
     // tslint:disable-next-line: deprecation
     this.productService.saveProductRx(product).subscribe(() => this.inventoryPage?.touch());

@@ -1,9 +1,29 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParameterCodec, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IProduct } from '../types/product.interface';
 import { IProductCategory } from '../types/product-category.interface';
 import { AlertService, httpAlert } from './alert.service';
+
+class ProductEncoder implements HttpParameterCodec {
+
+  encodeKey(key: string): string {
+    return key;
+  }
+
+  encodeValue(value: string): string {
+    return encodeURIComponent(value);
+  }
+
+  decodeKey(key: string): string {
+    return key;
+  }
+
+  decodeValue(value: string): string {
+    return decodeURIComponent(value);
+  }
+
+}
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +35,18 @@ export class ProductService {
     private alertService: AlertService,
   ) { }
 
-  saveProductRx(product: { [param: string]: string }): Observable<IProduct> {
+  saveProductRx(product: IProduct): Observable<IProduct> {
+    const body = new HttpParams({
+      fromObject: {
+        name: product.name,
+        price: product.price.toFixed(2),
+        imageUrl: product.imageUrl,
+      },
+      encoder: new ProductEncoder(),
+    });
     return (product._id
-      ? this.http.put<IProduct>(`/api/category/${product.categoryId}/product/${product._id}`, new HttpParams({ fromObject: product }))
-      : this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, new HttpParams({ fromObject: product })))
+      ? this.http.put<IProduct>(`/api/category/${product.categoryId}/product/${product._id}`, body)
+      : this.http.post<IProduct>(`/api/category/${product.categoryId}/product`, body))
       .pipe(httpAlert(this.alertService));
   }
 

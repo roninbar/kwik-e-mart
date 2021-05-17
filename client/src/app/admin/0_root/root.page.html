@@ -13,8 +13,7 @@
                 <mat-card-title>{{editedProduct?.name || 'New Product'}}</mat-card-title>
                 <mat-card-subtitle>{{editedProduct?.price | currency}}</mat-card-subtitle>
             </mat-card-header>
-            <form method="post" action="/api/category/0/product" encType="multipart/form-data" #product="ngForm"
-                (ngSubmit)="saveProduct(product); sidenav.close()">
+            <form method="post" action="/api/category/{{editedProduct?.categoryId}}/product" #product="ngForm" (ngSubmit)="save(product); sidenav.close()">
                 <input type="hidden" name="_id" [ngModel]="editedProduct?._id">
                 <input type="hidden" name="categoryId" [ngModel]="editedProduct?.categoryId">
                 <input type="hidden" name="imageUrl" [ngModel]="editedProduct?.imageUrl">
@@ -30,7 +29,7 @@
                     </mat-form-field>
                     <mat-form-field appearance="fill">
                         <mat-label>Price</mat-label>
-                        <input matInput type="number" min="0.01" name="price" [ngModel]="editedProduct?.price">
+                        <input matInput type="number" min="0" name="price" [ngModel]="editedProduct?.price">
                     </mat-form-field>
                 </mat-card-content>
                 <mat-card-actions>
