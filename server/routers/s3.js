@@ -15,7 +15,7 @@ router.post('/', async function ({ body: { path, type: mimeType } }, res) {
     if (path?.endsWith('/') && typeof mimeType === 'string' && mimeTypeRegex.test(mimeType)) {
         const { groups: { fileType } } = mimeType.match(mimeTypeRegex);
         const fileName = `${path}${new ObjectId()}.${fileType}`;
-        const getUrl = `https://${AWS_S3_BUCKET}.s3.amazonaws.com/${fileName}`;
+        const getUrl = `https://${AWS_S3_BUCKET}.s3.${AWS_REGION}.amazonaws.com/${fileName}`;
         const putUrl = await s3.getSignedUrlPromise('putObject', {
             Bucket: AWS_S3_BUCKET,
             ContentType: mimeType,
