@@ -51,7 +51,7 @@ export class InventoryPage implements OnInit {
       _id: '',
       name: '',
       price: 0,
-      imageUrl: '/assets/unknown.webp',
+      imageUrl: '/assets/missing-image.png',
       categoryId: this.getCategoryId(),
     });
   }
