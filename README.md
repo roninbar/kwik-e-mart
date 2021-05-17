@@ -36,7 +36,7 @@ https://roninbar.herokuapp.com/
 | `POST`   | `/api/order`                                   |                                                                       |                                                                                                                     | Check out (create a new order).                       | `user`                              |                                                                                              |
 | `GET`    | `/api/order/all`                               |                                                                       |                                                                                                                     | Get a detailed list of all the orders.                | N/A                                 |                                                                                              |
 | `GET`    | `/api/order/:orderId`                          |                                                                       |                                                                                                                     | Get details for the specified order.                  | N/A                                 |                                                                                              |
-| `POST`   | `/api/s3`                                      | `type`                                                                |                                                                                                                     | Generate a new S3 signed URL for direct upload.       | `admin`                             |                                                                                              |
+| `POST`   | `/api/s3`                                      | `path`, `type`                                                        |                                                                                                                     | Generate a new S3 signed URL for direct upload.       | `admin`                             |                                                                                              |
 
 ### Product Image Upload
 
@@ -44,6 +44,13 @@ Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermai
 
 ```mermaid
 sequenceDiagram
+participant client
+participant server
+participant amazon as kwik-e-mart.s3.eu-central-1.amazonaws.com
+client->>server: POST /api/s3 <br/> path=/products <br/> type=image/png
+server-->>client: { <br/> getUrl: https://kwik-e-mart.s3.amazonaws.com/products/<id>.png, <br/> putUrl: https://kwik-e-mart.s3.eu-central-1.amazonaws.com/products/<id>.png?... <br/> }
+client->>amazon: PUT /products/<id>.png?...
+amazon-->>client: 200 OK
 ```
 
 ### Order Flow
