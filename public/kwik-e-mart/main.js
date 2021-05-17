@@ -536,15 +536,37 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+class ProductEncoder {
+    encodeKey(key) {
+        return key;
+    }
+    encodeValue(value) {
+        return encodeURIComponent(value);
+    }
+    decodeKey(key) {
+        return key;
+    }
+    decodeValue(value) {
+        return decodeURIComponent(value);
+    }
+}
 class ProductService {
     constructor(http, alertService) {
         this.http = http;
         this.alertService = alertService;
     }
     saveProductRx(product) {
+        const body = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpParams"]({
+            fromObject: {
+                name: product.name,
+                price: product.price.toFixed(2),
+                imageUrl: product.imageUrl,
+            },
+            encoder: new ProductEncoder(),
+        });
         return (product._id
-            ? this.http.put(`/api/category/${product.categoryId}/product/${product._id}`, new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpParams"]({ fromObject: product }))
-            : this.http.post(`/api/category/${product.categoryId}/product`, new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpParams"]({ fromObject: product })))
+            ? this.http.put(`/api/category/${product.categoryId}/product/${product._id}`, body)
+            : this.http.post(`/api/category/${product.categoryId}/product`, body))
             .pipe(Object(_alert_service__WEBPACK_IMPORTED_MODULE_2__["httpAlert"])(this.alertService));
     }
     getAllCategoriesRx() {
@@ -619,27 +641,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "S3Service", function() { return S3Service; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "8Y7J");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "IheW");
+/* harmony import */ var _alert_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./alert.service */ "3LUQ");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "IheW");
+
+
 
 
 
 
 class S3Service {
-    constructor(http) {
+    constructor(http, alertService) {
         this.http = http;
+        this.alertService = alertService;
     }
     uploadRx(file) {
-        return this.http.post('/api/s3', { mimeType: file.type }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])(({ getUrl, putUrl }) => this.http.put(putUrl, file).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["mapTo"])(getUrl))));
+        return this.http.post('/api/s3', { path: 'products/', type: file.type }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["switchMap"])(({ getUrl, putUrl }) => this.http.put(putUrl, file).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["mapTo"])(getUrl))), Object(_alert_service__WEBPACK_IMPORTED_MODULE_2__["httpAlert"])(this.alertService));
     }
 }
-S3Service.ɵfac = function S3Service_Factory(t) { return new (t || S3Service)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"])); };
+S3Service.ɵfac = function S3Service_Factory(t) { return new (t || S3Service)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵinject"](_alert_service__WEBPACK_IMPORTED_MODULE_2__["AlertService"])); };
 S3Service.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineInjectable"]({ token: S3Service, factory: S3Service.ɵfac, providedIn: 'root' });
 /*@__PURE__*/ (function () { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵsetClassMetadata"](S3Service, [{
         type: _angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"],
         args: [{
                 providedIn: 'root'
             }]
-    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"] }]; }, null); })();
+    }], function () { return [{ type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] }, { type: _alert_service__WEBPACK_IMPORTED_MODULE_2__["AlertService"] }]; }, null); })();
 
 
 /***/ }),
@@ -3236,7 +3262,7 @@ class RootPage {
             this.s3.uploadRx(file).subscribe(url => this.editedProduct && (this.editedProduct.imageUrl = url));
         }
     }
-    saveProduct({ value: product }) {
+    save({ value: product }) {
         product.categoryId || (product.categoryId = this.route.snapshot.paramMap.get('categoryId'));
         // tslint:disable-next-line: deprecation
         this.productService.saveProductRx(product).subscribe(() => { var _a; return (_a = this.inventoryPage) === null || _a === void 0 ? void 0 : _a.touch(); });
@@ -3247,7 +3273,7 @@ class RootPage {
     }
 }
 RootPage.ɵfac = function RootPage_Factory(t) { return new (t || RootPage)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_auth_service__WEBPACK_IMPORTED_MODULE_2__["AuthService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_product_service__WEBPACK_IMPORTED_MODULE_3__["ProductService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_4__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](src_app_services_s3_service__WEBPACK_IMPORTED_MODULE_5__["S3Service"])); };
-RootPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: RootPage, selectors: [["ng-component"]], decls: 48, vars: 14, consts: [["mode", "push", "position", "start", "fixedInViewport", "", 3, "opened", "closed"], ["sidenav", ""], ["mat-icon-button", "", "type", "button", 3, "click"], ["mat-card-image", "", 3, "src", "alt"], ["method", "post", "action", "/api/category/0/product", "encType", "multipart/form-data", 3, "ngSubmit"], ["product", "ngForm"], ["type", "hidden", "name", "_id", 3, "ngModel"], ["type", "hidden", "name", "categoryId", 3, "ngModel"], ["type", "hidden", "name", "imageUrl", 3, "ngModel"], ["appearance", "fill"], ["accept", "image/*", 3, "change"], ["image", ""], ["matSuffix", ""], ["matInput", "", "type", "text", "name", "name", "required", "", 3, "ngModel"], ["matInput", "", "type", "number", "min", "0.01", "name", "price", 3, "ngModel"], ["mat-flat-button", "", "color", "basic", "type", "reset", 3, "click"], ["mat-flat-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["color", "primary"], [1, "cursor-pointer"], [1, "flex-fill"], [4, "ngIf"], [3, "activate"], ["mat-button", "", 3, "matMenuTriggerFor"], ["userMenu", "matMenu"], ["mat-menu-item", "", 3, "click"]], template: function RootPage_Template(rf, ctx) { if (rf & 1) {
+RootPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: RootPage, selectors: [["ng-component"]], decls: 48, vars: 15, consts: [["mode", "push", "position", "start", "fixedInViewport", "", 3, "opened", "closed"], ["sidenav", ""], ["mat-icon-button", "", "type", "button", 3, "click"], ["mat-card-image", "", 3, "src", "alt"], ["method", "post", 3, "action", "ngSubmit"], ["product", "ngForm"], ["type", "hidden", "name", "_id", 3, "ngModel"], ["type", "hidden", "name", "categoryId", 3, "ngModel"], ["type", "hidden", "name", "imageUrl", 3, "ngModel"], ["appearance", "fill"], ["accept", "image/*", 3, "change"], ["image", ""], ["matSuffix", ""], ["matInput", "", "type", "text", "name", "name", "required", "", 3, "ngModel"], ["matInput", "", "type", "number", "min", "0", "name", "price", 3, "ngModel"], ["mat-flat-button", "", "color", "basic", "type", "reset", 3, "click"], ["mat-flat-button", "", "color", "primary", "type", "submit", 3, "disabled"], ["color", "primary"], [1, "cursor-pointer"], [1, "flex-fill"], [4, "ngIf"], [3, "activate"], ["mat-button", "", 3, "matMenuTriggerFor"], ["userMenu", "matMenu"], ["mat-menu-item", "", 3, "click"]], template: function RootPage_Template(rf, ctx) { if (rf & 1) {
         const _r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "mat-sidenav-container");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "mat-sidenav", 0, 1);
@@ -3270,7 +3296,7 @@ RootPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "form", 4, 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function RootPage_Template_form_ngSubmit_14_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r8); const _r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](15); const _r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](2); ctx.saveProduct(_r1); return _r0.close(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("ngSubmit", function RootPage_Template_form_ngSubmit_14_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r8); const _r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](15); const _r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵreference"](2); ctx.save(_r1); return _r0.close(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](16, "input", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](17, "input", 7);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](18, "input", 8);
@@ -3335,8 +3361,10 @@ RootPage.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"]((ctx.editedProduct == null ? null : ctx.editedProduct.name) || "New Product");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 12, ctx.editedProduct == null ? null : ctx.editedProduct.price));
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpipeBind1"](13, 13, ctx.editedProduct == null ? null : ctx.editedProduct.price));
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵpropertyInterpolate1"]("action", "/api/category/", ctx.editedProduct == null ? null : ctx.editedProduct.categoryId, "/product", _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵsanitizeUrl"]);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editedProduct == null ? null : ctx.editedProduct._id);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngModel", ctx.editedProduct == null ? null : ctx.editedProduct.categoryId);
