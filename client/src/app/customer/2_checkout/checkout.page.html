@@ -47,7 +47,7 @@
         <mat-step label="Choose your payment method.">
             <mat-form-field appearance="outline">
                 <mat-label>Card Number</mat-label>
-                <input matInput type="text" name="payment[cc][number]" ngModel pattern="^(\d{12})$|^(\d{16})$" required>
+                <input matInput type="text" name="payment[cc][number]" ngModel minlength="14" maxlength="16" pattern="^\d*$" required>
                 <mat-error>Please type a valid CC number.</mat-error>
             </mat-form-field>
             <div>
