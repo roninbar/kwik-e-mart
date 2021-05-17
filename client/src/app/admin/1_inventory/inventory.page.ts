@@ -46,7 +46,7 @@ export class InventoryPage implements OnInit {
   public ngOnInit(): void {
   }
 
-  public onEditProduct(product: IProduct | null): void {
+  public onEdit(product: IProduct | null): void {
     this.edit.emit(product || {
       _id: '',
       name: '',
