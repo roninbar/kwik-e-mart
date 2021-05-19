@@ -1,9 +1,9 @@
 <!-- Main Toolbar -->
 <mat-toolbar color="primary">
-    
+
     <!-- Website Title -->
     <img class="cursor-pointer" src="https://kwik-e-mart.s3.eu-central-1.amazonaws.com/assets/logo.png" [alt]="title" width="150px">
-    
+
     <!-- Search Box -->
     <mat-form-field>
         <mat-label>Search</mat-label>
@@ -35,40 +35,33 @@
     <!-- Shopping Cart Sidenav -->
     <mat-sidenav mode="push" position="start" fixedInViewport #sidenav>
 
-        <button mat-icon-button type="button" (click)="sidenav.close()">
+        <button class="cart-close-button" mat-icon-button type="button" (click)="sidenav.close()">
             <mat-icon>close</mat-icon>
         </button>
 
         <form (ngSubmit)="sidenav.close(); goToCheckOutAsync()">
             <h2 *ngIf="cartService.isEmpty()">The cart is empty.</h2>
+            <mat-divider class="cart-divider"></mat-divider>
             <ng-container *ngIf="!cartService.isEmpty()">
-                <mat-divider></mat-divider>
-                <mat-card *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
-                    <mat-card-header>
+                <div class="cart-item" *ngFor="let item of cartService.getAllItems(); trackBy: productIdOfCartItem">
+                    <mat-form-field class="quantity-field" appearance="outline">
+                        <mat-label>Quantity</mat-label>
+                        <input matInput type="number" [name]="item.product._id" [value]="item.quantity" min="1">
+                    </mat-form-field>
+                    <mat-card-header class="summary">
                         <mat-card-title>{{item.product.name}}</mat-card-title>
                         <mat-card-subtitle>{{item.product.price | currency}}</mat-card-subtitle>
                         <img mat-card-avatar [src]="item.product.imageUrl" [alt]="item.product.name">
                     </mat-card-header>
-                    <mat-card-content>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Quantity</mat-label>
-                            <button matPrefix type="button" mat-icon-button (click)="item.quantity > 1 && cartService.setItem(item.product, item.quantity - 1)">
-                                <mat-icon>remove_circle</mat-icon>
-                            </button>
-                            <input matInput type="number" [name]="item.product._id" [value]="item.quantity" min="1" readonly>
-                            <button matSuffix type="button" mat-icon-button (click)="cartService.setItem(item.product, item.quantity + 1)">
-                                <mat-icon>add_circle</mat-icon>
-                            </button>
-                        </mat-form-field>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button mat-icon-button color="warn" (click)="cartService.setItem(item.product, 0)">
+                    <div class="flex-fill"></div>
+                    <div class="remove-from-cart-button-wrapper">
+                        <button class="remove-from-cart-button" mat-icon-button color="warn" (click)="cartService.setItem(item.product, 0)">
                             <mat-icon>remove_shopping_cart</mat-icon>
                         </button>
-                    </mat-card-actions>
-                </mat-card>
-                <mat-divider></mat-divider>
-                <h2>Cart Total: {{cartService.getTotalPrice() | currency}}</h2>
+                    </div>
+                </div>
+                <mat-divider class="cart-divider"></mat-divider>
+                <h2 class="cart-total">Cart Total: {{cartService.getTotalPrice() | currency}}</h2>
             </ng-container>
             <div class="cart-actions">
                 <button mat-flat-button type="submit" color="primary" [disabled]="cartService.isEmpty()">
