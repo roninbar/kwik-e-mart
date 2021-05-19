@@ -1,3 +1,27 @@
+<!-- Main Toolbar -->
+<mat-toolbar color="primary">
+
+    <mat-toolbar-row>
+
+        <!-- Website Title -->
+        <span class="cursor-pointer">Kwik-E-Mart (Admin)</span>
+
+        <span class="flex-fill"></span>
+
+        <!-- Logged-In User + Logout Button -->
+        <ng-container *ngIf="authService.getLoggedInUser() as user">
+            <button mat-button [matMenuTriggerFor]="userMenu">Hello, {{user.name.first}}!</button>
+            <mat-menu #userMenu="matMenu">
+                <button mat-menu-item (click)="logOut()">
+                    <mat-icon>logout</mat-icon>Log Out
+                </button>
+            </mat-menu>
+        </ng-container>
+
+    </mat-toolbar-row>
+
+</mat-toolbar>
+
 <mat-sidenav-container>
 
     <!-- Product Details Sidenav -->
@@ -42,30 +66,6 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-
-        <!-- Main Toolbar -->
-        <mat-toolbar color="primary">
-
-            <mat-toolbar-row>
-
-                <!-- Website Title -->
-                <span class="cursor-pointer">Kwik-E-Mart (Admin)</span>
-
-                <span class="flex-fill"></span>
-
-                <!-- Logged-In User + Logout Button -->
-                <ng-container *ngIf="authService.getLoggedInUser() as user">
-                    <button mat-button [matMenuTriggerFor]="userMenu">Hello, {{user.name.first}}!</button>
-                    <mat-menu #userMenu="matMenu">
-                        <button mat-menu-item (click)="logOut()">
-                            <mat-icon>logout</mat-icon>Log Out
-                        </button>
-                    </mat-menu>
-                </ng-container>
-
-            </mat-toolbar-row>
-
-        </mat-toolbar>
 
         <router-outlet (activate)="onActivate($event)"></router-outlet>
 
