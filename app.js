@@ -15,7 +15,7 @@ const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/kwik-e-mart
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET_FOR_SESSION'] || '';
 
-global.staticFilesDir = path.join(__dirname, 'public');
+global.staticFilesDir = path.join(__dirname, 'public', 'kwik-e-mart');
 
 debug('server:mongodb')(`Connecting to ${MONGODBURL}...`);
 mongoose.connect(MONGODBURL, {
