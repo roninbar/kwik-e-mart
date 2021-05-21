@@ -1,7 +1,7 @@
 mat-toolbar {
     display: inline-flex;
-    margin-top: 32px;
-    padding-left: 0;
+    /* margin-top: 32px; */
+    /* padding-left: 0; */
 }
 
 mat-toolbar img {

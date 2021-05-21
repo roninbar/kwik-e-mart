@@ -5,7 +5,7 @@
     padding: 16px;
 }
 
-@media (min-width: 576px) {
+@media (min-width: 384px) {
     .container {
         grid-template-columns: repeat(2, 1fr);
     }
