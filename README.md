@@ -21,9 +21,9 @@ https://roninbar.herokuapp.com/
 
 | Name                    | Description                                   | Default Value                     |
 | ----------------------- | --------------------------------------------- | --------------------------------- |
-| `AWS_ACCESS_KEY_ID`     | AWS IAM access key ID.                        |                                   |
 | `AWS_REGION`            | AWS region.                                   | `eu-central-1`                    |
 | `AWS_S3_BUCKET`         | AWS S3 bucket name.                           | `kwik-e-mart`                     |
+| `AWS_ACCESS_KEY_ID`     | AWS IAM access key ID.                        |                                   |
 | `AWS_SECRET_ACCESS_KEY` | AWS IAM access secret key.                    |                                   |
 | `DEBUG`                 | Filter for `debug` messages.                  | `server:*`                        |
 | `MONGODBURL`            | URL of the Mongo database.                    | `mongodb://localhost/kwik-e-mart` |
@@ -53,7 +53,9 @@ https://roninbar.herokuapp.com/
 | `GET`    | `/api/order/:orderId`                          |                                                                       |                                                                                                                     | Get details for the specified order.                  | N/A                                 |                                                                                              |
 | `POST`   | `/api/s3`                                      | `path`, `type`                                                        |                                                                                                                     | Generate a new S3 signed URL for direct upload.       | `admin`                             |                                                                                              |
 
-### Product Image Upload
+### Sequence Diagrams
+
+#### Product Image Upload
 
 Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil) to view the diagram on GitHub.
 
@@ -63,12 +65,12 @@ participant client
 participant server
 participant amazon as kwik-e-mart.s3.eu-central-1.amazonaws.com
 client->>server: POST /api/s3 <br/> path=/products <br/> type=image/png
-server-->>client: { <br/> getUrl: https://kwik-e-mart.s3.amazonaws.com/products/<id>.png, <br/> putUrl: https://kwik-e-mart.s3.eu-central-1.amazonaws.com/products/<id>.png?... <br/> }
+server-->>client: { <br/> getUrl: https://....amazonaws.com/products/<id>.png, <br/> putUrl: https://....amazonaws.com/products/<id>.png?... <br/> }
 client->>amazon: PUT /products/<id>.png?...
 amazon-->>client: 200 OK
 ```
 
-### Order Flow
+#### Order Flow
 
 Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil) to view the diagram on GitHub.
 
