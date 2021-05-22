@@ -4,11 +4,13 @@
     "repository": "https://github.com/roninbar/kwik-e-mart",
     "logo": "https://cdn.shopify.com/s/files/1/0016/0425/5788/products/SD1622_600x.jpg?v=1543461710",
     "keywords": [
-        "node",
-        "express",
-        "static",
+        "supermarket",
         "ecommerce",
-        "supermarket"
+        "mean",
+        "angular",
+        "express",
+        "node",
+        "mongodb"
     ],
     "stack": "heroku-20",
     "buildpacks": [
