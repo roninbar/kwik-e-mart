@@ -1,3 +1,6 @@
+import {
+  BreakpointObserver
+} from '@angular/cdk/layout';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,11 +11,10 @@ import { OrderItem } from 'src/app/types/order-item';
 @Component({
   selector: 'kwik-e-mart-customer',
   templateUrl: './root.page.html',
-  styleUrls: ['./root.page.css']
+  styleUrls: ['./root.page.css'],
 })
 // tslint:disable-next-line: component-class-suffix
 export class RootPage implements OnInit {
-
   public readonly title = 'Kwik-E-Mart';
 
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
@@ -22,12 +24,14 @@ export class RootPage implements OnInit {
     public cartService: CartService,
     private router: Router,
     private route: ActivatedRoute,
+    private breakpointObserver: BreakpointObserver
   ) {
-    this.cartService.change.subscribe(() => this.cartService.isEmpty() || this.sidenav.open());
+    this.cartService.change.subscribe(
+      () => this.breakpointObserver.isMatched('(min-width: 600px)') && !this.cartService.isEmpty() && this.sidenav.open()
+    );
   }
 
-  public ngOnInit(): void {
-  }
+  public ngOnInit(): void {}
 
   public setFilter(event: Event): void {
     const { value } = event.target as HTMLInputElement;
@@ -52,5 +56,4 @@ export class RootPage implements OnInit {
   public productIdOfCartItem(index: number, item: OrderItem): string {
     return item.product._id;
   }
-
 }
