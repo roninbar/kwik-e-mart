@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { DateFilterFn } from '@angular/material/datepicker';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { AuthService } from 'src/app/services/auth.service';
@@ -34,6 +34,7 @@ export class CheckoutPage {
     private orderService: OrderService,
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.orderService.getAllOrdersRx().subscribe((orders) => {
       // Count the number of orders on each date.
@@ -62,7 +63,7 @@ export class CheckoutPage {
     // tslint:disable-next-line: deprecation
     this.orderService.placeOrderRx(f.value).subscribe(async () => {
       this.cartService.empty();
-      await this.router.navigateByUrl('/customer/thankyou');
+      await this.router.navigate(['../thankyou'], { relativeTo: this.route, queryParamsHandling: 'preserve' });
     });
   }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { OrderItem } from 'src/app/types/order-item';
@@ -21,6 +21,7 @@ export class RootPage implements OnInit {
     public authService: AuthService,
     public cartService: CartService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     this.cartService.change.subscribe(() => this.cartService.isEmpty() || this.sidenav.open());
   }
@@ -40,8 +41,7 @@ export class RootPage implements OnInit {
   }
 
   public goToCheckOutAsync(): Promise<boolean> {
-    // TODO: Change URL to a relative route.
-    return this.router.navigateByUrl('/customer/checkout');
+    return this.router.navigate(['checkout'], { relativeTo: this.route, queryParamsHandling: 'preserve' });
   }
 
   public logOut(): void {
