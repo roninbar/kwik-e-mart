@@ -25,6 +25,9 @@
         "AWS_ACCESS_KEY_ID": {
             "description": "AWS IAM access key ID"
         },
+        "AWS_SECRET_ACCESS_KEY": {
+            "description": "AWS IAM access secret key"
+        },
         "AWS_REGION": {
             "description": "AWS region",
             "value": "eu-central-1"
@@ -32,9 +35,6 @@
         "AWS_S3_BUCKET": {
             "description": "AWS S3 bucket name",
             "value": "kwik-e-mart"
-        },
-        "AWS_SECRET_ACCESS_KEY": {
-            "description": "AWS IAM access secret key"
         },
         "DEBUG": {
             "description": "Mask for log messages",
