@@ -39,14 +39,17 @@ export class CheckoutPage {
     this.orderService.getAllOrdersRx().subscribe((orders) => {
       // Count the number of orders on each date.
       const nOrders = orders
-        .map(({ delivery: { on } }) => on)
+        .map(({ delivery: { on } }) => {
+          const [date] = on.split('T');
+          return date;
+        })
         .reduce(
           (n: { [d: string]: number }, d) =>
             Object.assign(n, { [d]: (n[d] || 0) + 1 }),
           {}
         );
       this.deliveryDateFilter = (date) =>
-        !!date && (nOrders[date.toISOString()] || 0) < MAX_ORDERS_PER_DAY;
+        !!date && (nOrders[date.format('yyyy-MM-DD')] || 0) < MAX_ORDERS_PER_DAY;
     });
   }
 
