@@ -4,35 +4,35 @@
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
         <td mat-cell *matCellDef="let item">{{item.product._id}}</td>
-        <td mat-footer-cell *matFooterCellDef>ID</td>
+        <th mat-footer-cell *matFooterCellDef>ID</th>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Product</th>
         <td mat-cell *matCellDef="let item">{{item.product.name}}</td>
-        <td mat-footer-cell *matFooterCellDef>Total</td>
+        <th mat-footer-cell *matFooterCellDef>Total</th>
     </ng-container>
 
     <!-- Quantity Column -->
     <ng-container matColumnDef="quantity">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
         <td mat-cell *matCellDef="let item">{{item.quantity}}</td>
-        <td mat-footer-cell *matFooterCellDef>{{totalQuantity()}}</td>
+        <th mat-footer-cell *matFooterCellDef>{{totalQuantity()}}</th>
     </ng-container>
 
     <!-- Price Column -->
     <ng-container matColumnDef="price">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
         <td mat-cell *matCellDef="let item">{{item.product.price | currency}}</td>
-        <td mat-footer-cell *matFooterCellDef></td>
+        <th mat-footer-cell *matFooterCellDef></th>
     </ng-container>
 
     <!-- Total Column -->
     <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Total</th>
         <td mat-cell *matCellDef="let item">{{item.quantity * item.product.price | currency}}</td>
-        <td mat-footer-cell *matFooterCellDef>{{totalPrice() | currency}}</td>
+        <th mat-footer-cell *matFooterCellDef>{{totalPrice() | currency}}</th>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
