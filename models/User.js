@@ -57,15 +57,15 @@ schema.virtual('streetAddress')
         return `${this.address.house} ${this.address.street}`;
     })
     .set(function (streetAddress) {
-        const match =
-            streetAddress.match(/^(?<house>\d+)\s+(?<street>.+)$/) ||
-            streetAddress.match(/^(?<street>.+)\s+(?<house>\d+)$/);
+        const us = /^(?<house>\d+)\s+(?<street>.+)$/;
+        const il = /^(?<street>.+)\s+(?<house>\d+)$/;
+        const match = streetAddress.match(us) || streetAddress.match(il);
         if (match) {
             const { groups: { house, street } } = match;
             Object.assign(this.address, { street, house });
         }
         else {
-            throw new Error(`"${streetAddress}" is not a valid street address. A valid address must match either /^\\d+\\s+.+$/ or /^.+\\s+\\d+$/.`);
+            throw new Error(`"${streetAddress}" is not a valid street address. A valid address must match either ${us} or ${il}.`);
         }
     });
 
