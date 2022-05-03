@@ -1,4 +1,7 @@
+.gitignore
 .env
 docker-compose.yaml
+Dockerfile
 Procfile
+app.json
 node_modules
