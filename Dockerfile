@@ -5,3 +5,4 @@ WORKDIR /var/lib/kwik-e-mart
 COPY package*.json ./
 RUN npm ci --only=production
 COPY . .
+CMD npm run start-container
