@@ -8,7 +8,7 @@
   "scripts": {
     "start": "env-cmd node ./bin/www",
     "start-heroku": "node ./bin/www",
-    "start-docker": "node ./bin/www"
+    "start-container": "node ./bin/www"
   },
   "dependencies": {
     "aws-sdk": "^2.1009.0",
