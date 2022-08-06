@@ -57,8 +57,6 @@ https://roninbar.herokuapp.com/
 
 #### Product Image Upload
 
-Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil) to view the diagram on GitHub.
-
 ```mermaid
 sequenceDiagram
 participant client
@@ -71,8 +69,6 @@ amazon-->>client: 200 OK
 ```
 
 #### Order Flow
-
-Install [this Chrome extension](https://chrome.google.com/webstore/detail/mermaid-diagrams/phfcghedmopjadpojhmmaffjmfiakfil) to view the diagram on GitHub.
 
 ```mermaid
 sequenceDiagram
