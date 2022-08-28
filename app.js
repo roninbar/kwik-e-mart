@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const debug = require('debug');
 const express = require('express');
 const session = require('express-session');
+const { ServerApiVersion: { v1 } } = require('mongodb');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 const path = require('path');
@@ -11,6 +12,7 @@ const { allow } = require('./util/passport');
 
 const MongoDBStore = mongoSession(session);
 
+const MONGODBCERT = process.env['MONGODBCERT'] || undefined;
 const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/kwik-e-mart';
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET_FOR_SESSION'] || '';
@@ -18,12 +20,14 @@ const SECRET = process.env['SECRET_FOR_SESSION'] || '';
 global.staticFilesDir = path.join(__dirname, 'public', 'kwik-e-mart');
 
 debug('server:mongodb')(`Connecting to ${MONGODBURL}...`);
-mongoose.connect(MONGODBURL, {
-    useUnifiedTopology: true,
-    useFindAndModify: false,
+const connectionOptions = {
+    serverApi: v1,
+    sslKey: MONGODBCERT,
+    sslCert: MONGODBCERT,
     useNewUrlParser: true,
-    useCreateIndex: true,
-});
+    useUnifiedTopology: true,
+};
+mongoose.connect(MONGODBURL, connectionOptions);
 mongoose.connection.on('error', debug('server:mongodb'));
 mongoose.connection.on('open', () => debug('server:mongodb')('Connected.'));
 
@@ -41,6 +45,7 @@ app.use(session({
     store: new MongoDBStore({
         uri: MONGODBURL,
         collection: 'sessions',
+        connectionOptions,
     }),
 }));
 app.use(passport.initialize());
