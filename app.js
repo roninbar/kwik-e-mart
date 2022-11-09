@@ -33,7 +33,7 @@ mongoose.connection.on('open', () => debug('server:mongodb')('Connected.'));
 
 const app = express();
 
-app.use(logger('dev'));
+app.use(logger('common'));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
