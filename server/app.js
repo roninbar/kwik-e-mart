@@ -12,6 +12,7 @@ const { allow } = require('./util/passport');
 
 const MongoDBStore = mongoSession(session);
 
+const ENVIRONMENT = process.env['ENVIRONMENT'] || 'production';
 const MONGODBCERT = process.env['MONGODBCERT'] || undefined;
 const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/kwik-e-mart';
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
@@ -33,7 +34,7 @@ mongoose.connection.on('open', () => debug('server:mongodb')('Connected.'));
 
 const app = express();
 
-app.use(logger('common'));
+app.use(logger(ENVIRONMENT.startsWith('dev') ? 'dev' : 'common'));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
