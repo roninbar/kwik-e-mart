@@ -5,4 +5,4 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production --legacy-peer-deps
 COPY . .
-CMD npm run start-container
+ENTRYPOINT ["npm", "run", "start-container"]
