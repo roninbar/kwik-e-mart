@@ -18,7 +18,13 @@ const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/kwik-e-mart
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET_FOR_SESSION'] || '';
 
-process.on('SIGTERM', debug('server:lifecycle').bind(null, 'Got SIGTERM. Shutting down.'));
+function trap(signal) {
+    debug('server:lifecycle')(`Trapping ${signal}...`);
+    process.on(signal, debug('server:lifecycle'));
+}
+
+trap('SIGTERM');
+trap('SIGINT');
 
 global.staticFilesDir = path.join(__dirname, 'public', 'kwik-e-mart');
 
