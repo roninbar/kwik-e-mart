@@ -24,7 +24,6 @@ function trap(signal) {
 }
 
 trap('SIGTERM');
-trap('SIGINT');
 
 global.staticFilesDir = path.join(__dirname, 'public', 'kwik-e-mart');
 
