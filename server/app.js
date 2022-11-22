@@ -19,8 +19,9 @@ const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET_FOR_SESSION'] || '';
 
 function trap(signal) {
-    debug('server:lifecycle')(`Trapping ${signal}...`);
-    process.on(signal, debug('server:lifecycle'));
+    const log = debug('server:lifecycle');
+    log(`Trapping ${signal}...`);
+    process.on(signal, log);
 }
 
 trap('SIGTERM');
