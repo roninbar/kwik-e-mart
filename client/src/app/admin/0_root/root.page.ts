@@ -3,8 +3,8 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FileInputComponent } from 'ngx-material-file-input';
 import { AuthService } from 'src/app/services/auth.service';
+import { GsService } from 'src/app/services/gs.service';
 import { ProductService } from 'src/app/services/product.service';
-import { S3Service } from 'src/app/services/s3.service';
 import { IProduct } from 'src/app/types/product.interface';
 import { InventoryPage } from '../1_inventory/inventory.page';
 
@@ -23,7 +23,7 @@ export class RootPage implements OnInit {
     public authService: AuthService,
     public productService: ProductService,
     private route: ActivatedRoute,
-    private s3: S3Service,
+    private gs: GsService,
   ) { }
 
   public ngOnInit(): void {
@@ -46,7 +46,7 @@ export class RootPage implements OnInit {
   public upload(image: FileInputComponent): void {
     const file = image.value?.files[0];
     if (file) {
-      this.s3.uploadRx(file).subscribe(url => this.editedProduct && (this.editedProduct.imageUrl = url));
+      this.gs.uploadRx(file).subscribe(url => this.editedProduct && (this.editedProduct.imageUrl = url));
     }
   }
 
