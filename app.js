@@ -60,6 +60,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use('/api/gs', allow('admin'), require('./routers/gs'));
 app.use('/api/s3', allow('admin'), require('./routers/s3'));
 app.use('/api/user', require('./routers/user'));
 app.use('/api/auth', require('./routers/auth'));
