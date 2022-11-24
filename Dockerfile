@@ -5,4 +5,4 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci --only=production --legacy-peer-deps
 COPY . .
-ENTRYPOINT ["npm", "run", "start-container"]
+ENTRYPOINT echo "My external IP is `curl -s curlmyip.org`" & npm run start-container
