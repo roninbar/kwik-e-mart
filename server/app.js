@@ -1,3 +1,4 @@
+const gcDebugAgent = require('@google-cloud/debug-agent');
 const mongoSession = require('connect-mongodb-session');
 const cookieParser = require('cookie-parser');
 const debug = require('debug');
@@ -9,6 +10,8 @@ const logger = require('morgan');
 const path = require('path');
 const passport = require('./util/passport');
 const { allow } = require('./util/passport');
+
+gcDebugAgent.start({ serviceContext: { enableCanary: false } });
 
 const MongoDBStore = mongoSession(session);
 
