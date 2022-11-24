@@ -12,6 +12,7 @@
     "build-container": "docker build -t rinbar/kwik-e-mart ."
   },
   "dependencies": {
+    "@google-cloud/debug-agent": "^7.1.1",
     "@google-cloud/storage": "^6.7.0",
     "aws-sdk": "^2.1009.0",
     "connect-mongodb-session": "^3.1.1",
