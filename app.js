@@ -11,7 +11,15 @@ const path = require('path');
 const passport = require('./util/passport');
 const { allow } = require('./util/passport');
 
-gcDebugAgent.start({ serviceContext: { enableCanary: false } });
+gcDebugAgent.start({ 
+    allowExpressions: true, 
+    capture: {
+        maxProperties: 0, // 0 means unlimited.
+        maxFrames: 100,
+        maxExpandFrames: 100,
+    },
+    serviceContext: { enableCanary: false },
+ });
 
 const MongoDBStore = mongoSession(session);
 
