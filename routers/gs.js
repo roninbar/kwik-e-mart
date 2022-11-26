@@ -6,6 +6,7 @@ const router = new Router();
 
 router.post('/', async function ({ body: { path, type: contentType } }, res) {
     const gs = new Storage();
+    const cred = await gs.authClient.getCredentials();
     const mimeTypeRegex = /^image\/(?<fileType>.*)$/;
     if (path?.endsWith('/') && typeof contentType === 'string' && mimeTypeRegex.test(contentType)) {
         const { groups: { fileType } } = contentType.match(mimeTypeRegex);

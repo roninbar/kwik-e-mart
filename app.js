@@ -11,20 +11,20 @@ const path = require('path');
 const passport = require('./util/passport');
 const { allow } = require('./util/passport');
 
-gcDebugAgent.start({ 
-    allowExpressions: true, 
+gcDebugAgent.start({
+    allowExpressions: true,
     capture: {
         maxProperties: 0, // 0 means unlimited.
         maxFrames: 100,
         maxExpandFrames: 100,
     },
     serviceContext: { enableCanary: false },
- });
+});
 
 const MongoDBStore = mongoSession(session);
 
 const ENVIRONMENT = process.env['ENVIRONMENT'] || 'production';
-const MONGODBCERT = process.env['MONGODBCERT'] || undefined;
+const MONGODBCERT = process.env['MONGODBCERT'];
 const MONGODBURL = process.env['MONGODBURL'] || 'mongodb://localhost/kwik-e-mart';
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET_FOR_SESSION'] || '';
