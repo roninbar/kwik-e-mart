@@ -1,7 +1,9 @@
 const gcDebugAgent = require('@google-cloud/debug-agent');
+const { Storage } = require('@google-cloud/storage');
 const mongoSession = require('connect-mongodb-session');
 const cookieParser = require('cookie-parser');
 const debug = require('debug');
+const fs = require('fs/promises');
 const express = require('express');
 const session = require('express-session');
 const { ServerApiVersion: { v1 } } = require('mongodb');
@@ -80,11 +82,35 @@ app.use('/api/category', require('./routers/category'));
 
 app.use(express.static(global.staticFilesDir));
 
+app.get(['/products/:file', '/receipts/:file'], async function ({ url, params: { file: filename } }, res, next) {
+    try {
+        await download(url);
+        return res.sendFile(path.join(global.staticFilesDir, 'products', filename));
+    }
+    catch {
+        return next();
+    }
+});
+
 app.get('/*', function (req, res, next) {
     return '' === path.extname(req.path) && 'html' === req.accepts('html', 'json', 'xml')
         ? res.sendFile(path.join(global.staticFilesDir, 'index.html'))
         : next();
 });
+
+/**
+ * 
+ * @param {string} filename
+ */
+async function download(filename) {
+    const storage = new Storage();
+    const bucket = storage.bucket('kwik-e-mart');
+    const bucketPath = path.join('.', filename).replace('\\', '/');
+    const file = bucket.file(bucketPath);
+    const destination = path.join(global.staticFilesDir, filename);
+    await fs.mkdir(path.dirname(destination), { recursive: true });
+    await file.download({ destination });
+}
 
 module.exports = app;
 
