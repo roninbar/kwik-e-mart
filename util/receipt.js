@@ -2,6 +2,7 @@ const path = require('path');
 const debug = require('debug');
 const { promises: fs } = require('fs');
 const { mdToPdf } = require('md-to-pdf');
+const { Storage } = require('@google-cloud/storage');
 
 const log = debug('kwik-e-mart:receipt');
 
@@ -47,15 +48,19 @@ CC Number: \`${ccnumber}\`
     log(markdown);
     await fs.writeFile(path.join(dir, `${order._id}.md`), markdown);
     log('Generating PDF...');
+    const pdfPath = path.join(dir, `${order._id}.pdf`);
     const pdf = await mdToPdf({
         content: markdown,
     }, {
-        dest: path.join(dir, `${order._id}.pdf`),
+        dest: pdfPath,
         launch_options: {
             args: ['--no-sandbox']
         },
     });
-    log('done.');
+    log('Uploading PDF to Google Cloud Storage...');
+    const storage = new Storage();
+    await storage.bucket('kwik-e-mart').upload(pdfPath, { destination: `receipts/${path.basename(pdfPath)}` });
+    log('Done.');
 
     return { markdown, pdf };
 }
