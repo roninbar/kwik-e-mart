@@ -4,7 +4,7 @@ const passport = require('../util/passport');
 
 const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 
-const log = debug('server:auth');
+const log = debug('kwik-e-mart:auth');
 
 const router = new Router();
 
