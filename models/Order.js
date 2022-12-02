@@ -4,7 +4,7 @@ const { connection, model, Schema } = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 const { generateReceipt } = require('../util/receipt');
 
-const log = debug('server:order');
+const log = debug('kwik-e-mart:order');
 
 const itemSchema = new Schema({
     product: { type: Schema.Types.ObjectId, ref: 'Product', required: true },

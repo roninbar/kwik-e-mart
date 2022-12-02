@@ -3,7 +3,7 @@ const debug = require('debug');
 const { promises: fs } = require('fs');
 const { mdToPdf } = require('md-to-pdf');
 
-const log = debug('server:receipt');
+const log = debug('kwik-e-mart:receipt');
 
 async function generateReceipt(order) {
     await order.populate('items.product').execPopulate();

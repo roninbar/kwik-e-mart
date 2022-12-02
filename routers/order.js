@@ -5,7 +5,7 @@ const Order = require('../models/Order');
 const passport = require('../util/passport');
 const { createResource } = require('./utils');
 
-const log = debug('server:order');
+const log = debug('kwik-e-mart:order');
 
 const router = new Router();
 

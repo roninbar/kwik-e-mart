@@ -30,7 +30,7 @@ const SIDNAME = process.env['SIDNAME'] || 'connect.sid';
 const SECRET = process.env['SECRET_FOR_SESSION'] || '';
 
 function trap(signal) {
-    const log = debug('server:lifecycle');
+    const log = debug('kwik-e-mart:lifecycle');
     log(`Trapping ${signal}...`);
     process.on(signal, log);
 }
@@ -39,7 +39,7 @@ trap('SIGTERM');
 
 global.staticFilesDir = path.join(__dirname, 'public', 'kwik-e-mart');
 
-debug('server:mongodb')(`Connecting to ${MONGODBURL}...`);
+debug('kwik-e-mart:mongodb')(`Connecting to ${MONGODBURL}...`);
 const connectionOptions = {
     serverApi: v1,
     sslKey: MONGODBCERT,
@@ -48,8 +48,8 @@ const connectionOptions = {
     useUnifiedTopology: true,
 };
 mongoose.connect(MONGODBURL, connectionOptions);
-mongoose.connection.on('error', debug('server:mongodb'));
-mongoose.connection.on('open', () => debug('server:mongodb')('Connected.'));
+mongoose.connection.on('error', debug('kwik-e-mart:mongodb'));
+mongoose.connection.on('open', () => debug('kwik-e-mart:mongodb')('Connected.'));
 
 const app = express();
 
