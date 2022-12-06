@@ -32,7 +32,7 @@ steps:
       - '--region=$_DEPLOY_REGION'
       - '--quiet'
     entrypoint: gcloud
-  - id: UpdateStaticFiles
+  - id: UploadStaticFiles
     name: gcr.io/cloud-builders/gsutil
     args:
       - '-m'
@@ -40,7 +40,7 @@ steps:
       - '-r'
       - '-c'
       - ./public/kwik-e-mart
-      - gs://kwik-e-mart
+      - gs://kwik-e-mart-dev
 substitutions:
   _DEPLOY_REGION: me-west1
   _GCR_HOSTNAME: gcr.io
