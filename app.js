@@ -93,6 +93,7 @@ app.get(['/products/:file', '/receipts/:file'], async function ({ url, params: {
 });
 
 app.get('/*', function (req, res, next) {
+    debug('kwik-e-mart:express')('Delegating route to client-side router...');
     return '' === path.extname(req.path) && 'html' === req.accepts('html', 'json', 'xml')
         ? res.sendFile(path.join(global.staticFilesDir, 'index.html'))
         : next();
