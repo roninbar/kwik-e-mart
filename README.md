@@ -2,9 +2,9 @@
 
 ### Deployment
 
-#### Live Version
+#### Live Demo
 
-https://roninbar.herokuapp.com/
+https://kwik-e-mart.roninbar.co.il/
 
 ###### Test User Credentials
 
